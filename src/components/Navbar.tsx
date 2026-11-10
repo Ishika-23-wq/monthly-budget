@@ -12,13 +12,19 @@ interface Props {
   onSelectMonth: (monthKey: string) => void;
   onOpenGuide: () => void;
   onResetData: () => void;
+  isDbSynced?: boolean;
+  isSyncing?: boolean;
+  onManualSync?: () => void;
 }
 
 export const Navbar: React.FC<Props> = ({
   currentBudget,
   allBudgets,
   onSelectMonth,
-  onOpenGuide
+  onOpenGuide,
+  isDbSynced = true,
+  isSyncing = false,
+  onManualSync
 }) => {
   const budgetList = Object.values(allBudgets).sort((a, b) => b.monthKey.localeCompare(a.monthKey));
   const [notifState, setNotifState] = useState<NotificationPermission>(() => getNotificationPermission());
@@ -47,9 +53,13 @@ export const Navbar: React.FC<Props> = ({
               <h1 className="text-base sm:text-lg font-black tracking-tight text-[#25171a]">
                 FinTrack
               </h1>
-              <span className="rounded-full bg-[#98c1d9] border border-[#6969b3]/40 px-2 py-0.2 text-[9px] font-black text-[#25171a]">
-                PRO
-              </span>
+              {/* <span className="inline-flex items-center gap-1 rounded-full bg-[#98c1d9]/30 border border-[#533a7b]/30 px-2 py-0.2 text-[9px] font-black text-[#533a7b]">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+                </span>
+                LIVE
+              </span> */}
             </div>
             <p className="text-[11px] font-semibold text-[#533a7b] hidden sm:block">
               Budget, Expenses, Tasks & SQLite DB
@@ -59,6 +69,25 @@ export const Navbar: React.FC<Props> = ({
 
         {/* Right side controls */}
         <div className="flex items-center gap-2 sm:gap-3">
+          {/* Live Sync Button */}
+          {onManualSync && (
+            <button
+              onClick={onManualSync}
+              disabled={isSyncing}
+              className={`flex items-center gap-1.5 rounded-xl border px-3 py-1.5 text-xs font-bold transition shadow-xs ${
+                isDbSynced
+                  ? 'border-[#6969b3]/40 bg-white hover:bg-[#98c1d9]/20 text-[#25171a]'
+                  : 'border-amber-300 bg-amber-50 text-amber-800'
+              }`}
+              title="Click to sync latest data with SQLite DB"
+            >
+              <i className={`fa-solid fa-arrows-rotate text-xs text-[#533a7b] ${isSyncing ? 'animate-spin' : ''}`}></i>
+              <span className="hidden sm:inline">
+                {isSyncing ? 'Syncing...' : 'Live Sync'}
+              </span>
+            </button>
+          )}
+
           {/* Notification Button */}
           <button
             onClick={handleToggleNotif}

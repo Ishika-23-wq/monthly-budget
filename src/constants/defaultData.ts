@@ -289,7 +289,7 @@ export const INITIAL_TASKS = [
 
 export const INITIAL_MONTHLY_DATA: MonthlyBudget = {
   monthKey: 'cycle-1',
-  monthName: 'November 2026 (10 Nov – 6 Dec 2026)',
+  monthName: 'Nov 2026 (10 Nov – 6 Dec 2026)',
   cycleStartDate: '2026-11-10',
   cycleEndDate: '2026-12-06',
   salary: 45000,
@@ -304,7 +304,7 @@ export const INITIAL_MONTHLY_DATA: MonthlyBudget = {
 export const PAST_MONTHS_SAMPLE: MonthlyBudget[] = [
   {
     monthKey: 'cycle-2',
-    monthName: 'December 2026 (7 Dec 2026 – 6 Jan 2027)',
+    monthName: 'Dec 2026 (7 Dec 2026 – 6 Jan 2027)',
     cycleStartDate: '2026-12-07',
     cycleEndDate: '2027-01-06',
     salary: 45000,
@@ -319,7 +319,7 @@ export const PAST_MONTHS_SAMPLE: MonthlyBudget[] = [
   },
   {
     monthKey: 'cycle-3',
-    monthName: 'January 2027 (7 Jan 2027 – 6 Feb 2027)',
+    monthName: 'Jan 2027 (7 Jan 2027 – 6 Feb 2027)',
     cycleStartDate: '2027-01-07',
     cycleEndDate: '2027-02-06',
     salary: 45000,

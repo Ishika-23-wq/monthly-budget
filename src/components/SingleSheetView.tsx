@@ -7,12 +7,14 @@ interface Props {
   budget: MonthlyBudget;
   onDeleteExpense: (expenseId: string) => void;
   onQuickAddPayment: (categoryId: string) => void;
+  onEditExpense?: (expense: Expense) => void;
 }
 
 export const SingleSheetView: React.FC<Props> = ({
   budget,
   onDeleteExpense,
-  onQuickAddPayment
+  onQuickAddPayment,
+  onEditExpense
 }) => {
   const [collapsedCategories, setCollapsedCategories] = useState<Record<string, boolean>>({});
 
@@ -238,7 +240,16 @@ export const SingleSheetView: React.FC<Props> = ({
                               <td className="py-3 text-right font-black text-[#25171a] whitespace-nowrap">
                                 {formatINR(exp.amount)}
                               </td>
-                              <td className="py-3 text-center">
+                              <td className="py-3 text-center whitespace-nowrap">
+                                {onEditExpense && (
+                                  <button
+                                    onClick={() => onEditExpense(exp)}
+                                    className="text-[#6969b3] hover:text-[#533a7b] p-1 mr-1 transition rounded-lg hover:bg-[#98c1d9]/20"
+                                    title="Edit payment amount & details"
+                                  >
+                                    <i className="fa-solid fa-pen-to-square text-xs"></i>
+                                  </button>
+                                )}
                                 <button
                                   onClick={() => onDeleteExpense(exp.id)}
                                   className="text-[#6969b3] hover:text-rose-600 p-1 transition"

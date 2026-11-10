@@ -68,7 +68,7 @@ export function createMonthWithRollover(
 
   return {
     monthKey,
-    monthName: monthKey === 'cycle-2' ? 'December 2026 (7 Dec 2026 – 6 Jan 2027)' : monthKey === 'cycle-3' ? 'January 2027 (7 Jan 2027 – 6 Feb 2027)' : `Month (${monthKey})`,
+    monthName: monthKey === 'cycle-2' ? 'Dec 2026 (7 Dec 2026 – 6 Jan 2027)' : monthKey === 'cycle-3' ? 'Jan 2027 (7 Jan 2027 – 6 Feb 2027)' : `Month (${monthKey})`,
     cycleStartDate: '2026-12-07',
     cycleEndDate: '2027-01-06',
     salary: 45000,

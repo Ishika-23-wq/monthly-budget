@@ -16,6 +16,7 @@ interface Props {
   onOpenGuide: () => void;
   onSwitchTab: (tab: 'dashboard' | 'planner' | 'tasks' | 'sheet' | 'history') => void;
   onDeleteExpense: (id: string) => void;
+  onEditExpense?: (expense: any) => void;
   onApplyCrunchMode: () => void;
   onApplyBalancedMode: () => void;
   isCrunchModeActive: boolean;
@@ -27,6 +28,7 @@ export const Dashboard: React.FC<Props> = ({
   onOpenAddPayment,
   onSwitchTab,
   onDeleteExpense,
+  onEditExpense,
   onApplyCrunchMode,
   onApplyBalancedMode,
   isCrunchModeActive,
@@ -361,16 +363,25 @@ export const Dashboard: React.FC<Props> = ({
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2">
                     <span className="text-xs sm:text-sm font-black text-[#25171a]">
                       -{formatINR(exp.amount)}
                     </span>
+                    {onEditExpense && (
+                      <button
+                        onClick={() => onEditExpense(exp)}
+                        className="text-[#6969b3] hover:text-[#533a7b] text-xs p-1.5 transition rounded-lg hover:bg-[#98c1d9]/20"
+                        title="Edit payment amount & details"
+                      >
+                        <i className="fa-solid fa-pen-to-square"></i>
+                      </button>
+                    )}
                     <button
                       onClick={() => onDeleteExpense(exp.id)}
-                      className="text-[#6969b3] hover:text-[#533a7b] text-xs p-1 transition"
+                      className="text-[#6969b3] hover:text-rose-600 text-xs p-1.5 transition rounded-lg hover:bg-rose-50"
                       title="Delete transaction"
                     >
-                      <i className="fa-solid fa-xmark"></i>
+                      <i className="fa-solid fa-trash-can"></i>
                     </button>
                   </div>
                 </div>

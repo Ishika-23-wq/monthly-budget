@@ -10,8 +10,10 @@ interface Props {
   categories: Category[];
   expenses: Expense[];
   onAddExpense: (expense: Omit<Expense, 'id'>) => void;
+  onUpdateExpense?: (expense: Expense) => void;
   onOpenGuide: () => void;
   preselectedCategoryId?: string;
+  expenseToEdit?: Expense | null;
 }
 
 export const DailyPaymentModal: React.FC<Props> = ({
@@ -20,8 +22,10 @@ export const DailyPaymentModal: React.FC<Props> = ({
   categories,
   expenses,
   onAddExpense,
+  onUpdateExpense,
   onOpenGuide,
-  preselectedCategoryId
+  preselectedCategoryId,
+  expenseToEdit
 }) => {
   const [amount, setAmount] = useState<string>('');
   const [title, setTitle] = useState<string>('');
@@ -31,17 +35,27 @@ export const DailyPaymentModal: React.FC<Props> = ({
   const [notes, setNotes] = useState<string>('');
   const [detectedSuggestion, setDetectedSuggestion] = useState<string | null>(null);
 
+  // Prepopulate if editing
   useEffect(() => {
-    if (preselectedCategoryId) {
-      setCategoryId(preselectedCategoryId);
-    } else if (categories.length > 0 && !categoryId) {
-      setCategoryId(categories[0].id);
+    if (expenseToEdit) {
+      setAmount(String(expenseToEdit.amount));
+      setTitle(expenseToEdit.title);
+      setCategoryId(expenseToEdit.categoryId);
+      setPaymentMethod(expenseToEdit.paymentMethod || 'UPI');
+      setDate(expenseToEdit.date);
+      setNotes(expenseToEdit.notes || '');
+    } else {
+      if (preselectedCategoryId) {
+        setCategoryId(preselectedCategoryId);
+      } else if (categories.length > 0 && !categoryId) {
+        setCategoryId(categories[0].id);
+      }
     }
-  }, [preselectedCategoryId, categories]);
+  }, [expenseToEdit, preselectedCategoryId, categories]);
 
-  // Smart auto-detection based on user typing
+  // Smart auto-detection based on user typing (only when adding new)
   useEffect(() => {
-    if (!title) {
+    if (expenseToEdit || !title) {
       setDetectedSuggestion(null);
       return;
     }
@@ -64,7 +78,7 @@ export const DailyPaymentModal: React.FC<Props> = ({
       }
     }
     setDetectedSuggestion(null);
-  }, [title, categories]);
+  }, [title, categories, expenseToEdit]);
 
   if (!isOpen) return null;
 
@@ -78,14 +92,26 @@ export const DailyPaymentModal: React.FC<Props> = ({
     if (!amount || numAmount <= 0) return;
     if (!title.trim()) return;
 
-    onAddExpense({
-      date,
-      amount: numAmount,
-      categoryId,
-      title: title.trim(),
-      paymentMethod,
-      notes: notes.trim() ? notes.trim() : undefined
-    });
+    if (expenseToEdit && onUpdateExpense) {
+      onUpdateExpense({
+        ...expenseToEdit,
+        date,
+        amount: numAmount,
+        categoryId,
+        title: title.trim(),
+        paymentMethod,
+        notes: notes.trim() ? notes.trim() : undefined
+      });
+    } else {
+      onAddExpense({
+        date,
+        amount: numAmount,
+        categoryId,
+        title: title.trim(),
+        paymentMethod,
+        notes: notes.trim() ? notes.trim() : undefined
+      });
+    }
 
     setAmount('');
     setTitle('');
@@ -105,9 +131,11 @@ export const DailyPaymentModal: React.FC<Props> = ({
         <div className="flex items-center justify-between border-b border-[#6969b3]/25 px-5 py-4 bg-white">
           <div>
             <span className="text-[11px] font-bold uppercase tracking-wider text-[#533a7b]">
-              Today's Payment
+              {expenseToEdit ? 'Modify Existing Record' : "Today's Payment"}
             </span>
-            <h2 className="text-lg font-black text-[#25171a]">Log Daily Expense</h2>
+            <h2 className="text-lg font-black text-[#25171a]">
+              {expenseToEdit ? 'Edit Payment Details' : 'Log Daily Expense'}
+            </h2>
           </div>
           <button
             onClick={onClose}
@@ -295,7 +323,8 @@ export const DailyPaymentModal: React.FC<Props> = ({
               type="submit"
               className="w-full flex items-center justify-center gap-2 rounded-2xl bg-white hover:bg-[#98c1d9]/20 border-2 border-[#533a7b] py-3.5 text-sm font-black text-[#25171a] shadow-xs transition active:scale-[0.99]"
             >
-              <i className="fa-solid fa-plus text-xs text-[#533a7b]"></i> Save Payment (₹{amount || '0'})
+              <i className="fa-solid fa-check text-xs text-[#533a7b]"></i>
+              <span>{expenseToEdit ? `Update Payment (₹${amount || '0'})` : `Save Payment (₹${amount || '0'})`}</span>
             </button>
           </div>
         </form>

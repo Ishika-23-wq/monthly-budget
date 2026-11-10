@@ -13,6 +13,18 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
+// Request logger for phone and web debugging
+app.use((req, res, next) => {
+  const start = Date.now();
+  res.on('finish', () => {
+    const duration = Date.now() - start;
+    if (req.originalUrl !== '/api/events' && req.originalUrl !== '/api/health') {
+      console.log(`[HTTP] ${new Date().toLocaleTimeString()} ${req.method} ${req.originalUrl} ${res.statusCode} (${duration}ms)`);
+    }
+  });
+  next();
+});
+
 // Initialize SQLite Database in the project root
 const dbPath = path.join(__dirname, 'fintrack.db');
 const db = new DatabaseSync(dbPath);
@@ -74,6 +86,74 @@ db.exec(`
     notes TEXT
   );
 `);
+
+// -------------------------------------------------------------
+// Real-Time Multi-Device Sync Engine (SSE)
+// -------------------------------------------------------------
+const sseClients = new Set();
+let dbRevision = Date.now();
+
+function broadcastChange(type, detail = {}) {
+  dbRevision = Date.now();
+  console.log(`[Sync Engine] ⚡ Broadcasting '${type}' (rev: ${dbRevision}) to ${sseClients.size} active device(s)`);
+  const payload = JSON.stringify({
+    type,
+    detail,
+    revision: dbRevision,
+    timestamp: new Date().toISOString()
+  });
+  for (const client of sseClients) {
+    try {
+      client.write(`data: ${payload}\n\n`);
+    } catch {
+      sseClients.delete(client);
+    }
+  }
+}
+
+// Keep-alive heartbeat every 15 seconds to prevent phone sleep disconnects
+setInterval(() => {
+  for (const client of sseClients) {
+    try {
+      client.write(`: heartbeat\n\n`);
+    } catch {
+      sseClients.delete(client);
+    }
+  }
+}, 15000);
+
+// SSE stream endpoint
+app.get('/api/events', (req, res) => {
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.flushHeaders?.();
+
+  sseClients.add(res);
+  console.log(`[Sync Engine] 📱 Device connected. Total connected: ${sseClients.size}`);
+
+  // Send current revision immediately on connect
+  res.write(`data: ${JSON.stringify({ type: 'connected', revision: dbRevision })}\n\n`);
+
+  req.on('close', () => {
+    sseClients.delete(res);
+    console.log(`[Sync Engine] 📴 Device disconnected. Total connected: ${sseClients.size}`);
+  });
+});
+
+// Quick DB revision check
+app.get('/api/version', (req, res) => {
+  res.json({
+    revision: dbRevision,
+    activeDevices: sseClients.size,
+    timestamp: new Date().toISOString()
+  });
+});
+
+// -------------------------------------------------------------
+// Budgets API
+// -------------------------------------------------------------
 
 // API: Get all budgets with categories, expenses, tasks
 app.get('/api/budgets', (req, res) => {
@@ -203,12 +283,31 @@ app.post('/api/budgets', (req, res) => {
       }
     }
 
+    broadcastChange('budget_updated', { monthKey: b.monthKey });
     res.json({ success: true, monthKey: b.monthKey });
   } catch (err) {
     console.error('[SQLite] Error saving budget:', err);
     res.status(500).json({ error: err.message });
   }
 });
+
+// API: Direct category limit update
+app.put('/api/categories/:id', (req, res) => {
+  try {
+    const { monthKey, plannedLimit } = req.body;
+    db.prepare('UPDATE categories SET plannedLimit = ? WHERE id = ? AND monthKey = ?')
+      .run(plannedLimit, req.params.id, monthKey);
+
+    broadcastChange('category_updated', { id: req.params.id, monthKey, plannedLimit });
+    res.json({ success: true, id: req.params.id, plannedLimit });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// -------------------------------------------------------------
+// Expenses API
+// -------------------------------------------------------------
 
 // API: Add or update single expense
 app.post('/api/expenses', (req, res) => {
@@ -228,7 +327,34 @@ app.post('/api/expenses', (req, res) => {
       e.paymentMethod || 'UPI',
       e.notes || ''
     );
+
+    broadcastChange('expense_added', { id: e.id, monthKey: e.monthKey, amount: e.amount });
     res.json({ success: true, id: e.id });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// API: Update an existing expense
+app.put('/api/expenses/:id', (req, res) => {
+  try {
+    const e = req.body;
+    const stmt = db.prepare(`
+      UPDATE expenses SET date = ?, amount = ?, categoryId = ?, title = ?, paymentMethod = ?, notes = ?
+      WHERE id = ?
+    `);
+    stmt.run(
+      e.date,
+      e.amount,
+      e.categoryId,
+      e.title,
+      e.paymentMethod || 'UPI',
+      e.notes || '',
+      req.params.id
+    );
+
+    broadcastChange('expense_updated', { id: req.params.id, amount: e.amount });
+    res.json({ success: true, id: req.params.id });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -238,11 +364,16 @@ app.post('/api/expenses', (req, res) => {
 app.delete('/api/expenses/:id', (req, res) => {
   try {
     db.prepare('DELETE FROM expenses WHERE id = ?').run(req.params.id);
+    broadcastChange('expense_deleted', { id: req.params.id });
     res.json({ success: true, id: req.params.id });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
+
+// -------------------------------------------------------------
+// Tasks API
+// -------------------------------------------------------------
 
 // API: Get all tasks (optionally filtered by monthKey)
 app.get('/api/tasks', (req, res) => {
@@ -284,6 +415,8 @@ app.post('/api/tasks', (req, res) => {
       t.amountLinked || 0,
       t.notes || ''
     );
+
+    broadcastChange('task_added', { id: t.id });
     res.json({ success: true, id: t.id });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -297,6 +430,7 @@ app.put('/api/tasks/:id/toggle', (req, res) => {
     if (current) {
       const nextVal = current.completed ? 0 : 1;
       db.prepare('UPDATE tasks SET completed = ? WHERE id = ?').run(nextVal, req.params.id);
+      broadcastChange('task_toggled', { id: req.params.id, completed: Boolean(nextVal) });
       res.json({ success: true, completed: Boolean(nextVal) });
     } else {
       res.status(404).json({ error: 'Task not found' });
@@ -310,6 +444,7 @@ app.put('/api/tasks/:id/toggle', (req, res) => {
 app.delete('/api/tasks/:id', (req, res) => {
   try {
     db.prepare('DELETE FROM tasks WHERE id = ?').run(req.params.id);
+    broadcastChange('task_deleted', { id: req.params.id });
     res.json({ success: true, id: req.params.id });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -322,10 +457,12 @@ app.get('/api/health', (req, res) => {
     status: 'online',
     db: 'sqlite',
     path: dbPath,
+    activeDevices: sseClients.size,
+    revision: dbRevision,
     timestamp: new Date().toISOString()
   });
 });
 
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`[Backend] SQLite API server running on http://0.0.0.0:${PORT}`);
+  console.log(`[Backend] SQLite API server with Real-time Sync running on http://0.0.0.0:${PORT}`);
 });

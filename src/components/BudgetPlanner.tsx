@@ -73,7 +73,7 @@ export const BudgetPlanner: React.FC<Props> = ({
                 Categories & Dual Limits
               </span>
               <span className="text-xs font-black text-[#6969b3]">
-                November 2026 (10 Nov – 6 Dec 2026)
+                Nov 2026 (10 Nov – 6 Dec 2026)
               </span>
             </div>
             <h2 className="mt-2 text-xl sm:text-2xl font-black text-[#25171a]">

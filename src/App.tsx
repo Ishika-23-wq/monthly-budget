@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { MonthlyBudget, Category, Expense, TaskItem } from './types';
 import {
   loadAllBudgets,
@@ -9,12 +9,15 @@ import {
 } from './utils/storage';
 import {
   fetchBudgetsFromDB,
+  fetchDBVersion,
   saveBudgetToDB,
   saveExpenseToDB,
+  updateExpenseInDB,
   deleteExpenseFromDB,
   saveTaskToDB,
   toggleTaskInDB,
-  deleteTaskFromDB
+  deleteTaskFromDB,
+  subscribeToSyncEvents
 } from './utils/api';
 import { INITIAL_CATEGORIES, INITIAL_TASKS } from './constants/defaultData';
 import { Navbar } from './components/Navbar';
@@ -38,32 +41,103 @@ export function App() {
   const [activeMonthKey, setActiveMonthKey] = useState<string>(() => getSavedActiveMonth());
   const [activeTab, setActiveTab] = useState<TabType>('dashboard');
   const [isDbSynced, setIsDbSynced] = useState(false);
+  const [isSyncing, setIsSyncing] = useState(false);
   
-  // Modals
+  // Modals & Edit state
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+  const [expenseToEdit, setExpenseToEdit] = useState<Expense | null>(null);
   const [preselectedCatId, setPreselectedCatId] = useState<string | undefined>(undefined);
   const [isGuideModalOpen, setIsGuideModalOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  // Sync with SQLite Database on Mount
-  useEffect(() => {
-    fetchBudgetsFromDB().then(dbBudgets => {
+  const lastRevisionRef = useRef<number>(0);
+  const budgetsRef = useRef<Record<string, MonthlyBudget>>(budgets);
+  budgetsRef.current = budgets;
+
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(null), 3500);
+  };
+
+  // Core Sync Function: Fetches from SQLite DB and updates React state
+  const performSync = async (isSilent = true) => {
+    setIsSyncing(true);
+    try {
+      const dbBudgets = await fetchBudgetsFromDB();
       if (dbBudgets && Object.keys(dbBudgets).length > 0) {
-        setBudgets(dbBudgets);
-        saveAllBudgets(dbBudgets);
+        setBudgets(prev => {
+          const prevStr = JSON.stringify(prev);
+          const newStr = JSON.stringify(dbBudgets);
+          if (prevStr !== newStr) {
+            saveAllBudgets(dbBudgets);
+            if (!isSilent) {
+              showToast('🔄 Live Sync: Updated latest amounts from phone/database!');
+            }
+            return dbBudgets;
+          }
+          return prev;
+        });
         setIsDbSynced(true);
       } else {
-        // Seed SQLite DB from current defaults
+        // If DB is empty, seed it from defaults
         const local = loadAllBudgets();
-        Object.values(local).forEach(b => saveBudgetToDB(b));
+        for (const b of Object.values(local)) {
+          await saveBudgetToDB(b);
+        }
         setIsDbSynced(true);
       }
-    }).catch(() => {
+    } catch (err) {
+      console.warn('[Sync Engine] Sync failed:', err);
       setIsDbSynced(false);
+    } finally {
+      setIsSyncing(false);
+    }
+  };
+
+  // Real-time Multi-Device Synchronization (SSE + Polling + Window Focus)
+  useEffect(() => {
+    // 1. Initial sync immediately
+    performSync(true);
+
+    // 2. Real-time broadcast listener via Server-Sent Events (SSE)
+    const unsubscribeSSE = subscribeToSyncEvents((event) => {
+      console.log('[Real-time Sync] Event received:', event);
+      if (event.type !== 'connected') {
+        performSync(false);
+      }
     });
+
+    // 3. Fast Polling (every 2.5s) to guarantee updates if SSE is blocked/reconnecting
+    const pollInterval = setInterval(async () => {
+      const ver = await fetchDBVersion();
+      if (ver && ver.revision && ver.revision !== lastRevisionRef.current) {
+        lastRevisionRef.current = ver.revision;
+        performSync(false);
+      }
+    }, 2500);
+
+    // 4. Tab Visibility & Window Focus: sync instantly when user switches back to website
+    const handleFocus = () => {
+      performSync(true);
+    };
+    const handleVisibility = () => {
+      if (document.visibilityState === 'visible') {
+        performSync(true);
+      }
+    };
+
+    window.addEventListener('focus', handleFocus);
+    document.addEventListener('visibilitychange', handleVisibility);
+
+    return () => {
+      unsubscribeSSE();
+      clearInterval(pollInterval);
+      window.removeEventListener('focus', handleFocus);
+      document.removeEventListener('visibilitychange', handleVisibility);
+    };
   }, []);
 
-  // Sync to localStorage as backup
+  // Save to localStorage as secondary backup
   useEffect(() => {
     saveAllBudgets(budgets);
   }, [budgets]);
@@ -92,7 +166,6 @@ export function App() {
     currentTasks.forEach(task => {
       if (!task.completed) {
         const days = getDaysUntil(task.deadline);
-        // Alert 2–3 days prior (or today/tomorrow)
         if (days <= 3 && days >= 0) {
           notifyTaskDue(task, days);
         }
@@ -100,16 +173,11 @@ export function App() {
     });
   }, []);
 
-  const showToast = (msg: string) => {
-    setToastMessage(msg);
-    setTimeout(() => setToastMessage(null), 3000);
-  };
-
   const isCrunchModeActive = currentBudget.categories.some(
     c => (c.id === 'iphone' || c.id === 'trips' || c.id === 'car') && c.plannedLimit === 0
   );
 
-  // Handle adding an expense -> Save to SQLite DB
+  // Handle adding an expense -> Save to SQLite DB & broadcast
   const handleAddExpense = (expenseData: Omit<Expense, 'id'>) => {
     const newExpense: Expense = {
       ...expenseData,
@@ -132,10 +200,31 @@ export function App() {
     
     // Trigger Phone & Laptop notification
     notifyExpenseLogged(expenseData.amount, catName, expenseData.title);
-    showToast(`Payment of ₹${expenseData.amount.toLocaleString('en-IN')} logged to SQLite DB!`);
+    showToast(`Payment of ₹${expenseData.amount.toLocaleString('en-IN')} logged & synced!`);
   };
 
-  // Handle deleting an expense -> Delete from SQLite DB
+  // Handle updating an existing expense -> Save to SQLite DB & broadcast
+  const handleUpdateExpense = (updatedExpense: Expense) => {
+    setBudgets(prev => {
+      const b = prev[activeMonthKey] || currentBudget;
+      const updated = {
+        ...b,
+        expenses: b.expenses.map(e => e.id === updatedExpense.id ? updatedExpense : e)
+      };
+      updateExpenseInDB(updatedExpense);
+      return { ...prev, [activeMonthKey]: updated };
+    });
+    setExpenseToEdit(null);
+    showToast(`Payment updated: ₹${updatedExpense.amount.toLocaleString('en-IN')} synced!`);
+  };
+
+  // Handle opening edit modal
+  const handleOpenEditExpense = (expense: Expense) => {
+    setExpenseToEdit(expense);
+    setIsPaymentModalOpen(true);
+  };
+
+  // Handle deleting an expense -> Delete from SQLite DB & broadcast
   const handleDeleteExpense = (expenseId: string) => {
     deleteExpenseFromDB(expenseId);
     setBudgets(prev => {
@@ -149,10 +238,10 @@ export function App() {
         }
       };
     });
-    showToast('Transaction removed from SQLite');
+    showToast('Transaction removed & synced');
   };
 
-  // Task management handlers -> Save to SQLite DB
+  // Task management handlers -> Save to SQLite DB & broadcast
   const handleAddTask = (taskData: Omit<TaskItem, 'id' | 'createdAt'>) => {
     const newTask: TaskItem = {
       ...taskData,
@@ -164,7 +253,6 @@ export function App() {
       const b = prev[activeMonthKey] || currentBudget;
       const existing = b.tasks || [];
       const updatedTasks = [newTask, ...existing];
-      // Async persist to SQLite
       saveTaskToDB({ ...newTask, monthKey: activeMonthKey });
       return {
         ...prev,
@@ -224,7 +312,7 @@ export function App() {
     setIsPaymentModalOpen(true);
   };
 
-  // Handle updating planned limit
+  // Handle updating planned limit -> Save to SQLite DB & broadcast
   const handleUpdateCategoryLimit = (categoryId: string, newLimit: number) => {
     setBudgets(prev => {
       const b = prev[activeMonthKey];
@@ -241,7 +329,7 @@ export function App() {
         [activeMonthKey]: updated
       };
     });
-    showToast('Target limit updated in SQLite DB');
+    showToast('Target limit updated & synced to SQLite');
   };
 
   // Handle adding custom category
@@ -259,10 +347,10 @@ export function App() {
         [activeMonthKey]: updated
       };
     });
-    showToast(`Category "${newCat.name}" added to SQLite!`);
+    showToast(`Added custom category "${newCat.name}"`);
   };
 
-  // Handle deleting custom category
+  // Handle deleting category
   const handleDeleteCategory = (categoryId: string) => {
     setBudgets(prev => {
       const b = prev[activeMonthKey];
@@ -277,77 +365,82 @@ export function App() {
         [activeMonthKey]: updated
       };
     });
-    showToast('Category deleted');
+    showToast('Category removed');
   };
 
-  // Crunch mode
+  // Crunch Mode (Zero out iPhone, Trips, Car)
   const handleApplyCrunchMode = () => {
     setBudgets(prev => {
       const b = prev[activeMonthKey];
       if (!b) return prev;
-      const updatedCategories = b.categories.map(c => {
-        if (c.id === 'iphone' || c.id === 'trips' || c.id === 'car') {
-          return { ...c, plannedLimit: 0 };
-        }
-        if (c.id === 'gym') {
-          return { ...c, plannedLimit: 0 };
-        }
-        if (c.id === 'personal') {
-          return { ...c, plannedLimit: 1000 };
-        }
-        return c;
-      });
-      const updated = { ...b, categories: updatedCategories };
+      const updated = {
+        ...b,
+        categories: b.categories.map(c => {
+          if (c.id === 'iphone' || c.id === 'trips' || c.id === 'car') {
+            return { ...c, plannedLimit: 0 };
+          }
+          if (c.id === 'personal') {
+            return { ...c, plannedLimit: 500 };
+          }
+          return c;
+        })
+      };
       saveBudgetToDB(updated);
       return {
         ...prev,
         [activeMonthKey]: updated
       };
     });
-    showToast('Fee Crunch Mode Activated in SQLite!');
+    showToast('Crunch Mode applied! Saved ₹5,500 towards Sister fees.');
   };
 
-  // Restore balanced
+  // Balanced Mode (Normal limits)
   const handleApplyBalancedMode = () => {
     setBudgets(prev => {
       const b = prev[activeMonthKey];
       if (!b) return prev;
-      const updatedCategories = b.categories.map(c => {
-        const defaultCat = INITIAL_CATEGORIES.find(ic => ic.id === c.id);
-        if (defaultCat) {
-          return { ...c, plannedLimit: defaultCat.plannedLimit };
-        }
-        return c;
-      });
-      const updated = { ...b, categories: updatedCategories };
+      const updated = {
+        ...b,
+        categories: b.categories.map(c => ({
+          ...c,
+          plannedLimit: c.normalPlan
+        }))
+      };
       saveBudgetToDB(updated);
       return {
         ...prev,
         [activeMonthKey]: updated
       };
     });
-    showToast('Restored month limits in SQLite');
+    showToast('Balanced plan restored.');
   };
 
-  // Create next month with rollover
-  const handleCreateNextMonth = (nextKey: string) => {
-    const newMonth = createMonthWithRollover(nextKey, budgets);
-    saveBudgetToDB(newMonth);
+  // Switching months
+  const handleSelectMonth = (monthKey: string) => {
+    if (!budgets[monthKey]) {
+      const newMonth = createMonthWithRollover(monthKey, budgets);
+      setBudgets(prev => ({ ...prev, [monthKey]: newMonth }));
+      saveBudgetToDB(newMonth);
+    }
+    setActiveMonthKey(monthKey);
+    setSavedActiveMonth(monthKey);
+  };
+
+  // Start Next Month
+  const handleCreateNextMonth = (newMonthKey: string) => {
+    const newMonth = createMonthWithRollover(newMonthKey, budgets);
     setBudgets(prev => ({
       ...prev,
-      [nextKey]: newMonth
+      [newMonthKey]: newMonth
     }));
-    setActiveMonthKey(nextKey);
-    setActiveTab('dashboard');
-    showToast(`Created ${newMonth.monthName} in SQLite DB!`);
+    setActiveMonthKey(newMonthKey);
+    saveBudgetToDB(newMonth);
+    showToast(`Created ${newMonth.monthName} with rollover balance!`);
   };
 
-  const handleSelectMonth = (monthKey: string) => {
-    setActiveMonthKey(monthKey);
-  };
-
-  const handleOpenAddPayment = (categoryId?: string) => {
-    setPreselectedCatId(categoryId);
+  const handleOpenAddPayment = (catId?: string) => {
+    setPreselectedCatId(catId);
+    setExpenseToEdit(null);
     setIsPaymentModalOpen(true);
   };
 
@@ -363,16 +456,19 @@ export function App() {
         </div>
       )}
 
-      {/* Top Navbar */}
+      {/* Top Navbar with Real-time Sync */}
       <Navbar
         currentBudget={currentBudget}
         allBudgets={budgets}
         onSelectMonth={handleSelectMonth}
         onOpenGuide={() => setIsGuideModalOpen(true)}
         onResetData={() => {}}
+        isDbSynced={isDbSynced}
+        isSyncing={isSyncing}
+        onManualSync={() => performSync(false)}
       />
 
-      {/* Desktop Tab Bar in Palette (#98c1d9, #6969b3, #533a7b, #4b244a, #25171a) */}
+      {/* Desktop Tab Bar in Palette */}
       <div className="hidden md:block border-b border-[#6969b3]/25 bg-white/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-2.5">
           <div className="flex items-center gap-1.5">
@@ -443,11 +539,15 @@ export function App() {
           </div>
 
           <div className="flex items-center gap-3">
-            {/* SQLite Status Indicator */}
-            <div className="flex items-center gap-1.5 rounded-full border border-[#533a7b]/40 bg-[#98c1d9]/20 px-2.5 py-1 text-[11px] font-bold text-[#25171a]" title="SQLite Database Connected">
-              <i className="fa-solid fa-database text-xs text-[#533a7b]"></i>
+            {/* Clickable SQLite Status Indicator with Live Sync */}
+            <button
+              onClick={() => performSync(false)}
+              className="flex items-center gap-1.5 rounded-full border border-[#533a7b]/40 bg-[#98c1d9]/20 hover:bg-[#98c1d9]/40 px-2.5 py-1 text-[11px] font-bold text-[#25171a] transition cursor-pointer"
+              title="Click to refresh SQLite data from phone/server"
+            >
+              <i className={`fa-solid fa-arrows-rotate text-xs text-[#533a7b] ${isSyncing ? 'animate-spin' : ''}`}></i>
               <span>SQLite DB {isDbSynced ? 'Active' : 'Local'}</span>
-            </div>
+            </button>
 
             <button
               onClick={() => handleOpenAddPayment()}
@@ -469,6 +569,7 @@ export function App() {
             onOpenGuide={() => setIsGuideModalOpen(true)}
             onSwitchTab={tab => setActiveTab(tab)}
             onDeleteExpense={handleDeleteExpense}
+            onEditExpense={handleOpenEditExpense}
             onApplyCrunchMode={handleApplyCrunchMode}
             onApplyBalancedMode={handleApplyBalancedMode}
             isCrunchModeActive={isCrunchModeActive}
@@ -504,6 +605,7 @@ export function App() {
           <SingleSheetView
             budget={currentBudget}
             onDeleteExpense={handleDeleteExpense}
+            onEditExpense={handleOpenEditExpense}
             onQuickAddPayment={catId => handleOpenAddPayment(catId)}
           />
         )}
@@ -523,11 +625,14 @@ export function App() {
         isOpen={isPaymentModalOpen}
         onClose={() => {
           setIsPaymentModalOpen(false);
+          setExpenseToEdit(null);
           setPreselectedCatId(undefined);
         }}
         categories={currentBudget.categories}
         expenses={currentBudget.expenses}
         onAddExpense={handleAddExpense}
+        onUpdateExpense={handleUpdateExpense}
+        expenseToEdit={expenseToEdit}
         onOpenGuide={() => {
           setIsPaymentModalOpen(false);
           setIsGuideModalOpen(true);

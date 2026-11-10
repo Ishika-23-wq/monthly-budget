@@ -19,7 +19,7 @@ export const PastMonthsHistory: React.FC<Props> = ({
 
   const latestMonthKey = budgetList[0]?.monthKey || 'cycle-1';
   const suggestedNextKey = latestMonthKey === 'cycle-1' ? 'cycle-2' : latestMonthKey === 'cycle-2' ? 'cycle-3' : `cycle-${Date.now()}`;
-  const suggestedNextName = suggestedNextKey === 'cycle-2' ? 'December 2026' : 'January 2027';
+  const suggestedNextName = suggestedNextKey === 'cycle-2' ? 'Dec 2026' : 'Jan 2027';
 
   return (
     <div className="space-y-6 text-[#25171a]">
