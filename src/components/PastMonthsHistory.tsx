@@ -22,36 +22,36 @@ export const PastMonthsHistory: React.FC<Props> = ({
   const suggestedNextName = suggestedNextKey === 'cycle-2' ? 'December 2026' : 'January 2027';
 
   return (
-    <div className="space-y-6 bg-white text-black">
-      {/* Top Banner: Pure White Background, Black Text, #6d6875 Accent */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl border-2 border-[#6d6875] bg-white p-5 shadow-sm text-black">
+    <div className="space-y-6 text-[#08090a]">
+      {/* Top Banner in Modern Palette */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-3xl border border-[#8789c0]/35 bg-white p-5 sm:p-6 shadow-xs text-[#08090a]">
         <div>
           <div className="flex items-center gap-2">
-            <span className="flex items-center gap-1.5 rounded-md bg-[#6d6875] px-2.5 py-0.5 text-xs font-bold text-white">
+            <span className="flex items-center gap-1.5 rounded-full bg-[#7cc6fe]/20 border border-[#7cc6fe] px-3 py-0.5 text-xs font-black text-[#08090a]">
               <i className="fa-solid fa-clock-rotate-left text-xs"></i>
               Month-to-Month Rollover & History
             </span>
           </div>
-          <h2 className="mt-1 text-xl font-black text-black">
+          <h2 className="mt-2 text-xl sm:text-2xl font-black text-[#08090a]">
             Historical Balance & Rollover Tracking
           </h2>
-          <p className="text-xs text-black mt-0.5 font-semibold">
+          <p className="text-xs text-[#8789c0] mt-0.5 font-semibold">
             Every rupee left after each month automatically carries forward into the next opening balance.
           </p>
         </div>
 
         <button
           onClick={() => onCreateNextMonth(suggestedNextKey)}
-          className="flex items-center gap-2 rounded-xl bg-[#6d6875] hover:bg-[#595460] px-4 py-2.5 text-xs font-bold text-white shadow transition self-start sm:self-center"
+          className="flex items-center gap-2 rounded-xl bg-[#08090a] hover:bg-[#1a1e24] px-4 py-2.5 text-xs font-black text-[#5dfdcb] shadow-xs transition self-start sm:self-center"
         >
           <i className="fa-solid fa-plus text-xs"></i> Start {suggestedNextName}
         </button>
       </div>
 
-      {/* Answer Box in White & Black */}
-      <div className="rounded-xl border-2 border-[#6d6875] bg-white p-4 text-xs text-black space-y-1.5">
-        <div className="flex items-center gap-2 font-black text-black text-sm">
-          <i className="fa-solid fa-circle-check text-[#6d6875] text-base"></i>
+      {/* Answer Box in Sky & Ice styling */}
+      <div className="rounded-2xl border-2 border-[#7cc6fe] bg-[#7cc6fe]/10 p-4 text-xs text-[#08090a] space-y-1.5 shadow-xs">
+        <div className="flex items-center gap-2 font-black text-[#08090a] text-sm">
+          <i className="fa-solid fa-circle-check text-[#5dfdcb] text-base"></i>
           Leftover Balance is Fully Maintained & Carried Forward!
         </div>
         <p className="leading-relaxed font-semibold">
@@ -59,7 +59,7 @@ export const PastMonthsHistory: React.FC<Props> = ({
         </p>
       </div>
 
-      {/* Month cards list in Pure White & Black */}
+      {/* Month cards list */}
       <div className="space-y-4">
         {budgetList.map(b => {
           const isActive = b.monthKey === activeMonthKey;
@@ -70,27 +70,27 @@ export const PastMonthsHistory: React.FC<Props> = ({
           return (
             <div
               key={b.monthKey}
-              className={`rounded-2xl border-2 p-5 transition bg-white shadow-sm text-black ${
+              className={`rounded-3xl border p-5 sm:p-6 transition bg-white shadow-xs text-[#08090a] ${
                 isActive
-                  ? 'border-[#6d6875] ring-2 ring-[#6d6875]/20'
-                  : 'border-[#6d6875]/30 hover:border-[#6d6875]'
+                  ? 'border-2 border-[#7cc6fe] ring-2 ring-[#7cc6fe]/20'
+                  : 'border-[#8789c0]/35 hover:border-[#7cc6fe]'
               }`}
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#6d6875] text-white">
-                    <i className="fa-solid fa-calendar-days text-lg"></i>
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#08090a] text-[#5dfdcb] ring-2 ring-[#7cc6fe]/20">
+                    <i className="fa-solid fa-calendar-days text-base"></i>
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
-                      <h3 className="text-base font-black text-black">{b.monthName}</h3>
+                      <h3 className="text-base sm:text-lg font-black text-[#08090a]">{b.monthName}</h3>
                       {isActive && (
-                        <span className="rounded-full bg-[#6d6875] px-2 py-0.5 text-[10px] font-bold text-white">
+                        <span className="rounded-full bg-[#5dfdcb]/25 border border-[#5dfdcb] px-2.5 py-0.5 text-[10px] font-black text-[#08090a]">
                           Active Month
                         </span>
                       )}
                     </div>
-                    <div className="text-xs text-black font-semibold mt-0.5">
+                    <div className="text-xs text-[#8789c0] font-semibold mt-0.5">
                       Payday: {b.payday}th • {b.expenses.length} payments recorded
                     </div>
                   </div>
@@ -100,49 +100,49 @@ export const PastMonthsHistory: React.FC<Props> = ({
                   {!isActive && (
                     <button
                       onClick={() => onSelectMonth(b.monthKey)}
-                      className="flex items-center gap-1.5 rounded-lg border-2 border-[#6d6875] bg-white hover:bg-[#6d6875]/10 px-3 py-1.5 text-xs font-black text-black transition"
+                      className="flex items-center gap-1.5 rounded-xl border-2 border-[#8789c0]/35 bg-white hover:bg-[#7cc6fe]/15 px-3.5 py-1.5 text-xs font-black text-[#08090a] transition shadow-xs"
                     >
-                      View This Month <i className="fa-solid fa-chevron-right text-xs text-[#6d6875]"></i>
+                      View This Month <i className="fa-solid fa-chevron-right text-xs text-[#7cc6fe]"></i>
                     </button>
                   )}
                 </div>
               </div>
 
-              {/* Financial flow breakdown in Pure White & Black */}
-              <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3 border-t-2 border-[#6d6875]/20">
-                <div className="rounded-xl bg-white p-3 border-2 border-[#6d6875]/40">
-                  <div className="text-[11px] font-bold text-black">Opening Balance</div>
-                  <div className="text-sm font-black text-black mt-0.5">
+              {/* Financial flow breakdown */}
+              <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3 border-t border-[#8789c0]/20">
+                <div className="rounded-2xl bg-[#f4faff] p-3.5 border border-[#8789c0]/30">
+                  <div className="text-[11px] font-bold text-[#8789c0]">Opening Balance</div>
+                  <div className="text-sm sm:text-base font-black text-[#08090a] mt-0.5">
                     {formatINR(b.startingBalance)}
                   </div>
                 </div>
 
-                <div className="rounded-xl bg-white p-3 border-2 border-[#6d6875]/40">
-                  <div className="text-[11px] font-bold text-black">+ Salary (7th)</div>
-                  <div className="text-sm font-black text-black mt-0.5">
+                <div className="rounded-2xl bg-[#f4faff] p-3.5 border border-[#8789c0]/30">
+                  <div className="text-[11px] font-bold text-[#8789c0]">+ Salary (7th)</div>
+                  <div className="text-sm sm:text-base font-black text-[#08090a] mt-0.5">
                     +{formatINR(b.salary)}
                   </div>
                 </div>
 
-                <div className="rounded-xl bg-white p-3 border-2 border-[#6d6875]/40">
-                  <div className="text-[11px] font-bold text-black">- Total Spent</div>
-                  <div className="text-sm font-black text-black mt-0.5">
+                <div className="rounded-2xl bg-[#f4faff] p-3.5 border border-[#8789c0]/30">
+                  <div className="text-[11px] font-bold text-[#8789c0]">- Total Spent</div>
+                  <div className="text-sm sm:text-base font-black text-[#08090a] mt-0.5">
                     -{formatINR(totalSpent)}
                   </div>
                 </div>
 
-                <div className="rounded-xl bg-white p-3 border-2 border-[#6d6875]">
-                  <div className="text-[11px] text-[#6d6875] font-black">
+                <div className="rounded-2xl bg-gradient-to-b from-white to-[#5dfdcb]/15 p-3.5 border-2 border-[#5dfdcb]">
+                  <div className="text-[11px] text-[#08090a] font-black">
                     = Leftover Carried Forward
                   </div>
-                  <div className="text-sm font-black text-[#6d6875] mt-0.5">
+                  <div className="text-sm sm:text-base font-black text-[#08090a] mt-0.5">
                     {formatINR(closingBalance)}
                   </div>
                 </div>
               </div>
 
               {b.notes && (
-                <div className="mt-3 text-xs text-black font-semibold italic bg-white rounded-lg p-2 border border-[#6d6875]">
+                <div className="mt-3 text-xs text-[#8789c0] font-semibold italic bg-[#f4faff] rounded-xl p-2.5 border border-[#8789c0]/25">
                   "{b.notes}"
                 </div>
               )}

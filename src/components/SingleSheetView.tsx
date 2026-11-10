@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Category, Expense, MonthlyBudget } from '../types';
+import { Expense, MonthlyBudget } from '../types';
 import { formatINR, formatDateReadable } from '../utils/formatters';
 import { CategoryIcon } from './CategoryIcon';
 
@@ -64,53 +64,53 @@ export const SingleSheetView: React.FC<Props> = ({
   };
 
   return (
-    <div className="space-y-6 bg-white text-black">
-      {/* Top Banner: Pure White Background, Black Text, #6d6875 Accent */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl border-2 border-[#6d6875] bg-white p-5 shadow-sm text-black">
+    <div className="space-y-6 text-[#08090a]">
+      {/* Top Banner in Modern Palette */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-3xl border border-[#8789c0]/35 bg-white p-5 sm:p-6 shadow-xs text-[#08090a]">
         <div>
           <div className="flex items-center gap-2">
-            <span className="flex items-center gap-1.5 rounded-md bg-[#6d6875] px-2.5 py-0.5 text-xs font-bold text-white">
+            <span className="flex items-center gap-1.5 rounded-full bg-[#7cc6fe]/20 border border-[#7cc6fe] px-3 py-0.5 text-xs font-black text-[#08090a]">
               <i className="fa-solid fa-table-list text-xs"></i>
               Categorized Ledger Sheet
             </span>
-            <span className="text-xs font-black text-black">{budget.monthName}</span>
+            <span className="text-xs font-black text-[#8789c0]">{budget.monthName}</span>
           </div>
-          <h2 className="mt-1 text-xl font-black text-black">
+          <h2 className="mt-2 text-xl sm:text-2xl font-black text-[#08090a]">
             Single Sheet Expense Manager
           </h2>
-          <p className="text-xs text-black mt-0.5 font-semibold">
+          <p className="text-xs text-[#8789c0] mt-0.5 font-semibold">
             Every category has its own dedicated section with planned limit, spent amount, and payment log.
           </p>
         </div>
 
         <button
           onClick={handleExportCSV}
-          className="flex items-center gap-2 rounded-xl bg-[#6d6875] hover:bg-[#595460] px-4 py-2.5 text-xs font-bold text-white shadow transition self-start sm:self-center"
+          className="flex items-center gap-2 rounded-xl bg-[#08090a] hover:bg-[#1a1e24] px-4 py-2.5 text-xs font-black text-[#5dfdcb] shadow-xs transition self-start sm:self-center"
         >
           <i className="fa-solid fa-file-arrow-down text-xs"></i>
           Export to CSV / Excel
         </button>
       </div>
 
-      {/* Spreadsheet Master Summary Row in Pure White & Black */}
+      {/* Spreadsheet Master Summary Row */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="rounded-xl border-2 border-[#6d6875] bg-white p-3.5 shadow-sm text-black">
-          <div className="text-xs font-bold text-black">Total Planned Limit</div>
-          <div className="text-lg font-black text-black mt-0.5">{formatINR(totalPlanned)}</div>
+        <div className="rounded-2xl border border-[#8789c0]/30 bg-white p-4 shadow-xs">
+          <div className="text-xs font-bold text-[#8789c0]">Total Planned Limit</div>
+          <div className="text-lg sm:text-xl font-black text-[#08090a] mt-0.5">{formatINR(totalPlanned)}</div>
         </div>
-        <div className="rounded-xl border-2 border-[#6d6875] bg-white p-3.5 shadow-sm text-black">
-          <div className="text-xs font-bold text-black">Total Actual Spent</div>
-          <div className="text-lg font-black text-black mt-0.5">{formatINR(totalSpent)}</div>
+        <div className="rounded-2xl border border-[#8789c0]/30 bg-white p-4 shadow-xs">
+          <div className="text-xs font-bold text-[#8789c0]">Total Actual Spent</div>
+          <div className="text-lg sm:text-xl font-black text-[#08090a] mt-0.5">{formatINR(totalSpent)}</div>
         </div>
-        <div className="rounded-xl border-2 border-[#6d6875] bg-white p-3.5 shadow-sm text-black">
-          <div className="text-xs font-bold text-black">Remaining Buffer</div>
-          <div className={`text-lg font-black mt-0.5 ${totalRemaining < 0 ? 'text-rose-600' : 'text-[#6d6875]'}`}>
+        <div className="rounded-2xl border-2 border-[#5dfdcb] bg-gradient-to-b from-white to-[#5dfdcb]/10 p-4 shadow-xs">
+          <div className="text-xs font-black text-[#08090a]">Remaining Buffer</div>
+          <div className={`text-lg sm:text-xl font-black mt-0.5 ${totalRemaining < 0 ? 'text-rose-600' : 'text-[#08090a]'}`}>
             {formatINR(totalRemaining)}
           </div>
         </div>
-        <div className="rounded-xl border-2 border-[#6d6875] bg-white p-3.5 shadow-sm text-black">
-          <div className="text-xs font-bold text-black">Starting Cash (Nov 10)</div>
-          <div className="text-lg font-black text-black mt-0.5">{formatINR(budget.startingBalance)}</div>
+        <div className="rounded-2xl border border-[#8789c0]/30 bg-white p-4 shadow-xs">
+          <div className="text-xs font-bold text-[#8789c0]">Starting Cash (Nov 10)</div>
+          <div className="text-lg sm:text-xl font-black text-[#08090a] mt-0.5">{formatINR(budget.startingBalance)}</div>
         </div>
       </div>
 
@@ -127,25 +127,25 @@ export const SingleSheetView: React.FC<Props> = ({
           return (
             <div
               key={category.id}
-              className="rounded-2xl border-2 border-[#6d6875] bg-white transition overflow-hidden shadow-sm text-black"
+              className="rounded-3xl border border-[#8789c0]/30 bg-white transition overflow-hidden shadow-xs hover:border-[#7cc6fe] text-[#08090a]"
             >
-              {/* Category Header Bar in White & Black */}
+              {/* Category Header Bar */}
               <div
                 onClick={() => toggleCategory(category.id)}
-                className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 cursor-pointer select-none bg-white hover:bg-[#6d6875]/5 transition"
+                className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 sm:p-5 cursor-pointer select-none bg-white hover:bg-[#7cc6fe]/10 transition"
               >
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#6d6875] text-white">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#08090a] text-[#5dfdcb]">
                     <CategoryIcon name={category.icon} className="w-5 h-5" />
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
-                      <h3 className="text-sm sm:text-base font-black text-black">{category.name}</h3>
-                      <span className="rounded bg-[#6d6875] px-1.5 py-0.2 text-[10px] font-bold text-white uppercase">
+                      <h3 className="text-sm sm:text-base font-black text-[#08090a]">{category.name}</h3>
+                      <span className="rounded-full bg-[#7cc6fe]/20 border border-[#7cc6fe]/50 px-2 py-0.2 text-[9px] font-black text-[#08090a] uppercase">
                         {category.categoryType}
                       </span>
                     </div>
-                    <div className="text-xs text-black font-semibold mt-0.5">
+                    <div className="text-xs text-[#8789c0] font-semibold mt-0.5">
                       {catExpenses.length} transaction{catExpenses.length !== 1 ? 's' : ''} logged
                     </div>
                   </div>
@@ -154,12 +154,12 @@ export const SingleSheetView: React.FC<Props> = ({
                 {/* Right Side Stats & Add button */}
                 <div className="flex items-center justify-between sm:justify-end gap-4" onClick={e => e.stopPropagation()}>
                   <div className="text-right">
-                    <div className="text-xs text-black font-semibold">
-                      Limit: <span className="font-black text-black">{formatINR(category.plannedLimit)}</span>
+                    <div className="text-xs text-[#8789c0] font-semibold">
+                      Limit: <span className="font-black text-[#08090a]">{formatINR(category.plannedLimit)}</span>
                     </div>
-                    <div className="text-xs">
-                      Spent: <span className="font-black text-black">{formatINR(spent)}</span> •{' '}
-                      <span className={isOver ? 'text-rose-600 font-black' : 'text-[#6d6875] font-black'}>
+                    <div className="text-xs font-semibold">
+                      Spent: <span className="font-black text-[#08090a]">{formatINR(spent)}</span> •{' '}
+                      <span className={isOver ? 'text-rose-600 font-black' : 'text-[#08090a] font-black'}>
                         {isOver ? `Over by ${formatINR(Math.abs(remaining))}` : `${formatINR(remaining)} left`}
                       </span>
                     </div>
@@ -167,7 +167,7 @@ export const SingleSheetView: React.FC<Props> = ({
 
                   <button
                     onClick={() => onQuickAddPayment(category.id)}
-                    className="flex items-center gap-1 rounded-lg bg-[#6d6875] hover:bg-[#595460] px-2.5 py-1.5 text-xs font-bold text-white shadow transition"
+                    className="flex items-center gap-1 rounded-xl bg-[#08090a] hover:bg-[#1a1e24] px-3 py-1.5 text-xs font-black text-[#5dfdcb] shadow-xs transition"
                     title="Add payment to this category"
                   >
                     <i className="fa-solid fa-plus text-xs"></i>
@@ -176,72 +176,72 @@ export const SingleSheetView: React.FC<Props> = ({
 
                   <button
                     onClick={() => toggleCategory(category.id)}
-                    className="p-1 text-black hover:text-[#6d6875]"
+                    className="p-1.5 text-[#8789c0] hover:text-[#08090a] transition"
                   >
                     <i className={`fa-solid ${isCollapsed ? 'fa-chevron-down' : 'fa-chevron-up'} text-sm`}></i>
                   </button>
                 </div>
               </div>
 
-              {/* Progress Bar in #6d6875 */}
-              <div className="h-2 w-full bg-white border-y border-[#6d6875]">
+              {/* Progress Bar with vibrant gradient */}
+              <div className="h-1.5 w-full bg-[#f4faff] border-y border-[#8789c0]/20">
                 <div
-                  className="h-full bg-[#6d6875] transition-all duration-300"
+                  className="h-full bg-gradient-to-r from-[#7cc6fe] to-[#5dfdcb] transition-all duration-300"
                   style={{ width: `${Math.min(100, percentUsed)}%` }}
                 />
               </div>
 
-              {/* Transactions Table Section in Pure White & Black */}
+              {/* Transactions Table Section */}
               {!isCollapsed && (
-                <div className="p-4 bg-white">
+                <div className="p-4 sm:p-5 bg-white">
                   {catExpenses.length === 0 ? (
-                    <div className="py-6 text-center text-xs text-black font-bold">
+                    <div className="py-6 text-center text-xs text-[#8789c0] font-bold">
                       No payments logged in {category.name} yet.{' '}
                       <button
                         onClick={() => onQuickAddPayment(category.id)}
-                        className="text-[#6d6875] font-black underline ml-1"
+                        className="text-[#08090a] hover:text-[#7cc6fe] font-black underline ml-1"
                       >
                         + Add one now
                       </button>
                     </div>
                   ) : (
                     <div className="overflow-x-auto">
-                      <table className="w-full text-left text-xs text-black">
+                      <table className="w-full text-left text-xs text-[#08090a]">
                         <thead>
-                          <tr className="border-b-2 border-[#6d6875] text-black font-black">
-                            <th className="pb-2 font-black">Date</th>
-                            <th className="pb-2 font-black">Description / What was paid</th>
-                            <th className="pb-2 font-black">Method</th>
-                            <th className="pb-2 text-right font-black">Amount</th>
-                            <th className="pb-2 text-center font-black w-12">Action</th>
+                          <tr className="border-b border-[#8789c0]/25 text-[#8789c0] font-bold">
+                            <th className="pb-2.5">Date</th>
+                            <th className="pb-2.5">Description / What was paid</th>
+                            <th className="pb-2.5">Method</th>
+                            <th className="pb-2.5 text-right">Amount</th>
+                            <th className="pb-2.5 text-center w-12">Action</th>
                           </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-200">
+                        <tbody className="divide-y divide-slate-100">
                           {catExpenses.map(exp => (
-                            <tr key={exp.id} className="hover:bg-[#6d6875]/5 transition text-black">
-                              <td className="py-2.5 text-black font-semibold whitespace-nowrap">
+                            <tr key={exp.id} className="hover:bg-[#7cc6fe]/10 transition text-[#08090a]">
+                              <td className="py-3 font-semibold whitespace-nowrap text-[#8789c0]">
                                 {formatDateReadable(exp.date)}
                               </td>
-                              <td className="py-2.5 font-bold text-black">
+                              <td className="py-3 font-bold text-[#08090a]">
                                 {exp.title}
                                 {exp.notes && (
-                                  <span className="block text-[11px] text-black font-normal">
+                                  <span className="block text-[11px] text-[#8789c0] font-normal">
                                     {exp.notes}
                                   </span>
                                 )}
                               </td>
-                              <td className="py-2.5 text-black whitespace-nowrap">
-                                <span className="rounded bg-white border border-[#6d6875] px-2 py-0.5 text-[10px] font-bold text-black">
+                              <td className="py-3 whitespace-nowrap">
+                                <span className="rounded-full bg-[#f4faff] border border-[#8789c0]/30 px-2 py-0.5 text-[10px] font-bold text-[#08090a]">
                                   {exp.paymentMethod}
                                 </span>
                               </td>
-                              <td className="py-2.5 text-right font-black text-black whitespace-nowrap">
+                              <td className="py-3 text-right font-black text-[#08090a] whitespace-nowrap">
                                 {formatINR(exp.amount)}
                               </td>
-                              <td className="py-2.5 text-center">
+                              <td className="py-3 text-center">
                                 <button
                                   onClick={() => onDeleteExpense(exp.id)}
-                                  className="text-black hover:text-rose-600 p-1 transition"
+                                  className="text-[#8789c0] hover:text-rose-600 p-1 transition"
                                   title="Delete transaction"
                                 >
                                   <i className="fa-solid fa-trash-can text-xs"></i>
@@ -249,11 +249,11 @@ export const SingleSheetView: React.FC<Props> = ({
                               </td>
                             </tr>
                           ))}
-                          <tr className="border-t-2 border-[#6d6875] font-black text-black">
-                            <td colSpan={3} className="py-2.5 text-right font-black text-black">
+                          <tr className="border-t-2 border-[#8789c0]/30 font-black text-[#08090a]">
+                            <td colSpan={3} className="py-3 text-right font-black">
                               Total Spent in {category.name}:
                             </td>
-                            <td className="py-2.5 text-right font-black text-black">
+                            <td className="py-3 text-right font-black">
                               {formatINR(spent)}
                             </td>
                             <td></td>

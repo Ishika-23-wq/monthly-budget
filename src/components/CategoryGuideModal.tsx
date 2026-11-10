@@ -35,22 +35,22 @@ export const CategoryGuideModal: React.FC<Props> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs animate-fadeIn text-black">
-      <div className="relative flex max-h-[90vh] w-full max-w-2xl flex-col rounded-3xl border-2 border-[#6d6875] bg-white shadow-2xl overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs animate-fadeIn text-[#08090a]">
+      <div className="relative flex max-h-[90vh] w-full max-w-2xl flex-col rounded-3xl border-2 border-[#8789c0]/35 bg-white shadow-2xl overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between border-b-2 border-[#6d6875]/20 px-6 py-4 bg-white">
+        <div className="flex items-center justify-between border-b border-[#8789c0]/25 px-6 py-4 bg-white">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#6d6875] text-[#ffcdb2]">
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#08090a] text-[#5dfdcb] ring-2 ring-[#7cc6fe]/25">
               <i className="fa-solid fa-circle-question text-base"></i>
             </div>
             <div>
-              <h2 className="text-lg font-black text-black">Expense Category Guide</h2>
-              <p className="text-xs text-black font-semibold">Which category does your payment go into?</p>
+              <h2 className="text-lg font-black text-[#08090a]">Expense Category Guide</h2>
+              <p className="text-xs text-[#8789c0] font-semibold">Which category does your payment go into?</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="rounded-lg p-1.5 text-black hover:bg-slate-100 transition"
+            className="rounded-full p-2 text-[#8789c0] hover:text-[#08090a] hover:bg-[#f4faff] transition"
           >
             <i className="fa-solid fa-xmark text-lg"></i>
           </button>
@@ -59,26 +59,26 @@ export const CategoryGuideModal: React.FC<Props> = ({
         {/* Search bar */}
         <div className="p-4 sm:p-6 pb-2 bg-white">
           <div className="relative">
-            <i className="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-xs text-[#b5838d]"></i>
+            <i className="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-xs text-[#8789c0]"></i>
             <input
               type="text"
               placeholder="Search: e.g. shopping, restaurant, zomato, metro, phd, clothes..."
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
-              className="w-full rounded-xl border-2 border-[#6d6875] bg-white py-2.5 pl-10 pr-4 text-sm text-black placeholder-slate-400 focus:outline-none"
+              className="w-full rounded-2xl border-2 border-[#8789c0]/35 bg-[#f4faff] py-3 pl-11 pr-4 text-sm text-[#08090a] placeholder-slate-400 focus:border-[#7cc6fe] focus:bg-white focus:outline-none transition"
             />
           </div>
 
           {/* Quick FAQ Pills */}
           <div className="mt-3 flex flex-wrap gap-2 text-xs">
-            <span className="text-black font-black flex items-center gap-1.5">
-              <i className="fa-solid fa-lightbulb text-xs text-[#b5838d]"></i> Popular:
+            <span className="text-[#08090a] font-black flex items-center gap-1.5">
+              <i className="fa-solid fa-lightbulb text-xs text-[#7cc6fe]"></i> Popular:
             </span>
             {['Shopping', 'Restaurant', 'PhD', 'Metro & Travel', 'Groceries', 'Sister Fee'].map(tag => (
               <button
                 key={tag}
                 onClick={() => setSearchTerm(tag)}
-                className="rounded-full border border-[#6d6875] bg-white px-2.5 py-1 font-bold text-black hover:bg-[#ffcdb2]/20 transition"
+                className="rounded-full border border-[#8789c0]/30 bg-white px-3 py-1 font-bold text-[#08090a] hover:bg-[#7cc6fe]/20 hover:border-[#7cc6fe] transition"
               >
                 {tag}
               </button>
@@ -93,31 +93,31 @@ export const CategoryGuideModal: React.FC<Props> = ({
             return (
               <div
                 key={idx}
-                className="rounded-xl border-2 border-[#6d6875]/30 bg-white p-4 hover:border-[#6d6875] transition text-black"
+                className="rounded-2xl border border-[#8789c0]/30 bg-white p-4 hover:border-[#7cc6fe] transition text-[#08090a] shadow-2xs"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-bold uppercase tracking-wider text-black">
+                      <span className="text-xs font-bold uppercase tracking-wider text-[#8789c0]">
                         Payment Type:
                       </span>
-                      <span className="text-sm font-black text-black capitalize">{guide.query}</span>
+                      <span className="text-sm font-black text-[#08090a] capitalize">{guide.query}</span>
                     </div>
 
                     <div className="mt-2 flex items-center gap-2">
-                      <span className="text-xs text-black font-semibold">Assign To:</span>
-                      <span className="inline-flex items-center gap-1 rounded-md bg-[#6d6875] px-2.5 py-1 text-xs font-bold text-white">
-                        <i className="fa-solid fa-circle-check text-xs text-[#ffcdb2]"></i>
+                      <span className="text-xs text-[#8789c0] font-semibold">Assign To:</span>
+                      <span className="inline-flex items-center gap-1.5 rounded-xl bg-[#08090a] px-3 py-1 text-xs font-black text-[#5dfdcb]">
+                        <i className="fa-solid fa-circle-check text-xs text-[#5dfdcb]"></i>
                         {guide.recommendedCategory}
                       </span>
                     </div>
 
-                    <p className="mt-2 text-xs text-black leading-relaxed font-semibold">
+                    <p className="mt-2 text-xs text-[#08090a] leading-relaxed font-semibold">
                       {guide.explanation}
                     </p>
 
-                    <div className="mt-2 rounded-lg bg-white border border-[#b5838d] p-2 text-[11px] text-black">
-                      <strong className="text-[#b5838d]">Budget Tip:</strong> {guide.priorityTip}
+                    <div className="mt-2.5 rounded-xl bg-[#f4faff] border border-[#7cc6fe] p-2.5 text-[11px] text-[#08090a]">
+                      <strong className="text-[#08090a] font-black">Budget Tip:</strong> {guide.priorityTip}
                     </div>
                   </div>
 
@@ -127,7 +127,7 @@ export const CategoryGuideModal: React.FC<Props> = ({
                         onSelectCategoryForPayment(catId);
                         onClose();
                       }}
-                      className="shrink-0 flex items-center gap-1.5 rounded-lg bg-[#6d6875] hover:bg-[#5b5762] px-3 py-1.5 text-xs font-bold text-white shadow-sm transition"
+                      className="shrink-0 flex items-center gap-1.5 rounded-xl bg-[#08090a] hover:bg-[#1a1e24] px-3.5 py-1.5 text-xs font-black text-[#5dfdcb] shadow-xs transition"
                     >
                       Log <i className="fa-solid fa-arrow-right text-xs"></i>
                     </button>
@@ -139,10 +139,10 @@ export const CategoryGuideModal: React.FC<Props> = ({
         </div>
 
         {/* Footer */}
-        <div className="border-t-2 border-[#6d6875]/20 p-4 text-center bg-white">
+        <div className="border-t border-[#8789c0]/25 p-4 text-center bg-white">
           <button
             onClick={onClose}
-            className="w-full sm:w-auto rounded-xl bg-[#6d6875] px-6 py-2 text-xs font-bold text-white hover:bg-[#5b5762] transition"
+            className="w-full sm:w-auto rounded-xl bg-[#08090a] hover:bg-[#1a1e24] px-6 py-2.5 text-xs font-black text-[#5dfdcb] transition shadow-xs"
           >
             Got it, Close Guide
           </button>

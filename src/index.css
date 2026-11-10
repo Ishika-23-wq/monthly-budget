@@ -4,25 +4,25 @@
 
 @layer base {
   body {
-    @apply bg-white text-black font-sans antialiased;
+    @apply bg-[#f4faff] text-[#08090a] font-sans antialiased;
     -webkit-tap-highlight-color: transparent;
   }
 }
 
-/* Custom scrollbars in White & #6d6875 */
+/* Custom modern scrollbars in Palette: #f4faff, #8789c0, #7cc6fe */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #ffffff;
+  background: #f4faff;
 }
 ::-webkit-scrollbar-thumb {
-  background: #6d6875;
-  border-radius: 3px;
+  background: #8789c0;
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #163a47;
+  background: #7cc6fe;
 }
 
 /* Animations */

@@ -9,14 +9,17 @@ export default {
     extend: {
       colors: {
         palette: {
-          peach: '#ffcdb2', // #ffcdb2
-          melon: '#ffb4a2', // #ffb4a2
-          rose: '#e5989b',  // #e5989b
-          mauve: '#b5838d', // #b5838d
-          deep: '#6d6875',  // #6d6875
+          mint: '#5dfdcb',      // Vibrant Aquamarine / Mint
+          sky: '#7cc6fe',       // Soft Sky Blue
+          ice: '#f4faff',       // Clean Ice Canvas
+          lavender: '#8789c0',  // Muted Lavender Slate
+          dark: '#08090a',      // Rich Obsidian Black
         },
-        primary: '#6d6875',
-        accent: '#b5838d',
+        primary: '#08090a',
+        accent: '#5dfdcb',
+        sky: '#7cc6fe',
+        lavender: '#8789c0',
+        ice: '#f4faff',
       },
       fontFamily: {
         sans: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
