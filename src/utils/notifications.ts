@@ -20,7 +20,7 @@ export async function requestNotificationPermission(): Promise<boolean> {
     if (permission === 'granted') {
       sendNotification('🔔 Notifications Enabled!', {
         body: 'You will receive timely alerts on phone & laptop for expenses, fees deadlines & tasks.',
-        icon: '/favicon.ico'
+        icon: '/favicon.png'
       });
       return true;
     }
@@ -38,8 +38,8 @@ export function sendNotification(title: string, options?: NotificationOptions): 
 
   try {
     const notif = new Notification(title, {
-      icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="%2325171a"/><text x="50%" y="65%" font-size="55" text-anchor="middle" fill="%2398c1d9">₹</text></svg>',
-      badge: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="%2325171a"/><text x="50%" y="65%" font-size="55" text-anchor="middle" fill="%23533a7b">🔔</text></svg>',
+      icon: '/favicon.png',
+      badge: '/favicon.png',
       ...options
     });
 

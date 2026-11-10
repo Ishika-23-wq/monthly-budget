@@ -1,0 +1,29 @@
+{
+  "short_name": "FinTrack",
+  "name": "FinTrack & Tasks | Budget, Deadlines & Expenses",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "type": "image/png",
+      "sizes": "1254x1254",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#ffffff",
+  "theme_color": "#25171a",
+  "display": "standalone",
+  "orientation": "portrait"
+}
