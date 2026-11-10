@@ -38,8 +38,8 @@ export function sendNotification(title: string, options?: NotificationOptions): 
 
   try {
     const notif = new Notification(title, {
-      icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="%2354414e"/><text x="50%" y="65%" font-size="55" text-anchor="middle" fill="%23c5ebc3">₹</text></svg>',
-      badge: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="%2354414e"/><text x="50%" y="65%" font-size="55" text-anchor="middle" fill="%23875c74">🔔</text></svg>',
+      icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="%2325171a"/><text x="50%" y="65%" font-size="55" text-anchor="middle" fill="%2398c1d9">₹</text></svg>',
+      badge: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="%2325171a"/><text x="50%" y="65%" font-size="55" text-anchor="middle" fill="%23533a7b">🔔</text></svg>',
       ...options
     });
 

@@ -4,25 +4,25 @@
 
 @layer base {
   body {
-    @apply bg-[#c5ebc3]/15 text-[#54414e] font-sans antialiased;
+    @apply bg-[#98c1d9]/15 text-[#25171a] font-sans antialiased;
     -webkit-tap-highlight-color: transparent;
   }
 }
 
-/* Custom scrollbars in Palette: #c5ebc3, #b7c8b5, #a790a5, #875c74, #54414e */
+/* Custom scrollbars in Palette: #98c1d9, #6969b3, #533a7b, #4b244a, #25171a */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #c5ebc3/20;
+  background: rgba(152, 193, 217, 0.2);
 }
 ::-webkit-scrollbar-thumb {
-  background: #a790a5;
+  background: #6969b3;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #875c74;
+  background: #533a7b;
 }
 
 /* Animations */

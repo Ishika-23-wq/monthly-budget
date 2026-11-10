@@ -63,23 +63,23 @@ export const BudgetPlanner: React.FC<Props> = ({
   };
 
   return (
-    <div className="space-y-6 text-[#54414e]">
+    <div className="space-y-6 text-[#25171a]">
       {/* Header card in Palette */}
-      <div className="rounded-3xl border border-[#a790a5]/35 bg-white p-5 sm:p-6 shadow-xs text-[#54414e]">
+      <div className="rounded-3xl border border-[#6969b3]/35 bg-white p-5 sm:p-6 shadow-xs text-[#25171a]">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2">
-              <span className="rounded-full bg-[#875c74]/20 border border-[#875c74] px-3 py-0.5 text-xs font-black text-[#54414e]">
+              <span className="rounded-full bg-[#533a7b]/20 border border-[#533a7b] px-3 py-0.5 text-xs font-black text-[#25171a]">
                 Categories & Dual Limits
               </span>
-              <span className="text-xs font-black text-[#a790a5]">
+              <span className="text-xs font-black text-[#6969b3]">
                 November 2026 (10 Nov – 6 Dec 2026)
               </span>
             </div>
-            <h2 className="mt-2 text-xl sm:text-2xl font-black text-[#54414e]">
+            <h2 className="mt-2 text-xl sm:text-2xl font-black text-[#25171a]">
               Target Goals & Budget Planner
             </h2>
-            <p className="text-xs text-[#a790a5] mt-0.5 font-semibold">
+            <p className="text-xs text-[#6969b3] mt-0.5 font-semibold">
               Compare <strong>This Month Limit</strong> (out of ₹30K cash) vs <strong>Normal Monthly Plan</strong> (out of ₹45K salary).
             </p>
           </div>
@@ -88,14 +88,14 @@ export const BudgetPlanner: React.FC<Props> = ({
             <a
               href="/Monthly_Budget_Tracker.xlsx"
               download="Monthly_Budget_Tracker.xlsx"
-              className="flex items-center gap-1.5 rounded-xl border-2 border-[#a790a5]/35 bg-white hover:bg-[#875c74]/15 px-3.5 py-2 text-xs font-bold text-[#54414e] transition shadow-xs"
+              className="flex items-center gap-1.5 rounded-xl border-2 border-[#6969b3]/35 bg-white hover:bg-[#533a7b]/15 px-3.5 py-2 text-xs font-bold text-[#25171a] transition shadow-xs"
             >
-              <i className="fa-solid fa-file-arrow-down text-xs text-[#875c74]"></i>
+              <i className="fa-solid fa-file-arrow-down text-xs text-[#533a7b]"></i>
               Download Excel
             </a>
             <button
               onClick={() => setShowAddModal(true)}
-              className="flex items-center gap-1.5 rounded-xl bg-[#54414e] hover:bg-[#875c74] px-4 py-2 text-xs font-black text-[#c5ebc3] transition shadow-xs"
+              className="flex items-center gap-1.5 rounded-xl bg-[#25171a] hover:bg-[#4b244a] px-4 py-2 text-xs font-black text-[#98c1d9] transition shadow-xs"
             >
               <i className="fa-solid fa-plus text-xs"></i> Add Category
             </button>
@@ -104,38 +104,38 @@ export const BudgetPlanner: React.FC<Props> = ({
 
         {/* Dual Comparison Status Bars */}
         <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-          <div className="rounded-2xl bg-gradient-to-b from-white to-[#c5ebc3]/20 p-4 sm:p-5 border-2 border-[#c5ebc3] text-[#54414e] shadow-xs">
+          <div className="rounded-2xl bg-gradient-to-b from-white to-[#98c1d9]/25 p-4 sm:p-5 border-2 border-[#98c1d9] text-[#25171a] shadow-xs">
             <div className="flex justify-between items-center text-xs font-bold">
-              <span className="text-[#54414e] font-black uppercase text-[11px] tracking-wider">This Month (10 Nov – 6 Dec)</span>
-              <span className="text-[#a790a5]">Cash in hand: ₹30,000</span>
+              <span className="text-[#25171a] font-black uppercase text-[11px] tracking-wider">This Month (10 Nov – 6 Dec)</span>
+              <span className="text-[#6969b3]">Cash in hand: ₹30,000</span>
             </div>
             <div className="mt-2 flex items-baseline justify-between">
-              <div className="text-xl sm:text-2xl font-black text-[#54414e]">
+              <div className="text-xl sm:text-2xl font-black text-[#25171a]">
                 Allocated: {formatINR(totalMonthLimit)}
               </div>
-              <div className={`text-xs font-black ${monthBuffer < 0 ? 'text-rose-600' : 'text-[#54414e]'}`}>
+              <div className={`text-xs font-black ${monthBuffer < 0 ? 'text-rose-600' : 'text-[#25171a]'}`}>
                 {monthBuffer === 0 ? 'Exact Match (₹30K)' : `${formatINR(monthBuffer)} buffer`}
               </div>
             </div>
-            <div className="text-[11px] text-[#a790a5] mt-1.5 font-semibold">
+            <div className="text-[11px] text-[#6969b3] mt-1.5 font-semibold">
               ₹15K to Sister fees + ₹15K for groceries, travel, bills & iPhone EMI
             </div>
           </div>
 
-          <div className="rounded-2xl bg-gradient-to-b from-white to-[#875c74]/10 p-4 sm:p-5 border-2 border-[#875c74] text-[#54414e] shadow-xs">
+          <div className="rounded-2xl bg-gradient-to-b from-white to-[#533a7b]/10 p-4 sm:p-5 border-2 border-[#533a7b] text-[#25171a] shadow-xs">
             <div className="flex justify-between items-center text-xs font-bold">
-              <span className="text-[#54414e] font-black uppercase text-[11px] tracking-wider">Normal Monthly Plan (Post-Dec 7)</span>
-              <span className="text-[#a790a5]">Salary: ₹45,000</span>
+              <span className="text-[#25171a] font-black uppercase text-[11px] tracking-wider">Normal Monthly Plan (Post-Dec 7)</span>
+              <span className="text-[#6969b3]">Salary: ₹45,000</span>
             </div>
             <div className="mt-2 flex items-baseline justify-between">
-              <div className="text-xl sm:text-2xl font-black text-[#54414e]">
+              <div className="text-xl sm:text-2xl font-black text-[#25171a]">
                 Allocated: {formatINR(totalNormalPlan)}
               </div>
-              <div className={`text-xs font-black ${normalBuffer < 0 ? 'text-rose-600' : 'text-[#54414e]'}`}>
+              <div className={`text-xs font-black ${normalBuffer < 0 ? 'text-rose-600' : 'text-[#25171a]'}`}>
                 {normalBuffer === 0 ? 'Exact Match (₹45K)' : `${formatINR(normalBuffer)} buffer`}
               </div>
             </div>
-            <div className="text-[11px] text-[#a790a5] mt-1.5 font-semibold">
+            <div className="text-[11px] text-[#6969b3] mt-1.5 font-semibold">
               ₹16,667 Sister fees + ₹5K PhD + ₹5K travel + ₹8K rent + ₹3.5K grocery
             </div>
           </div>
@@ -144,7 +144,7 @@ export const BudgetPlanner: React.FC<Props> = ({
 
       {/* Category List with Dual Limits */}
       <div className="space-y-3">
-        <h3 className="font-black text-[#54414e] text-base">
+        <h3 className="font-black text-[#25171a] text-base">
           All 11 Categories & Allocations
         </h3>
 
@@ -162,13 +162,13 @@ export const BudgetPlanner: React.FC<Props> = ({
 
       {/* Modal for adding custom category */}
       {showAddModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs animate-fadeIn text-[#54414e]">
-          <div className="w-full max-w-md rounded-3xl border-2 border-[#a790a5]/35 bg-white p-6 shadow-2xl">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs animate-fadeIn text-[#25171a]">
+          <div className="w-full max-w-md rounded-3xl border-2 border-[#6969b3]/35 bg-white p-6 shadow-2xl">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-base font-black text-[#54414e]">Add New Expense Category</h3>
+              <h3 className="text-base font-black text-[#25171a]">Add New Expense Category</h3>
               <button
                 onClick={() => setShowAddModal(false)}
-                className="text-[#a790a5] hover:text-[#54414e]"
+                className="text-[#6969b3] hover:text-[#25171a]"
               >
                 <i className="fa-solid fa-xmark text-lg"></i>
               </button>
@@ -176,7 +176,7 @@ export const BudgetPlanner: React.FC<Props> = ({
 
             <form onSubmit={handleCreateCategory} className="space-y-4">
               <div>
-                <label className="block text-xs font-black text-[#54414e] mb-1">
+                <label className="block text-xs font-black text-[#25171a] mb-1">
                   Category Name *
                 </label>
                 <input
@@ -185,13 +185,13 @@ export const BudgetPlanner: React.FC<Props> = ({
                   placeholder="e.g. Medical / Doctor, Books"
                   value={newCatName}
                   onChange={e => setNewCatName(e.target.value)}
-                  className="w-full rounded-xl border-2 border-[#a790a5]/35 bg-white p-2.5 text-sm text-[#54414e] focus:border-[#875c74] focus:outline-none"
+                  className="w-full rounded-xl border-2 border-[#6969b3]/35 bg-white p-2.5 text-sm text-[#25171a] focus:border-[#533a7b] focus:outline-none"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-black text-[#54414e] mb-1">
+                  <label className="block text-xs font-black text-[#25171a] mb-1">
                     This Month Limit (₹) *
                   </label>
                   <input
@@ -200,12 +200,12 @@ export const BudgetPlanner: React.FC<Props> = ({
                     placeholder="e.g. 1000"
                     value={newCatLimit}
                     onChange={e => setNewCatLimit(e.target.value)}
-                    className="w-full rounded-xl border-2 border-[#a790a5]/35 bg-white p-2 text-xs text-[#54414e] focus:border-[#875c74] focus:outline-none"
+                    className="w-full rounded-xl border-2 border-[#6969b3]/35 bg-white p-2 text-xs text-[#25171a] focus:border-[#533a7b] focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-black text-[#54414e] mb-1">
+                  <label className="block text-xs font-black text-[#25171a] mb-1">
                     Normal Monthly Plan (₹)
                   </label>
                   <input
@@ -213,20 +213,20 @@ export const BudgetPlanner: React.FC<Props> = ({
                     placeholder="e.g. 1500"
                     value={newCatNormal}
                     onChange={e => setNewCatNormal(e.target.value)}
-                    className="w-full rounded-xl border-2 border-[#a790a5]/35 bg-white p-2 text-xs text-[#54414e] focus:border-[#875c74] focus:outline-none"
+                    className="w-full rounded-xl border-2 border-[#6969b3]/35 bg-white p-2 text-xs text-[#25171a] focus:border-[#533a7b] focus:outline-none"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-black text-[#54414e] mb-1">
+                  <label className="block text-xs font-black text-[#25171a] mb-1">
                     Type
                   </label>
                   <select
                     value={newCatType}
                     onChange={e => setNewCatType(e.target.value as CategoryGroupType)}
-                    className="w-full rounded-xl border-2 border-[#a790a5]/35 bg-white p-2 text-xs text-[#54414e] focus:border-[#875c74] focus:outline-none"
+                    className="w-full rounded-xl border-2 border-[#6969b3]/35 bg-white p-2 text-xs text-[#25171a] focus:border-[#533a7b] focus:outline-none"
                   >
                     <option value="Essential">Essential</option>
                     <option value="Fixed">Fixed</option>
@@ -237,13 +237,13 @@ export const BudgetPlanner: React.FC<Props> = ({
                 </div>
 
                 <div>
-                  <label className="block text-xs font-black text-[#54414e] mb-1">
+                  <label className="block text-xs font-black text-[#25171a] mb-1">
                     Icon
                   </label>
                   <select
                     value={newCatIcon}
                     onChange={e => setNewCatIcon(e.target.value)}
-                    className="w-full rounded-xl border-2 border-[#a790a5]/35 bg-white p-2 text-xs text-[#54414e] focus:border-[#875c74] focus:outline-none"
+                    className="w-full rounded-xl border-2 border-[#6969b3]/35 bg-white p-2 text-xs text-[#25171a] focus:border-[#533a7b] focus:outline-none"
                   >
                     {AVAILABLE_ICONS.map(ic => (
                       <option key={ic} value={ic}>
@@ -258,13 +258,13 @@ export const BudgetPlanner: React.FC<Props> = ({
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
-                  className="rounded-xl border-2 border-[#a790a5]/35 px-4 py-2 text-xs font-black text-[#54414e] hover:bg-[#875c74]/15 transition"
+                  className="rounded-xl border-2 border-[#6969b3]/35 px-4 py-2 text-xs font-black text-[#25171a] hover:bg-[#533a7b]/15 transition"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="rounded-xl bg-[#54414e] hover:bg-[#875c74] px-5 py-2 text-xs font-black text-[#c5ebc3] shadow-xs transition"
+                  className="rounded-xl bg-[#25171a] hover:bg-[#4b244a] px-5 py-2 text-xs font-black text-[#98c1d9] shadow-xs transition"
                 >
                   Create Category
                 </button>
@@ -294,21 +294,21 @@ const CategoryPlanCard: React.FC<CategoryPlanCardProps> = ({ category, onUpdate,
   };
 
   return (
-    <div className="rounded-2xl border border-[#a790a5]/30 bg-white p-4 hover:border-[#875c74] transition shadow-xs text-[#54414e]">
+    <div className="rounded-2xl border border-[#6969b3]/30 bg-white p-4 hover:border-[#533a7b] transition shadow-xs text-[#25171a]">
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#c5ebc3]/20 border border-[#a790a5]/30 text-[#54414e]">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#98c1d9]/20 border border-[#6969b3]/30 text-[#25171a]">
             <CategoryIcon name={category.icon} className="w-5 h-5" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h4 className="text-sm font-black text-[#54414e]">{category.name}</h4>
-              <span className="rounded-full bg-[#875c74]/20 border border-[#875c74]/50 px-2 py-0.2 text-[9px] font-black text-[#54414e]">
+              <h4 className="text-sm font-black text-[#25171a]">{category.name}</h4>
+              <span className="rounded-full bg-[#533a7b]/20 border border-[#533a7b]/50 px-2 py-0.2 text-[9px] font-black text-[#25171a]">
                 {category.categoryType}
               </span>
             </div>
             {category.description && (
-              <p className="text-xs text-[#a790a5] mt-0.5 font-semibold line-clamp-1">{category.description}</p>
+              <p className="text-xs text-[#6969b3] mt-0.5 font-semibold line-clamp-1">{category.description}</p>
             )}
           </div>
         </div>
@@ -316,7 +316,7 @@ const CategoryPlanCard: React.FC<CategoryPlanCardProps> = ({ category, onUpdate,
         {onDelete && (
           <button
             onClick={onDelete}
-            className="text-[#a790a5] hover:text-rose-600 p-1.5 transition rounded-lg hover:bg-rose-50"
+            className="text-[#6969b3] hover:text-rose-600 p-1.5 transition rounded-lg hover:bg-rose-50"
             title="Delete custom category"
           >
             <i className="fa-solid fa-trash-can text-sm"></i>
@@ -324,21 +324,21 @@ const CategoryPlanCard: React.FC<CategoryPlanCardProps> = ({ category, onUpdate,
         )}
       </div>
 
-      <div className="mt-3 grid grid-cols-2 gap-2 border-t border-[#a790a5]/20 pt-3">
+      <div className="mt-3 grid grid-cols-2 gap-2 border-t border-[#6969b3]/20 pt-3">
         <div>
-          <div className="text-[11px] font-bold text-[#a790a5]">This Month Limit</div>
+          <div className="text-[11px] font-bold text-[#6969b3]">This Month Limit</div>
           {editing ? (
             <div className="flex items-center gap-1 mt-0.5">
               <input
                 type="number"
                 value={val}
                 onChange={e => setVal(e.target.value)}
-                className="w-20 rounded-lg border-2 border-[#875c74] bg-white px-2 py-0.5 text-xs text-[#54414e] focus:outline-none"
+                className="w-20 rounded-lg border-2 border-[#533a7b] bg-white px-2 py-0.5 text-xs text-[#25171a] focus:outline-none"
                 autoFocus
               />
               <button
                 onClick={handleSave}
-                className="rounded-lg bg-[#54414e] hover:bg-[#875c74] px-2 py-0.5 text-[11px] font-black text-[#c5ebc3]"
+                className="rounded-lg bg-[#25171a] hover:bg-[#4b244a] px-2 py-0.5 text-[11px] font-black text-[#98c1d9]"
               >
                 Save
               </button>
@@ -349,7 +349,7 @@ const CategoryPlanCard: React.FC<CategoryPlanCardProps> = ({ category, onUpdate,
                 setVal(String(category.plannedLimit));
                 setEditing(true);
               }}
-              className="text-xs font-black text-[#54414e] hover:text-[#875c74] underline decoration-2 transition"
+              className="text-xs font-black text-[#25171a] hover:text-[#533a7b] underline decoration-2 transition"
             >
               {formatINR(category.plannedLimit)} (edit)
             </button>
@@ -357,8 +357,8 @@ const CategoryPlanCard: React.FC<CategoryPlanCardProps> = ({ category, onUpdate,
         </div>
 
         <div className="text-right">
-          <div className="text-[11px] font-bold text-[#a790a5]">Normal Monthly Plan</div>
-          <div className="text-xs font-black text-[#54414e] mt-0.5">
+          <div className="text-[11px] font-bold text-[#6969b3]">Normal Monthly Plan</div>
+          <div className="text-xs font-black text-[#25171a] mt-0.5">
             {formatINR(category.normalPlan)}
           </div>
         </div>

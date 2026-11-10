@@ -16,15 +16,15 @@ export const BottomNav: React.FC<Props> = ({
   pendingTasksCount = 0
 }) => {
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-[#a790a5]/30 bg-white/95 backdrop-blur-md pb-safe shadow-lg">
+    <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-[#6969b3]/30 bg-white/95 backdrop-blur-md pb-safe shadow-lg">
       <div className="mx-auto flex max-w-lg items-center justify-around px-2 py-2">
         {/* Dashboard */}
         <button
           onClick={() => onSelectTab('dashboard')}
           className={`flex flex-col items-center gap-1 py-1.5 px-3 rounded-2xl transition ${
             activeTab === 'dashboard'
-              ? 'bg-[#54414e] text-[#c5ebc3] font-black shadow-xs'
-              : 'text-[#875c74] hover:text-[#54414e] font-bold'
+              ? 'bg-[#25171a] text-[#98c1d9] font-black shadow-xs'
+              : 'text-[#6969b3] hover:text-[#25171a] font-bold'
           }`}
         >
           <i className="fa-solid fa-table-columns text-sm"></i>
@@ -36,18 +36,18 @@ export const BottomNav: React.FC<Props> = ({
           onClick={() => onSelectTab('planner')}
           className={`flex flex-col items-center gap-1 py-1.5 px-3 rounded-2xl transition ${
             activeTab === 'planner'
-              ? 'bg-[#54414e] text-[#c5ebc3] font-black shadow-xs'
-              : 'text-[#875c74] hover:text-[#54414e] font-bold'
+              ? 'bg-[#25171a] text-[#98c1d9] font-black shadow-xs'
+              : 'text-[#6969b3] hover:text-[#25171a] font-bold'
           }`}
         >
           <i className="fa-solid fa-sliders text-sm"></i>
           <span className="text-[10px]">Goals</span>
         </button>
 
-        {/* Center Big Add Payment Button in Palette Gradient: #875c74 to #c5ebc3 */}
+        {/* Center Big Add Payment Button in Palette Gradient: #533a7b to #98c1d9 */}
         <button
           onClick={onOpenAddPaymentModal}
-          className="relative -top-3 flex h-13 w-13 items-center justify-center rounded-full bg-gradient-to-tr from-[#875c74] to-[#c5ebc3] text-[#54414e] shadow-xl shadow-[#875c74]/30 ring-4 ring-white active:scale-95 transition"
+          className="relative -top-3 flex h-13 w-13 items-center justify-center rounded-full bg-gradient-to-tr from-[#533a7b] to-[#98c1d9] text-white shadow-xl shadow-[#533a7b]/30 ring-4 ring-white active:scale-95 transition"
           title="Log Payment Today"
         >
           <i className="fa-solid fa-plus text-xl font-black"></i>
@@ -58,14 +58,14 @@ export const BottomNav: React.FC<Props> = ({
           onClick={() => onSelectTab('tasks')}
           className={`relative flex flex-col items-center gap-1 py-1.5 px-3 rounded-2xl transition ${
             activeTab === 'tasks'
-              ? 'bg-[#54414e] text-[#c5ebc3] font-black shadow-xs'
-              : 'text-[#875c74] hover:text-[#54414e] font-bold'
+              ? 'bg-[#25171a] text-[#98c1d9] font-black shadow-xs'
+              : 'text-[#6969b3] hover:text-[#25171a] font-bold'
           }`}
         >
           <i className="fa-solid fa-list-check text-sm"></i>
           <span className="text-[10px]">Tasks</span>
           {pendingTasksCount > 0 && (
-            <span className="absolute -top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#875c74] text-[9px] font-black text-white border border-white">
+            <span className="absolute -top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#533a7b] text-[9px] font-black text-white border border-white">
               {pendingTasksCount}
             </span>
           )}
@@ -76,8 +76,8 @@ export const BottomNav: React.FC<Props> = ({
           onClick={() => onSelectTab('sheet')}
           className={`flex flex-col items-center gap-1 py-1.5 px-3 rounded-2xl transition ${
             activeTab === 'sheet'
-              ? 'bg-[#54414e] text-[#c5ebc3] font-black shadow-xs'
-              : 'text-[#875c74] hover:text-[#54414e] font-bold'
+              ? 'bg-[#25171a] text-[#98c1d9] font-black shadow-xs'
+              : 'text-[#6969b3] hover:text-[#25171a] font-bold'
           }`}
         >
           <i className="fa-solid fa-table-list text-sm"></i>

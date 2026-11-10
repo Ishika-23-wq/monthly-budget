@@ -37,22 +37,22 @@ export const Dashboard: React.FC<Props> = ({
   const pendingTasks = tasks.filter(t => !t.completed);
 
   return (
-    <div className="space-y-6 text-[#54414e]">
+    <div className="space-y-6 text-[#25171a]">
       {/* Month Banner in Palette */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 rounded-2xl bg-white border border-[#a790a5]/30 px-4 py-3 text-xs text-[#54414e] shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 rounded-2xl bg-white border border-[#6969b3]/30 px-4 py-3 text-xs text-[#25171a] shadow-xs">
         <div className="flex items-center gap-2">
-          <i className="fa-solid fa-calendar-days text-[#875c74] text-sm"></i>
+          <i className="fa-solid fa-calendar-days text-[#533a7b] text-sm"></i>
           <span>
-            <strong className="text-[#54414e]">Month:</strong> November 2026 (10 Nov – 6 Dec 2026) &nbsp;|&nbsp; <strong className="text-[#54414e]">Next Salary:</strong> 7 Dec 2026 &nbsp;|&nbsp; <strong className="text-[#54414e]">Today:</strong> 10 Nov 2026
+            <strong className="text-[#25171a]">Month:</strong> November 2026 (10 Nov – 6 Dec 2026) &nbsp;|&nbsp; <strong className="text-[#25171a]">Next Salary:</strong> 7 Dec 2026 &nbsp;|&nbsp; <strong className="text-[#25171a]">Today:</strong> 10 Nov 2026
           </span>
         </div>
         <div className="flex items-center gap-2">
           <a
             href="/Monthly_Budget_Tracker.xlsx"
             download="Monthly_Budget_Tracker.xlsx"
-            className="flex items-center gap-1.5 text-[11px] font-black text-[#54414e] hover:text-[#875c74] transition"
+            className="flex items-center gap-1.5 text-[11px] font-black text-[#25171a] hover:text-[#533a7b] transition"
           >
-            <i className="fa-solid fa-file-arrow-down text-xs text-[#875c74]"></i>
+            <i className="fa-solid fa-file-arrow-down text-xs text-[#533a7b]"></i>
             Download Excel (.xlsx)
           </a>
         </div>
@@ -69,29 +69,29 @@ export const Dashboard: React.FC<Props> = ({
       />
 
       {/* PhD Fees Advisory Notice */}
-      <div className="rounded-3xl border border-[#a790a5]/35 bg-white p-4 sm:p-5 shadow-xs text-[#54414e]">
+      <div className="rounded-3xl border border-[#6969b3]/35 bg-white p-4 sm:p-5 shadow-xs text-[#25171a]">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#54414e] text-[#c5ebc3] ring-2 ring-[#875c74]/30 shadow-xs">
-              <i className="fa-solid fa-wand-magic-sparkles text-base text-[#c5ebc3]"></i>
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#25171a] text-[#98c1d9] ring-2 ring-[#533a7b]/30 shadow-xs">
+              <i className="fa-solid fa-wand-magic-sparkles text-base text-[#98c1d9]"></i>
             </div>
             <div>
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="rounded-full bg-[#c5ebc3]/30 border border-[#875c74]/40 px-2.5 py-0.5 text-[10px] font-black uppercase tracking-wider text-[#54414e]">
+                <span className="rounded-full bg-[#98c1d9]/30 border border-[#533a7b]/40 px-2.5 py-0.5 text-[10px] font-black uppercase tracking-wider text-[#25171a]">
                   Starts January 2027
                 </span>
-                <span className="text-xs text-[#54414e] font-black">
+                <span className="text-xs text-[#25171a] font-black">
                   Own PhD Fees: ₹30,000 / semester
                 </span>
               </div>
-              <p className="text-xs text-[#54414e] mt-0.5 font-semibold">
-                Monthly auto-reserve: <strong className="text-[#54414e] underline decoration-[#875c74]">₹5,000 / month</strong> (₹30,000 ÷ 6 months). Combined education commitment starting Jan: <strong className="text-[#54414e] font-black">₹21,667 / mo</strong> (Sister's ₹16,667 + PhD ₹5,000).
+              <p className="text-xs text-[#25171a] mt-0.5 font-semibold">
+                Monthly auto-reserve: <strong className="text-[#25171a] underline decoration-[#533a7b]">₹5,000 / month</strong> (₹30,000 ÷ 6 months). Combined education commitment starting Jan: <strong className="text-[#25171a] font-black">₹21,667 / mo</strong> (Sister's ₹16,667 + PhD ₹5,000).
               </p>
             </div>
           </div>
           <button
             onClick={() => onSwitchTab('planner')}
-            className="shrink-0 rounded-xl border-2 border-[#a790a5]/40 bg-white hover:bg-[#875c74]/15 px-4 py-1.5 text-xs font-bold text-[#54414e] transition self-start sm:self-center shadow-xs"
+            className="shrink-0 rounded-xl border-2 border-[#6969b3]/40 bg-white hover:bg-[#533a7b]/15 px-4 py-1.5 text-xs font-bold text-[#25171a] transition self-start sm:self-center shadow-xs"
           >
             View Plan
           </button>
@@ -100,19 +100,19 @@ export const Dashboard: React.FC<Props> = ({
 
       {/* Upcoming Tasks & Deadlines Widget */}
       {pendingTasks.length > 0 && (
-        <div className="rounded-3xl border border-[#a790a5]/35 bg-white p-4 sm:p-5 shadow-xs text-[#54414e]">
+        <div className="rounded-3xl border border-[#6969b3]/35 bg-white p-4 sm:p-5 shadow-xs text-[#25171a]">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#875c74]/20 text-[#54414e]">
+              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#533a7b]/20 text-[#25171a]">
                 <i className="fa-solid fa-list-check text-xs"></i>
               </div>
-              <h4 className="text-xs sm:text-sm font-black text-[#54414e]">
+              <h4 className="text-xs sm:text-sm font-black text-[#25171a]">
                 Upcoming Academic & Work Deadlines ({pendingTasks.length})
               </h4>
             </div>
             <button
               onClick={() => onSwitchTab('tasks')}
-              className="text-xs font-black text-[#54414e] hover:text-[#875c74] flex items-center gap-1 transition"
+              className="text-xs font-black text-[#25171a] hover:text-[#533a7b] flex items-center gap-1 transition"
             >
               Open Tasks Page <i className="fa-solid fa-chevron-right text-[10px]"></i>
             </button>
@@ -128,21 +128,21 @@ export const Dashboard: React.FC<Props> = ({
                   onClick={() => onSwitchTab('tasks')}
                   className={`cursor-pointer rounded-2xl p-3 border transition ${
                     isUrgent
-                      ? 'border-[#875c74] bg-[#875c74]/10 hover:border-[#54414e]'
-                      : 'border-[#a790a5]/30 bg-white hover:border-[#875c74]'
+                      ? 'border-[#533a7b] bg-[#533a7b]/10 hover:border-[#25171a]'
+                      : 'border-[#6969b3]/30 bg-white hover:border-[#533a7b]'
                   }`}
                 >
                   <div className="flex items-start justify-between gap-2">
-                    <span className="text-xs font-black text-[#54414e] line-clamp-1">{task.title}</span>
+                    <span className="text-xs font-black text-[#25171a] line-clamp-1">{task.title}</span>
                     <span className={`shrink-0 rounded-full px-2 py-0.2 text-[9px] font-black ${
-                      isUrgent ? 'bg-[#875c74] text-white border border-[#54414e]/20' : 'bg-[#54414e] text-white'
+                      isUrgent ? 'bg-[#533a7b] text-white border border-[#25171a]/20' : 'bg-[#25171a] text-white'
                     }`}>
                       {days === 0 ? 'Today' : days === 1 ? 'Tomorrow' : `${days}d left`}
                     </span>
                   </div>
-                  <div className="mt-1.5 flex items-center justify-between text-[11px] text-[#a790a5] font-semibold">
+                  <div className="mt-1.5 flex items-center justify-between text-[11px] text-[#6969b3] font-semibold">
                     <span>{task.category}</span>
-                    <span className="text-[#54414e] font-bold">{formatDateReadable(task.deadline)}</span>
+                    <span className="text-[#25171a] font-bold">{formatDateReadable(task.deadline)}</span>
                   </div>
                 </div>
               );
@@ -154,57 +154,57 @@ export const Dashboard: React.FC<Props> = ({
       {/* Dashboard 6-Metric Grid */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
         {/* Cash at month start */}
-        <div className="rounded-2xl border border-[#a790a5]/30 bg-white p-3.5 sm:p-4 shadow-xs">
-          <div className="text-[11px] font-bold text-[#a790a5]">Cash at Start</div>
-          <div className="mt-1 text-lg sm:text-xl font-black text-[#54414e]">
+        <div className="rounded-2xl border border-[#6969b3]/30 bg-white p-3.5 sm:p-4 shadow-xs">
+          <div className="text-[11px] font-bold text-[#6969b3]">Cash at Start</div>
+          <div className="mt-1 text-lg sm:text-xl font-black text-[#25171a]">
             {formatINR(budget.startingBalance)}
           </div>
-          <div className="mt-0.5 text-[10px] text-[#a790a5] font-semibold">Starting in hand</div>
+          <div className="mt-0.5 text-[10px] text-[#6969b3] font-semibold">Starting in hand</div>
         </div>
 
         {/* Spent this month */}
-        <div className="rounded-2xl border border-[#a790a5]/30 bg-white p-3.5 sm:p-4 shadow-xs">
-          <div className="text-[11px] font-bold text-[#a790a5]">Spent This Month</div>
-          <div className="mt-1 text-lg sm:text-xl font-black text-[#54414e]">
+        <div className="rounded-2xl border border-[#6969b3]/30 bg-white p-3.5 sm:p-4 shadow-xs">
+          <div className="text-[11px] font-bold text-[#6969b3]">Spent This Month</div>
+          <div className="mt-1 text-lg sm:text-xl font-black text-[#25171a]">
             {formatINR(summary.totalSpent)}
           </div>
-          <div className="mt-0.5 text-[10px] text-[#a790a5] font-semibold">{budget.expenses.length} payments</div>
+          <div className="mt-0.5 text-[10px] text-[#6969b3] font-semibold">{budget.expenses.length} payments</div>
         </div>
 
-        {/* Cash Left - Highlight with subtle Tea Green tint */}
-        <div className="rounded-2xl border-2 border-[#c5ebc3] bg-gradient-to-b from-white to-[#c5ebc3]/20 p-3.5 sm:p-4 shadow-xs">
-          <div className="text-[11px] font-black text-[#54414e]">Cash Left</div>
-          <div className="mt-1 text-lg sm:text-xl font-black text-[#54414e]">
+        {/* Cash Left - Highlight with subtle Powder Blue tint */}
+        <div className="rounded-2xl border-2 border-[#98c1d9] bg-gradient-to-b from-white to-[#98c1d9]/25 p-3.5 sm:p-4 shadow-xs">
+          <div className="text-[11px] font-black text-[#25171a]">Cash Left</div>
+          <div className="mt-1 text-lg sm:text-xl font-black text-[#25171a]">
             {formatINR(summary.cashLeft)}
           </div>
-          <div className="mt-0.5 text-[10px] text-[#54414e] font-bold">Available right now</div>
+          <div className="mt-0.5 text-[10px] text-[#25171a] font-bold">Available right now</div>
         </div>
 
         {/* Days to salary */}
-        <div className="rounded-2xl border border-[#a790a5]/30 bg-white p-3.5 sm:p-4 shadow-xs">
-          <div className="text-[11px] font-bold text-[#a790a5]">Days to Salary</div>
-          <div className="mt-1 text-lg sm:text-xl font-black text-[#54414e]">
+        <div className="rounded-2xl border border-[#6969b3]/30 bg-white p-3.5 sm:p-4 shadow-xs">
+          <div className="text-[11px] font-bold text-[#6969b3]">Days to Salary</div>
+          <div className="mt-1 text-lg sm:text-xl font-black text-[#25171a]">
             {summary.daysLeft} days
           </div>
-          <div className="mt-0.5 text-[10px] text-[#a790a5] font-semibold">Next payday: 7 Dec</div>
+          <div className="mt-0.5 text-[10px] text-[#6969b3] font-semibold">Next payday: 7 Dec</div>
         </div>
 
-        {/* Safe to spend / day - Highlight with subtle Lavender tint */}
-        <div className="rounded-2xl border-2 border-[#875c74] bg-gradient-to-b from-white to-[#875c74]/10 p-3.5 sm:p-4 shadow-xs">
-          <div className="text-[11px] font-black text-[#54414e]">Safe to Spend / Day</div>
-          <div className="mt-1 text-lg sm:text-xl font-black text-[#54414e]">
+        {/* Safe to spend / day - Highlight with subtle Indigo tint */}
+        <div className="rounded-2xl border-2 border-[#533a7b] bg-gradient-to-b from-white to-[#533a7b]/10 p-3.5 sm:p-4 shadow-xs">
+          <div className="text-[11px] font-black text-[#25171a]">Safe to Spend / Day</div>
+          <div className="mt-1 text-lg sm:text-xl font-black text-[#25171a]">
             ₹{summary.safeToSpendPerDay.toFixed(0)} <span className="text-xs font-normal">/ day</span>
           </div>
-          <div className="mt-0.5 text-[10px] text-[#54414e] font-bold">Cash left ÷ Days left</div>
+          <div className="mt-0.5 text-[10px] text-[#25171a] font-bold">Cash left ÷ Days left</div>
         </div>
 
         {/* Spent today */}
-        <div className="rounded-2xl border border-[#a790a5]/30 bg-white p-3.5 sm:p-4 shadow-xs">
-          <div className="text-[11px] font-bold text-[#a790a5]">Spent Today</div>
-          <div className="mt-1 text-lg sm:text-xl font-black text-[#54414e]">
+        <div className="rounded-2xl border border-[#6969b3]/30 bg-white p-3.5 sm:p-4 shadow-xs">
+          <div className="text-[11px] font-bold text-[#6969b3]">Spent Today</div>
+          <div className="mt-1 text-lg sm:text-xl font-black text-[#25171a]">
             {formatINR(summary.spentToday)}
           </div>
-          <div className="mt-0.5 text-[10px] text-[#a790a5] font-semibold">10 Nov 2026</div>
+          <div className="mt-0.5 text-[10px] text-[#6969b3] font-semibold">10 Nov 2026</div>
         </div>
       </div>
 
@@ -212,7 +212,7 @@ export const Dashboard: React.FC<Props> = ({
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <button
           onClick={() => onOpenAddPayment()}
-          className="flex items-center justify-center gap-2 rounded-2xl bg-[#54414e] hover:bg-[#875c74] p-3.5 text-xs sm:text-sm font-black text-[#c5ebc3] shadow-md shadow-[#54414e]/15 transition active:scale-95"
+          className="flex items-center justify-center gap-2 rounded-2xl bg-[#25171a] hover:bg-[#4b244a] p-3.5 text-xs sm:text-sm font-black text-[#98c1d9] shadow-md shadow-[#25171a]/15 transition active:scale-95"
         >
           <i className="fa-solid fa-plus text-xs"></i>
           <span>Log Payment Today</span>
@@ -220,41 +220,41 @@ export const Dashboard: React.FC<Props> = ({
 
         <button
           onClick={() => onSwitchTab('tasks')}
-          className="flex items-center justify-center gap-2 rounded-2xl border-2 border-[#a790a5]/35 bg-white hover:bg-[#875c74]/15 p-3.5 text-xs sm:text-sm font-bold text-[#54414e] transition active:scale-95 shadow-xs"
+          className="flex items-center justify-center gap-2 rounded-2xl border-2 border-[#6969b3]/35 bg-white hover:bg-[#533a7b]/15 p-3.5 text-xs sm:text-sm font-bold text-[#25171a] transition active:scale-95 shadow-xs"
         >
-          <i className="fa-solid fa-list-check text-xs text-[#875c74]"></i>
+          <i className="fa-solid fa-list-check text-xs text-[#533a7b]"></i>
           <span>Tasks & Deadlines</span>
         </button>
 
         <button
           onClick={() => onSwitchTab('sheet')}
-          className="flex items-center justify-center gap-2 rounded-2xl border-2 border-[#a790a5]/35 bg-white hover:bg-[#875c74]/15 p-3.5 text-xs sm:text-sm font-bold text-[#54414e] transition active:scale-95 shadow-xs"
+          className="flex items-center justify-center gap-2 rounded-2xl border-2 border-[#6969b3]/35 bg-white hover:bg-[#533a7b]/15 p-3.5 text-xs sm:text-sm font-bold text-[#25171a] transition active:scale-95 shadow-xs"
         >
-          <i className="fa-solid fa-table-list text-xs text-[#54414e]"></i>
+          <i className="fa-solid fa-table-list text-xs text-[#25171a]"></i>
           <span>Single Sheet View</span>
         </button>
 
         <button
           onClick={() => onSwitchTab('planner')}
-          className="flex items-center justify-center gap-2 rounded-2xl border-2 border-[#a790a5]/35 bg-white hover:bg-[#875c74]/15 p-3.5 text-xs sm:text-sm font-bold text-[#54414e] transition active:scale-95 shadow-xs"
+          className="flex items-center justify-center gap-2 rounded-2xl border-2 border-[#6969b3]/35 bg-white hover:bg-[#533a7b]/15 p-3.5 text-xs sm:text-sm font-bold text-[#25171a] transition active:scale-95 shadow-xs"
         >
-          <i className="fa-solid fa-sliders text-xs text-[#875c74]"></i>
+          <i className="fa-solid fa-sliders text-xs text-[#533a7b]"></i>
           <span>Adjust Goals</span>
         </button>
       </div>
 
       {/* Category Budget for This Month */}
-      <div className="rounded-3xl border border-[#a790a5]/35 bg-white p-5 sm:p-6 shadow-xs text-[#54414e]">
+      <div className="rounded-3xl border border-[#6969b3]/35 bg-white p-5 sm:p-6 shadow-xs text-[#25171a]">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h3 className="text-base font-black text-[#54414e]">Category Budget for This Month</h3>
-            <p className="text-xs text-[#a790a5] font-semibold">
+            <h3 className="text-base font-black text-[#25171a]">Category Budget for This Month</h3>
+            <p className="text-xs text-[#6969b3] font-semibold">
               Allocated out of ₹30,000 cash in hand for 27 days until salary arrives
             </p>
           </div>
           <button
             onClick={() => onSwitchTab('planner')}
-            className="text-xs font-black text-[#54414e] hover:text-[#875c74] transition underline"
+            className="text-xs font-black text-[#25171a] hover:text-[#533a7b] transition underline"
           >
             Adjust Limits
           </button>
@@ -272,34 +272,34 @@ export const Dashboard: React.FC<Props> = ({
               <div
                 key={cat.id}
                 onClick={() => onOpenAddPayment(cat.id)}
-                className="group cursor-pointer rounded-2xl border border-[#a790a5]/30 bg-[#c5ebc3]/10 p-3.5 hover:border-[#875c74] hover:bg-white transition shadow-xs"
+                className="group cursor-pointer rounded-2xl border border-[#6969b3]/30 bg-[#98c1d9]/10 p-3.5 hover:border-[#533a7b] hover:bg-white transition shadow-xs"
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-[#54414e] border border-[#a790a5]/30 shadow-2xs group-hover:border-[#875c74] transition">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-[#25171a] border border-[#6969b3]/30 shadow-2xs group-hover:border-[#533a7b] transition">
                       <CategoryIcon name={cat.icon} className="w-4 h-4" />
                     </div>
                     <div>
                       <div className="flex items-center gap-1.5">
-                        <span className="text-xs sm:text-sm font-black text-[#54414e]">
+                        <span className="text-xs sm:text-sm font-black text-[#25171a]">
                           {cat.name}
                         </span>
-                        <span className="rounded-full bg-[#875c74]/20 border border-[#875c74]/40 px-2 py-0.2 text-[9px] font-black text-[#54414e]">
+                        <span className="rounded-full bg-[#533a7b]/20 border border-[#533a7b]/40 px-2 py-0.2 text-[9px] font-black text-[#25171a]">
                           {cat.categoryType}
                         </span>
                       </div>
-                      <div className="text-[11px] text-[#a790a5] font-semibold">
-                        Limit: <strong className="text-[#54414e]">{formatINR(cat.plannedLimit)}</strong> • Normal: {formatINR(cat.normalPlan)}
+                      <div className="text-[11px] text-[#6969b3] font-semibold">
+                        Limit: <strong className="text-[#25171a]">{formatINR(cat.plannedLimit)}</strong> • Normal: {formatINR(cat.normalPlan)}
                       </div>
                     </div>
                   </div>
 
                   <div className="text-right">
-                    <div className="text-xs font-black text-[#54414e]">
+                    <div className="text-xs font-black text-[#25171a]">
                       {isOver ? `-${formatINR(Math.abs(remaining))}` : `${formatINR(remaining)} left`}
                     </div>
                     {cat.plannedLimit > 0 && (
-                      <div className="text-[10px] font-bold text-[#a790a5]">
+                      <div className="text-[10px] font-bold text-[#6969b3]">
                         ₹{dailySafe.toFixed(0)}/day safe
                       </div>
                     )}
@@ -307,9 +307,9 @@ export const Dashboard: React.FC<Props> = ({
                 </div>
 
                 {/* Progress bar with modern gradient */}
-                <div className="mt-2.5 h-2 w-full overflow-hidden rounded-full bg-white border border-[#a790a5]/25">
+                <div className="mt-2.5 h-2 w-full overflow-hidden rounded-full bg-white border border-[#6969b3]/25">
                   <div
-                    className="h-full bg-gradient-to-r from-[#875c74] to-[#c5ebc3] transition-all duration-300 rounded-full"
+                    className="h-full bg-gradient-to-r from-[#533a7b] to-[#98c1d9] transition-all duration-300 rounded-full"
                     style={{ width: `${Math.min(100, percent)}%` }}
                   />
                 </div>
@@ -320,24 +320,24 @@ export const Dashboard: React.FC<Props> = ({
       </div>
 
       {/* Recent Payments Feed */}
-      <div className="rounded-3xl border border-[#a790a5]/35 bg-white p-5 sm:p-6 shadow-xs text-[#54414e]">
+      <div className="rounded-3xl border border-[#6969b3]/35 bg-white p-5 sm:p-6 shadow-xs text-[#25171a]">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#875c74]/20 text-[#54414e]">
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#533a7b]/20 text-[#25171a]">
               <i className="fa-solid fa-clock text-xs"></i>
             </div>
-            <h3 className="text-base font-black text-[#54414e]">Recent Payments</h3>
+            <h3 className="text-base font-black text-[#25171a]">Recent Payments</h3>
           </div>
           <button
             onClick={() => onSwitchTab('sheet')}
-            className="text-xs font-black text-[#54414e] hover:text-[#875c74] transition underline"
+            className="text-xs font-black text-[#25171a] hover:text-[#533a7b] transition underline"
           >
             View Full Sheet
           </button>
         </div>
 
         {budget.expenses.length === 0 ? (
-          <div className="py-8 text-center text-xs text-[#a790a5] font-bold">
+          <div className="py-8 text-center text-xs text-[#6969b3] font-bold">
             No payments logged yet this month. Tap <strong>"+ Log Payment Today"</strong> to log an expense!
           </div>
         ) : (
@@ -347,27 +347,27 @@ export const Dashboard: React.FC<Props> = ({
               return (
                 <div
                   key={exp.id}
-                  className="flex items-center justify-between rounded-2xl bg-white border border-[#a790a5]/25 p-3.5 hover:border-[#875c74] transition shadow-xs"
+                  className="flex items-center justify-between rounded-2xl bg-white border border-[#6969b3]/25 p-3.5 hover:border-[#533a7b] transition shadow-xs"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#c5ebc3]/20 border border-[#a790a5]/30 text-[#54414e]">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#98c1d9]/20 border border-[#6969b3]/30 text-[#25171a]">
                       <CategoryIcon name={cat?.icon || 'Tag'} className="w-4 h-4" />
                     </div>
                     <div>
-                      <div className="text-xs sm:text-sm font-black text-[#54414e]">{exp.title}</div>
-                      <div className="text-[11px] text-[#a790a5] font-semibold">
+                      <div className="text-xs sm:text-sm font-black text-[#25171a]">{exp.title}</div>
+                      <div className="text-[11px] text-[#6969b3] font-semibold">
                         {cat?.name} • {formatDateReadable(exp.date)} • {exp.paymentMethod}
                       </div>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <span className="text-xs sm:text-sm font-black text-[#54414e]">
+                    <span className="text-xs sm:text-sm font-black text-[#25171a]">
                       -{formatINR(exp.amount)}
                     </span>
                     <button
                       onClick={() => onDeleteExpense(exp.id)}
-                      className="text-[#a790a5] hover:text-[#875c74] text-xs p-1 transition"
+                      className="text-[#6969b3] hover:text-[#533a7b] text-xs p-1 transition"
                       title="Delete transaction"
                     >
                       <i className="fa-solid fa-xmark"></i>

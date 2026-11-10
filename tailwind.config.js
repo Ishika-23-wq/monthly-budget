@@ -9,17 +9,17 @@ export default {
     extend: {
       colors: {
         palette: {
-          teaGreen: '#c5ebc3',       // #c5ebc3 - Tea Green
-          ashGrey: '#b7c8b5',        // #b7c8b5 - Ash Grey
-          lilacAsh: '#a790a5',       // #a790a5 - Lilac Ash
-          dustyLavender: '#875c74',  // #875c74 - Dusty Lavender
-          mauveShadow: '#54414e',    // #54414e - Mauve Shadow
+          powderBlue: '#98c1d9',      // #98c1d9 - Powder Blue
+          slateBlue: '#6969b3',       // #6969b3 - Slate Blue
+          indigoVelvet: '#533a7b',    // #533a7b - Indigo Velvet
+          blackberryCream: '#4b244a', // #4b244a - Blackberry Cream
+          coffeeBean: '#25171a',      // #25171a - Coffee Bean
         },
-        primary: '#54414e',
-        secondary: '#875c74',
-        accent: '#c5ebc3',
-        ash: '#b7c8b5',
-        lilac: '#a790a5',
+        primary: '#25171a',
+        secondary: '#533a7b',
+        accent: '#98c1d9',
+        plum: '#4b244a',
+        slate: '#6969b3',
       },
       fontFamily: {
         sans: ['Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
