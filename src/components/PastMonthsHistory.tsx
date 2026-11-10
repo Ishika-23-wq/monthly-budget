@@ -1,15 +1,4 @@
-import React, { useState } from 'react';
-import {
-  History,
-  ArrowRight,
-  TrendingUp,
-  CheckCircle2,
-  Calendar,
-  Plus,
-  Coins,
-  ShieldCheck,
-  ChevronRight
-} from 'lucide-react';
+import React from 'react';
 import { MonthlyBudget } from '../types';
 import { formatINR } from '../utils/formatters';
 
@@ -30,7 +19,7 @@ export const PastMonthsHistory: React.FC<Props> = ({
 
   const latestMonthKey = budgetList[0]?.monthKey || 'cycle-1';
   const suggestedNextKey = latestMonthKey === 'cycle-1' ? 'cycle-2' : latestMonthKey === 'cycle-2' ? 'cycle-3' : `cycle-${Date.now()}`;
-  const suggestedNextName = suggestedNextKey === 'cycle-2' ? 'Cycle 2 (7 Dec – 6 Jan)' : 'Cycle 3 (7 Jan – 6 Feb)';
+  const suggestedNextName = suggestedNextKey === 'cycle-2' ? 'December 2026' : 'January 2027';
 
   return (
     <div className="space-y-6 bg-white text-black">
@@ -39,7 +28,7 @@ export const PastMonthsHistory: React.FC<Props> = ({
         <div>
           <div className="flex items-center gap-2">
             <span className="flex items-center gap-1.5 rounded-md bg-[#6d6875] px-2.5 py-0.5 text-xs font-bold text-white">
-              <History className="h-3.5 w-3.5" />
+              <i className="fa-solid fa-clock-rotate-left text-xs"></i>
               Month-to-Month Rollover & History
             </span>
           </div>
@@ -47,7 +36,7 @@ export const PastMonthsHistory: React.FC<Props> = ({
             Historical Balance & Rollover Tracking
           </h2>
           <p className="text-xs text-black mt-0.5 font-semibold">
-            Every rupee left after each cycle automatically carries forward into the next opening balance.
+            Every rupee left after each month automatically carries forward into the next opening balance.
           </p>
         </div>
 
@@ -55,18 +44,18 @@ export const PastMonthsHistory: React.FC<Props> = ({
           onClick={() => onCreateNextMonth(suggestedNextKey)}
           className="flex items-center gap-2 rounded-xl bg-[#6d6875] hover:bg-[#595460] px-4 py-2.5 text-xs font-bold text-white shadow transition self-start sm:self-center"
         >
-          <Plus className="h-4 w-4" /> Start {suggestedNextName}
+          <i className="fa-solid fa-plus text-xs"></i> Start {suggestedNextName}
         </button>
       </div>
 
       {/* Answer Box in White & Black */}
       <div className="rounded-xl border-2 border-[#6d6875] bg-white p-4 text-xs text-black space-y-1.5">
         <div className="flex items-center gap-2 font-black text-black text-sm">
-          <CheckCircle2 className="h-4 w-4 text-[#6d6875]" />
+          <i className="fa-solid fa-circle-check text-[#6d6875] text-base"></i>
           Leftover Balance is Fully Maintained & Carried Forward!
         </div>
         <p className="leading-relaxed font-semibold">
-          The app tracks the exact opening balance of each cycle, adds your ₹45,000 salary on the 7th, subtracts what you actually spent across all categories, and transfers whatever remains as the <strong>Opening Balance</strong> for the following cycle.
+          The app tracks the exact opening balance of each month, adds your ₹45,000 salary on the 7th, subtracts what you actually spent across all categories, and transfers whatever remains as the <strong>Opening Balance</strong> for the following month.
         </p>
       </div>
 
@@ -90,14 +79,14 @@ export const PastMonthsHistory: React.FC<Props> = ({
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
                   <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#6d6875] text-white">
-                    <Calendar className="h-5 w-5" />
+                    <i className="fa-solid fa-calendar-days text-lg"></i>
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
                       <h3 className="text-base font-black text-black">{b.monthName}</h3>
                       {isActive && (
                         <span className="rounded-full bg-[#6d6875] px-2 py-0.5 text-[10px] font-bold text-white">
-                          Active Cycle
+                          Active Month
                         </span>
                       )}
                     </div>
@@ -113,7 +102,7 @@ export const PastMonthsHistory: React.FC<Props> = ({
                       onClick={() => onSelectMonth(b.monthKey)}
                       className="flex items-center gap-1.5 rounded-lg border-2 border-[#6d6875] bg-white hover:bg-[#6d6875]/10 px-3 py-1.5 text-xs font-black text-black transition"
                     >
-                      View This Cycle <ChevronRight className="h-4 w-4 text-[#6d6875]" />
+                      View This Month <i className="fa-solid fa-chevron-right text-xs text-[#6d6875]"></i>
                     </button>
                   )}
                 </div>

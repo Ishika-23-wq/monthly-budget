@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { AlertTriangle, Calendar, ShieldCheck, ChevronDown, ChevronUp, Sparkles, Sliders, Info } from 'lucide-react';
 import { formatINR, getDaysUntil } from '../utils/formatters';
 import { Category } from '../types';
 
@@ -29,9 +28,9 @@ export const SisterFeeEmergencyBanner: React.FC<Props> = ({
   const bestCaseSpendNothing = currentCashLeft + salary; // ₹30,000 + ₹45,000 = ₹75,000
   const gapBestCase = targetTotal - bestCaseSpendNothing; // ₹25,000
   
-  // If following this cycle limits (₹15,000 saved from cash + ₹45,000 salary = ₹60,000)
-  const sisterCycleLimit = sisterCategory?.plannedLimit || 15000;
-  const followingLimitsTotal = sisterCycleLimit + salary; // ₹60,000
+  // If following this month limits (₹15,000 saved from cash + ₹45,000 salary = ₹60,000)
+  const sisterMonthLimit = sisterCategory?.plannedLimit || 15000;
+  const followingLimitsTotal = sisterMonthLimit + salary; // ₹60,000
   const shortfallFollowingLimits = targetTotal - followingLimitsTotal; // ₹40,000
 
   return (
@@ -39,15 +38,15 @@ export const SisterFeeEmergencyBanner: React.FC<Props> = ({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-start gap-3">
           <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#6d6875] text-[#ffcdb2]">
-            <AlertTriangle className="h-6 w-6" />
+            <i className="fa-solid fa-triangle-exclamation text-xl"></i>
           </div>
           <div>
             <div className="flex items-center gap-2 flex-wrap">
               <span className="rounded-md bg-[#b5838d] px-2 py-0.5 text-xs font-bold uppercase tracking-wider text-white">
                 Sister's Fees Goal
               </span>
-              <span className="text-xs font-bold text-black flex items-center gap-1">
-                <Calendar className="h-3.5 w-3.5 text-[#b5838d]" /> Due: 7 Dec 2026 ({daysLeft} days left)
+              <span className="text-xs font-bold text-black flex items-center gap-1.5">
+                <i className="fa-solid fa-calendar-days text-[#b5838d] text-xs"></i> Due: 7 Dec 2026 ({daysLeft} days left)
               </span>
             </div>
             <h3 className="mt-1 text-base sm:text-lg font-black text-black">
@@ -65,7 +64,7 @@ export const SisterFeeEmergencyBanner: React.FC<Props> = ({
             className="flex items-center gap-1.5 rounded-xl border-2 border-[#6d6875] bg-white hover:bg-[#ffcdb2]/20 px-3 py-2 text-xs font-bold text-black transition"
           >
             {expanded ? 'Hide Details' : 'View Fee Shortfall Math'}
-            {expanded ? <ChevronUp className="h-4 w-4 text-[#b5838d]" /> : <ChevronDown className="h-4 w-4 text-[#b5838d]" />}
+            <i className={`fa-solid ${expanded ? 'fa-chevron-up' : 'fa-chevron-down'} text-xs text-[#b5838d]`}></i>
           </button>
         </div>
       </div>
@@ -86,7 +85,7 @@ export const SisterFeeEmergencyBanner: React.FC<Props> = ({
 
       {/* Warning Box */}
       <div className="mt-3 rounded-xl bg-white border-2 border-[#e5989b] p-3 text-xs text-black">
-        <strong className="text-[#b5838d]">⚠️ CRITICAL EXCEL WARNING:</strong> Even after cutting this cycle's expenses to the limits, you are short by <strong className="underline text-black font-black">{formatINR(shortfallFollowingLimits)}</strong> (and short by <strong className="underline text-black font-black">{formatINR(gapBestCase)}</strong> even if you spend zero on groceries and travel). <strong>Ask the college for a 2-part instalment (₹50k on Dec 7 + ₹50k in Jan) or arrange the balance before Dec 7.</strong>
+        <strong className="text-[#b5838d]">⚠️ CRITICAL EXCEL WARNING:</strong> Even after cutting this month's expenses to the limits, you are short by <strong className="underline text-black font-black">{formatINR(shortfallFollowingLimits)}</strong> (and short by <strong className="underline text-black font-black">{formatINR(gapBestCase)}</strong> even if you spend zero on groceries and travel). <strong>Ask the college for a 2-part instalment (₹50k on Dec 7 + ₹50k in Jan) or arrange the balance before Dec 7.</strong>
       </div>
 
       {/* Expanded Breakdown in Coolors Palette */}
@@ -106,7 +105,7 @@ export const SisterFeeEmergencyBanner: React.FC<Props> = ({
             </div>
 
             <div className="rounded-xl bg-white p-3 border-2 border-[#6d6875]">
-              <div className="text-black text-[11px] font-bold">Following Cycle Limits</div>
+              <div className="text-black text-[11px] font-bold">Following Month Limits</div>
               <div className="text-base font-black text-black mt-0.5">{formatINR(followingLimitsTotal)}</div>
               <div className="text-[10px] text-black mt-1">₹15K saved + ₹45K salary</div>
             </div>
@@ -120,7 +119,7 @@ export const SisterFeeEmergencyBanner: React.FC<Props> = ({
 
           <div className="rounded-xl bg-white border-2 border-[#6d6875] p-3.5 space-y-2">
             <h4 className="font-black text-black flex items-center gap-1.5 text-xs sm:text-sm">
-              <ShieldCheck className="h-4 w-4 text-[#b5838d]" />
+              <i className="fa-solid fa-shield-halved text-[#b5838d]"></i>
               Strategic Plan for Ishika:
             </h4>
             <ul className="list-disc list-inside space-y-1.5 text-xs text-black">
@@ -128,7 +127,7 @@ export const SisterFeeEmergencyBanner: React.FC<Props> = ({
                 <strong className="text-black">Request College Instalment:</strong> Pay <strong className="text-[#b5838d]">₹50,000 on 7 Dec</strong> and the remaining <strong className="text-[#b5838d]">₹50,000 in January 2027</strong>.
               </li>
               <li>
-                <strong className="text-black">This Cycle Limit (₹30,000 in hand):</strong> ₹15,000 is reserved for fees. Remaining ₹15,000 covers 27 days of living essentials.
+                <strong className="text-black">This Month Limit (₹30,000 in hand):</strong> ₹15,000 is reserved for fees. Remaining ₹15,000 covers 27 days of living essentials.
               </li>
               <li>
                 <strong className="text-black">Post-December Rule:</strong> Auto-save <strong className="text-[#6d6875]">₹16,667 / month</strong> on the 7th for future semesters.

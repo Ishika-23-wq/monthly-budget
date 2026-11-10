@@ -68,7 +68,7 @@ export function createMonthWithRollover(
 
   return {
     monthKey,
-    monthName: monthKey === 'cycle-2' ? 'Cycle 2 (7 Dec 2026 – 6 Jan 2027)' : monthKey === 'cycle-3' ? 'Cycle 3 (7 Jan 2027 – 6 Feb 2027)' : `Cycle (${monthKey})`,
+    monthName: monthKey === 'cycle-2' ? 'December 2026 (7 Dec 2026 – 6 Jan 2027)' : monthKey === 'cycle-3' ? 'January 2027 (7 Jan 2027 – 6 Feb 2027)' : `Month (${monthKey})`,
     cycleStartDate: '2026-12-07',
     cycleEndDate: '2027-01-06',
     salary: 45000,
@@ -76,6 +76,6 @@ export function createMonthWithRollover(
     startingBalance,
     categories: copiedCategories,
     expenses: [],
-    notes: `Rollover from previous cycle: Opening cash balance set to ₹${startingBalance.toLocaleString('en-IN')}`
+    notes: `Rollover from previous month: Opening cash balance set to ₹${startingBalance.toLocaleString('en-IN')}`
   };
 }

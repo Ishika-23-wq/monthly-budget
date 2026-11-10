@@ -1,31 +1,10 @@
 import React, { useState } from 'react';
-import {
-  CheckSquare,
-  Square,
-  Calendar,
-  Clock,
-  Plus,
-  Trash2,
-  Bell,
-  BellRing,
-  AlertCircle,
-  CheckCircle2,
-  Sparkles,
-  ArrowRight,
-  FileText,
-  Users,
-  GraduationCap,
-  BookOpen,
-  Filter,
-  AlertTriangle
-} from 'lucide-react';
 import { TaskItem, PriorityLevel, Category } from '../types';
 import { formatINR, formatDateReadable, getDaysUntil, getTodayDateString } from '../utils/formatters';
 import {
   getNotificationPermission,
   requestNotificationPermission,
-  sendNotification,
-  notifyTaskDue
+  sendNotification
 } from '../utils/notifications';
 
 interface Props {
@@ -50,7 +29,6 @@ const QUICK_CATEGORIES = [
 
 export const TasksSection: React.FC<Props> = ({
   tasks,
-  categories,
   onAddTask,
   onToggleTask,
   onDeleteTask,
@@ -132,7 +110,7 @@ export const TasksSection: React.FC<Props> = ({
           <div>
             <div className="flex items-center gap-2">
               <span className="flex items-center gap-1.5 rounded-md bg-[#6d6875] px-2.5 py-0.5 text-xs font-bold text-white">
-                <CheckSquare className="h-3.5 w-3.5" />
+                <i className="fa-solid fa-list-check text-xs"></i>
                 Work, Academic & Daily Tasks
               </span>
               <span className="rounded bg-[#ffb4a2] border border-[#b5838d] px-2 py-0.5 text-xs font-black text-black">
@@ -155,7 +133,7 @@ export const TasksSection: React.FC<Props> = ({
                 className="flex items-center gap-1.5 rounded-xl border-2 border-[#6d6875] bg-white px-3 py-2 text-xs font-black text-black hover:bg-[#ffcdb2]/20 transition"
                 title="Send test alert to this phone/laptop"
               >
-                <BellRing className="h-4 w-4 text-[#b5838d]" />
+                <i className="fa-solid fa-bell text-xs text-[#b5838d]"></i>
                 <span>Test 2-3 Day Alert</span>
               </button>
             ) : (
@@ -163,7 +141,7 @@ export const TasksSection: React.FC<Props> = ({
                 onClick={handleEnableNotifications}
                 className="flex items-center gap-1.5 rounded-xl bg-[#6d6875] hover:bg-[#5b5762] px-3.5 py-2 text-xs font-bold text-white shadow transition"
               >
-                <Bell className="h-4 w-4 text-[#ffcdb2]" />
+                <i className="fa-solid fa-bell text-xs text-[#ffcdb2]"></i>
                 <span>Enable Phone & Laptop Alerts</span>
               </button>
             )}
@@ -172,7 +150,7 @@ export const TasksSection: React.FC<Props> = ({
               onClick={() => setShowQuickAdd(!showQuickAdd)}
               className="flex items-center gap-1.5 rounded-xl bg-[#b5838d] hover:bg-[#a0717b] px-4 py-2 text-xs font-bold text-white shadow transition"
             >
-              <Plus className="h-4 w-4" />
+              <i className={`fa-solid ${showQuickAdd ? 'fa-xmark' : 'fa-plus'} text-xs`}></i>
               <span>{showQuickAdd ? 'Close' : 'Quick Add Any Task'}</span>
             </button>
           </div>
@@ -182,7 +160,7 @@ export const TasksSection: React.FC<Props> = ({
         {dueSoonTasks.length > 0 && (
           <div className="mt-4 rounded-xl border-2 border-[#b5838d] bg-white p-3.5 shadow-sm text-black">
             <div className="flex items-center gap-2 font-black text-black text-xs sm:text-sm">
-              <AlertTriangle className="h-4 w-4 text-[#b5838d]" />
+              <i className="fa-solid fa-triangle-exclamation text-sm text-[#b5838d]"></i>
               <span>⏰ 2–3 Day Deadline Alert: {dueSoonTasks.length} task{dueSoonTasks.length !== 1 ? 's' : ''} require immediate action!</span>
             </div>
             <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -376,7 +354,7 @@ export const TasksSection: React.FC<Props> = ({
           onClick={() => setShowQuickAdd(true)}
           className="flex items-center gap-1 text-xs font-black text-[#6d6875] hover:underline"
         >
-          <Plus className="h-3.5 w-3.5" />
+          <i className="fa-solid fa-plus text-xs"></i>
           <span>New Task</span>
         </button>
       </div>
@@ -421,9 +399,9 @@ export const TasksSection: React.FC<Props> = ({
                       title={task.completed ? 'Mark pending' : 'Mark completed'}
                     >
                       {task.completed ? (
-                        <CheckCircle2 className="h-5 w-5 text-[#b5838d]" />
+                        <i className="fa-solid fa-circle-check text-lg text-[#b5838d]"></i>
                       ) : (
-                        <Square className="h-5 w-5 text-black hover:text-[#6d6875]" />
+                        <i className="fa-regular fa-square text-lg text-black hover:text-[#6d6875]"></i>
                       )}
                     </button>
 
@@ -458,14 +436,14 @@ export const TasksSection: React.FC<Props> = ({
 
                       {/* Deadline & 2-3 Day Notification Countdown */}
                       <div className="mt-2 flex items-center gap-3 text-xs flex-wrap">
-                        <span className="flex items-center gap-1 text-black font-semibold">
-                          <Calendar className="h-3.5 w-3.5 text-[#6d6875]" />
+                        <span className="flex items-center gap-1.5 text-black font-semibold">
+                          <i className="fa-solid fa-calendar-days text-[#6d6875] text-xs"></i>
                           {formatDateReadable(task.deadline)}
                         </span>
 
                         {!task.completed && (
                           <span
-                            className={`flex items-center gap-1 font-black ${
+                            className={`flex items-center gap-1.5 font-black ${
                               isOverdue
                                 ? 'text-[#b5838d]'
                                 : isDueSoon
@@ -473,7 +451,7 @@ export const TasksSection: React.FC<Props> = ({
                                 : 'text-black'
                             }`}
                           >
-                            <Clock className="h-3 w-3" />
+                            <i className="fa-solid fa-clock text-xs"></i>
                             {daysLeft === 0
                               ? 'DUE TODAY!'
                               : daysLeft < 0
@@ -510,7 +488,7 @@ export const TasksSection: React.FC<Props> = ({
                       className="text-black hover:text-[#b5838d] p-1 transition"
                       title="Delete task"
                     >
-                      <Trash2 className="h-4 w-4" />
+                      <i className="fa-solid fa-trash-can text-sm"></i>
                     </button>
                   </div>
                 </div>

@@ -1,22 +1,4 @@
 import React from 'react';
-import {
-  Wallet,
-  ArrowUpRight,
-  ArrowDownRight,
-  TrendingDown,
-  Calendar,
-  Plus,
-  HelpCircle,
-  FileSpreadsheet,
-  AlertTriangle,
-  CheckCircle,
-  Clock,
-  Sparkles,
-  Download,
-  ShieldAlert,
-  CheckSquare,
-  Database
-} from 'lucide-react';
 import { MonthlyBudget, Category, TaskItem } from '../types';
 import {
   formatINR,
@@ -57,21 +39,21 @@ export const Dashboard: React.FC<Props> = ({
 
   return (
     <div className="space-y-6 bg-white text-black">
-      {/* Cycle Banner in Coolors Palette */}
+      {/* Month Banner in Coolors Palette */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 rounded-xl bg-white border-2 border-[#6d6875] px-4 py-2.5 text-xs text-black shadow-sm">
         <div className="flex items-center gap-2">
-          <Calendar className="h-4 w-4 text-[#b5838d]" />
+          <i className="fa-solid fa-calendar-days text-[#b5838d]"></i>
           <span>
-            <strong className="text-black">Cycle 1:</strong> 10 Nov 2026 to 6 Dec 2026 &nbsp;|&nbsp; <strong className="text-black">Next Salary:</strong> 7 Dec 2026 &nbsp;|&nbsp; <strong className="text-black">Today:</strong> 10 Nov 2026
+            <strong className="text-black">Month:</strong> November 2026 (10 Nov – 6 Dec 2026) &nbsp;|&nbsp; <strong className="text-black">Next Salary:</strong> 7 Dec 2026 &nbsp;|&nbsp; <strong className="text-black">Today:</strong> 10 Nov 2026
           </span>
         </div>
         <div className="flex items-center gap-2">
           <a
             href="/Monthly_Budget_Tracker.xlsx"
             download="Monthly_Budget_Tracker.xlsx"
-            className="flex items-center gap-1 text-[11px] font-black text-[#6d6875] hover:underline"
+            className="flex items-center gap-1.5 text-[11px] font-black text-[#6d6875] hover:underline"
           >
-            <Download className="h-3.5 w-3.5" />
+            <i className="fa-solid fa-file-arrow-down text-xs"></i>
             Download Excel (.xlsx)
           </a>
         </div>
@@ -92,7 +74,7 @@ export const Dashboard: React.FC<Props> = ({
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#6d6875] text-[#ffcdb2]">
-              <Sparkles className="h-5 w-5" />
+              <i className="fa-solid fa-wand-magic-sparkles text-base"></i>
             </div>
             <div>
               <div className="flex items-center gap-2">
@@ -122,40 +104,45 @@ export const Dashboard: React.FC<Props> = ({
         <div className="rounded-2xl border-2 border-[#6d6875] bg-white p-4 shadow-sm text-black">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
-              <CheckSquare className="h-4 w-4 text-[#b5838d]" />
+              <i className="fa-solid fa-list-check text-[#b5838d]"></i>
               <h4 className="text-xs sm:text-sm font-black text-black">
                 Upcoming Academic & Work Deadlines ({pendingTasks.length})
               </h4>
             </div>
             <button
               onClick={() => onSwitchTab('tasks')}
-              className="text-xs font-black text-[#6d6875] hover:underline"
+              className="text-xs font-black text-[#6d6875] hover:underline flex items-center gap-1"
             >
-              Open Tasks Tab →
+              Open Tasks Page <i className="fa-solid fa-chevron-right text-[10px]"></i>
             </button>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            {pendingTasks.slice(0, 4).map(t => {
-              const daysLeft = getDaysUntil(t.deadline);
-              const isDueSoon = daysLeft <= 3 && daysLeft >= 0;
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
+            {pendingTasks.slice(0, 3).map(task => {
+              const days = getDaysUntil(task.deadline);
+              const isUrgent = days >= 0 && days <= 3;
               return (
                 <div
-                  key={t.id}
+                  key={task.id}
                   onClick={() => onSwitchTab('tasks')}
-                  className={`cursor-pointer flex items-center justify-between rounded-xl bg-white border-2 p-2.5 transition ${
-                    isDueSoon ? 'border-[#b5838d] ring-1 ring-[#ffb4a2]' : 'border-[#6d6875]/30 hover:border-[#6d6875]'
+                  className={`cursor-pointer rounded-xl p-3 border-2 transition ${
+                    isUrgent
+                      ? 'border-[#ffb4a2] bg-[#ffcdb2]/20 hover:border-[#b5838d]'
+                      : 'border-[#6d6875]/30 bg-white hover:border-[#6d6875]'
                   }`}
                 >
-                  <div className="min-w-0 pr-2">
-                    <div className="text-xs font-black text-black truncate">{t.title}</div>
-                    <div className="text-[10px] text-black font-semibold">{t.category} • {formatDateReadable(t.deadline)}</div>
+                  <div className="flex items-start justify-between gap-2">
+                    <span className="text-xs font-black text-black line-clamp-1">{task.title}</span>
+                    <span className={`shrink-0 rounded px-1.5 py-0.2 text-[9px] font-bold ${
+                      isUrgent ? 'bg-[#ffb4a2] text-black border border-[#b5838d]' : 'bg-[#6d6875] text-white'
+                    }`}>
+                      {days === 0 ? 'Today' : days === 1 ? 'Tomorrow' : `${days}d left`}
+                    </span>
                   </div>
-                  <span className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold ${
-                    isDueSoon ? 'bg-[#ffb4a2] text-black border border-[#b5838d]' : 'bg-[#6d6875] text-white'
-                  }`}>
-                    {daysLeft === 0 ? 'Today' : `${daysLeft}d left`}
-                  </span>
+                  <div className="mt-1 flex items-center justify-between text-[11px] text-black font-semibold">
+                    <span>{task.category}</span>
+                    <span className="text-[#b5838d] font-bold">{formatDateReadable(task.deadline)}</span>
+                  </div>
                 </div>
               );
             })}
@@ -165,7 +152,7 @@ export const Dashboard: React.FC<Props> = ({
 
       {/* Excel Dashboard Top Metric Row in Coolors Palette */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3">
-        {/* Cash at cycle start */}
+        {/* Cash at month start */}
         <div className="rounded-xl border-2 border-[#6d6875] bg-white p-3.5 shadow-sm text-black">
           <div className="text-[11px] font-bold text-black">Cash at Start</div>
           <div className="mt-1 text-lg sm:text-xl font-black text-black">
@@ -174,9 +161,9 @@ export const Dashboard: React.FC<Props> = ({
           <div className="mt-0.5 text-[10px] text-black font-semibold">Starting in hand</div>
         </div>
 
-        {/* Spent this cycle */}
+        {/* Spent this month */}
         <div className="rounded-xl border-2 border-[#6d6875] bg-white p-3.5 shadow-sm text-black">
-          <div className="text-[11px] font-bold text-black">Spent This Cycle</div>
+          <div className="text-[11px] font-bold text-black">Spent This Month</div>
           <div className="mt-1 text-lg sm:text-xl font-black text-black">
             {formatINR(summary.totalSpent)}
           </div>
@@ -226,7 +213,7 @@ export const Dashboard: React.FC<Props> = ({
           onClick={() => onOpenAddPayment()}
           className="flex items-center justify-center gap-2 rounded-xl bg-[#6d6875] hover:bg-[#5b5762] p-3 text-xs sm:text-sm font-bold text-white shadow transition active:scale-95"
         >
-          <Plus className="h-4 w-4" />
+          <i className="fa-solid fa-plus text-xs"></i>
           <span>Log Payment Today</span>
         </button>
 
@@ -234,7 +221,7 @@ export const Dashboard: React.FC<Props> = ({
           onClick={() => onSwitchTab('tasks')}
           className="flex items-center justify-center gap-2 rounded-xl border-2 border-[#b5838d] bg-white hover:bg-[#ffcdb2]/20 p-3 text-xs sm:text-sm font-bold text-black transition active:scale-95"
         >
-          <CheckSquare className="h-4 w-4 text-[#b5838d]" />
+          <i className="fa-solid fa-list-check text-xs text-[#b5838d]"></i>
           <span>Tasks & Deadlines</span>
         </button>
 
@@ -242,7 +229,7 @@ export const Dashboard: React.FC<Props> = ({
           onClick={() => onSwitchTab('sheet')}
           className="flex items-center justify-center gap-2 rounded-xl border-2 border-[#6d6875] bg-white hover:bg-[#ffcdb2]/20 p-3 text-xs sm:text-sm font-bold text-black transition active:scale-95"
         >
-          <FileSpreadsheet className="h-4 w-4 text-[#6d6875]" />
+          <i className="fa-solid fa-table-list text-xs text-[#6d6875]"></i>
           <span>Single Sheet View</span>
         </button>
 
@@ -250,16 +237,16 @@ export const Dashboard: React.FC<Props> = ({
           onClick={() => onSwitchTab('planner')}
           className="flex items-center justify-center gap-2 rounded-xl border-2 border-[#6d6875] bg-white hover:bg-[#ffcdb2]/20 p-3 text-xs sm:text-sm font-bold text-black transition active:scale-95"
         >
-          <Sparkles className="h-4 w-4 text-[#b5838d]" />
+          <i className="fa-solid fa-sliders text-xs text-[#b5838d]"></i>
           <span>Adjust Goals</span>
         </button>
       </div>
 
-      {/* Category Budget for This Cycle */}
+      {/* Category Budget for This Month */}
       <div className="rounded-2xl border-2 border-[#6d6875] bg-white p-5 shadow-sm text-black">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h3 className="text-base font-black text-black">Category Budget for This Cycle</h3>
+            <h3 className="text-base font-black text-black">Category Budget for This Month</h3>
             <p className="text-xs text-black font-semibold">
               Allocated out of ₹30,000 cash in hand for 27 days until salary arrives
             </p>
@@ -335,7 +322,7 @@ export const Dashboard: React.FC<Props> = ({
       <div className="rounded-2xl border-2 border-[#6d6875] bg-white p-5 shadow-sm text-black">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <Clock className="h-4 w-4 text-[#b5838d]" />
+            <i className="fa-solid fa-clock text-[#b5838d]"></i>
             <h3 className="text-base font-black text-black">Recent Payments</h3>
           </div>
           <button
@@ -348,7 +335,7 @@ export const Dashboard: React.FC<Props> = ({
 
         {budget.expenses.length === 0 ? (
           <div className="py-8 text-center text-xs text-black font-bold">
-            No payments logged yet this cycle. Tap <strong>"+ Log Payment Today"</strong> to log an expense!
+            No payments logged yet this month. Tap <strong>"+ Log Payment Today"</strong> to log an expense!
           </div>
         ) : (
           <div className="space-y-2">
@@ -380,7 +367,7 @@ export const Dashboard: React.FC<Props> = ({
                       className="text-black hover:text-[#b5838d] text-xs p-1"
                       title="Delete transaction"
                     >
-                      ✕
+                      <i className="fa-solid fa-xmark"></i>
                     </button>
                   </div>
                 </div>

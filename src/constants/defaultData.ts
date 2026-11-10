@@ -8,7 +8,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     color: 'rose',
     categoryType: 'Priority',
     normalPlan: 16667, // Normal monthly plan (₹1 Lakh / 6 mo)
-    plannedLimit: 15000, // This cycle limit (out of ₹30,000 cash)
+    plannedLimit: 15000, // This month limit (out of ₹30,000 cash)
     priority: 'high',
     isSinkingFund: true,
     targetGoalTotal: 100000,
@@ -23,7 +23,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     color: 'violet',
     categoryType: 'Priority',
     normalPlan: 5000, // ₹30,000 / 6 months = ₹5,000 per month
-    plannedLimit: 0, // 0 in Cycle 1 as it starts in January
+    plannedLimit: 0, // 0 in November as it starts in January
     priority: 'high',
     isSinkingFund: true,
     targetGoalTotal: 30000,
@@ -106,9 +106,9 @@ export const INITIAL_CATEGORIES: Category[] = [
     color: 'orange',
     categoryType: 'Flexible',
     normalPlan: 600,
-    plannedLimit: 0, // 0 this cycle to protect fees
+    plannedLimit: 0, // 0 this month to protect fees
     priority: 'low',
-    description: "Gym fees, protein, supplements. (0 this cycle to protect the fees.)"
+    description: "Gym fees, protein, supplements. (0 this month to protect the fees.)"
   },
   {
     id: 'trips',
@@ -117,10 +117,10 @@ export const INITIAL_CATEGORIES: Category[] = [
     color: 'sky',
     categoryType: 'Flexible',
     normalPlan: 533,
-    plannedLimit: 0, // 0 this cycle to protect fees
+    plannedLimit: 0, // 0 this month to protect fees
     priority: 'low',
     isSinkingFund: true,
-    description: "Trip tickets, hotel, food and shopping during a trip. (0 this cycle to protect the fees.)"
+    description: "Trip tickets, hotel, food and shopping during a trip. (0 this month to protect the fees.)"
   },
   {
     id: 'savings',
@@ -129,7 +129,7 @@ export const INITIAL_CATEGORIES: Category[] = [
     color: 'teal',
     categoryType: 'Remainder',
     normalPlan: 0,
-    plannedLimit: 0, // 0 this cycle to protect fees
+    plannedLimit: 0, // 0 this month to protect fees
     priority: 'medium',
     isSinkingFund: true,
     description: "Money moved to savings account, RD/FD/SIP, emergency fund. Normal plan balance."
@@ -149,21 +149,21 @@ export const CATEGORY_GUIDE_DATABASE: CategoryGuideItem[] = [
     recommendedCategory: "Sister's Fees",
     explanation: 'Semester tuition fees, exam fees, college forms, books, uniform for your sister.',
     exampleKeywords: ['fees', 'fee', 'semester', 'college', 'tuition', 'sister', 'tashe', 'exam fee', 'books', 'uniform'],
-    priorityTip: 'Priority #1! ₹15,000 set aside this cycle. Total ₹1 Lakh due 7 Dec 2026.'
+    priorityTip: 'Priority #1! ₹15,000 set aside this month. Total ₹1 Lakh due 7 Dec 2026.'
   },
   {
     query: 'shopping',
     recommendedCategory: 'Personal',
     explanation: 'Shopping for yourself (clothes, shoes, cosmetics, gadgets, Zara, Myntra, Amazon). Note: Household items bought during shopping go to Grocery.',
     exampleKeywords: ['shopping', 'clothes', 'shoes', 'dress', 'zara', 'h&m', 'myntra', 'makeup', 'amazon'],
-    priorityTip: 'Eating into personal limit. Cap strictly to ₹1,000 this cycle.'
+    priorityTip: 'Eating into personal limit. Cap strictly to ₹1,000 this month.'
   },
   {
     query: 'restaurant',
     recommendedCategory: 'Personal',
     explanation: 'Restaurant dining, cafes, Starbucks, Swiggy, Zomato, chai with friends. Eating out is a want, so it eats the Personal limit. (If on a trip, it goes under Trips).',
     exampleKeywords: ['restaurant', 'cafe', 'coffee', 'chai', 'swiggy', 'zomato', 'dinner', 'starbucks', 'dominos', 'mcdonalds'],
-    priorityTip: 'Outside food is a want, not grocery. Keep it under ₹1,000 for the cycle.'
+    priorityTip: 'Outside food is a want, not grocery. Keep it under ₹1,000 for the month.'
   },
   {
     query: 'grocery',
@@ -177,7 +177,7 @@ export const CATEGORY_GUIDE_DATABASE: CategoryGuideItem[] = [
     recommendedCategory: 'Travelling',
     explanation: 'Daily bus, metro smartcard, auto / e-rickshaw, Uber, Ola, Rapido, local train, bus pass.',
     exampleKeywords: ['travel', 'metro', 'rickshaw', 'auto', 'uber', 'ola', 'bus fare', 'bus pass', 'taxi', 'rapido'],
-    priorityTip: 'Daily safe limit: ₹166.67 / day out of your ₹4,500 cycle allowance.'
+    priorityTip: 'Daily safe limit: ₹166.67 / day out of your ₹4,500 month allowance.'
   },
   {
     query: 'rent',
@@ -191,28 +191,28 @@ export const CATEGORY_GUIDE_DATABASE: CategoryGuideItem[] = [
     recommendedCategory: 'Car',
     explanation: 'Petrol, diesel, CNG, car wash, mechanic, servicing, parking, Fastag tolls, insurance.',
     exampleKeywords: ['car', 'petrol', 'diesel', 'cng', 'car wash', 'service', 'mechanic', 'parking', 'toll', 'fastag'],
-    priorityTip: 'Cycle limit set to ₹1,500.'
+    priorityTip: 'Month limit set to ₹1,500.'
   },
   {
     query: 'iphone',
     recommendedCategory: 'iPhone',
     explanation: 'iPhone EMI, AppleCare, phone case/cover, charger, screen guard.',
     exampleKeywords: ['iphone', 'apple', 'emi', 'applecare', 'charger', 'screen guard', 'phone cover'],
-    priorityTip: '₹3,000 fixed EMI per cycle.'
+    priorityTip: '₹3,000 fixed EMI per month.'
   },
   {
     query: 'gym',
     recommendedCategory: 'Gym',
     explanation: 'Gym membership fees, protein powders, creatine, workout supplements.',
     exampleKeywords: ['gym', 'fitness', 'protein', 'creatine', 'supplements', 'workout'],
-    priorityTip: 'Temporarily set to ₹0 this cycle to protect Sister fees.'
+    priorityTip: 'Temporarily set to ₹0 this month to protect Sister fees.'
   },
   {
     query: 'trip',
     recommendedCategory: 'Trips',
     explanation: 'Trip tickets, hotel, outstation transport, food and shopping during a vacation.',
     exampleKeywords: ['trip', 'vacation', 'hotel', 'flight', 'resort', 'holiday', 'airbnb'],
-    priorityTip: 'Temporarily set to ₹0 this cycle to protect Sister fees.'
+    priorityTip: 'Temporarily set to ₹0 this month to protect Sister fees.'
   },
   {
     query: 'savings',
@@ -289,7 +289,7 @@ export const INITIAL_TASKS = [
 
 export const INITIAL_MONTHLY_DATA: MonthlyBudget = {
   monthKey: 'cycle-1',
-  monthName: 'Cycle 1 (10 Nov – 6 Dec 2026)',
+  monthName: 'November 2026 (10 Nov – 6 Dec 2026)',
   cycleStartDate: '2026-11-10',
   cycleEndDate: '2026-12-06',
   salary: 45000,
@@ -298,13 +298,13 @@ export const INITIAL_MONTHLY_DATA: MonthlyBudget = {
   categories: INITIAL_CATEGORIES,
   expenses: [],
   tasks: INITIAL_TASKS,
-  notes: 'Cycle 1: 10 Nov to 6 Dec 2026. Next salary on 7 Dec 2026. Prioritizing Sister fees (₹15,000 cash set aside). PhD fees start in January.'
+  notes: 'November 2026: 10 Nov to 6 Dec 2026. Next salary on 7 Dec 2026. Prioritizing Sister fees (₹15,000 cash set aside). PhD fees start in January.'
 };
 
 export const PAST_MONTHS_SAMPLE: MonthlyBudget[] = [
   {
     monthKey: 'cycle-2',
-    monthName: 'Cycle 2 (7 Dec 2026 – 6 Jan 2027)',
+    monthName: 'December 2026 (7 Dec 2026 – 6 Jan 2027)',
     cycleStartDate: '2026-12-07',
     cycleEndDate: '2027-01-06',
     salary: 45000,
@@ -315,11 +315,11 @@ export const PAST_MONTHS_SAMPLE: MonthlyBudget[] = [
       plannedLimit: c.normalPlan
     })),
     expenses: [],
-    notes: 'Cycle 2: Sister fee due date on 7 Dec. Pre-planning PhD fees starting January.'
+    notes: 'December 2026: Sister fee due date on 7 Dec. Pre-planning PhD fees starting January.'
   },
   {
     monthKey: 'cycle-3',
-    monthName: 'Cycle 3 (7 Jan 2027 – 6 Feb 2027)',
+    monthName: 'January 2027 (7 Jan 2027 – 6 Feb 2027)',
     cycleStartDate: '2027-01-07',
     cycleEndDate: '2027-02-06',
     salary: 45000,
@@ -330,6 +330,6 @@ export const PAST_MONTHS_SAMPLE: MonthlyBudget[] = [
       plannedLimit: c.id === 'phd_fees' ? 5000 : c.normalPlan
     })),
     expenses: [],
-    notes: 'Cycle 3: January PhD Semester fees active! ₹5,000/mo auto-allocated.'
+    notes: 'January 2027: January PhD Semester fees active! ₹5,000/mo auto-allocated.'
   }
 ];

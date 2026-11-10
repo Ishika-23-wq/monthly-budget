@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { X, Plus, Sparkles, Check, HelpCircle, AlertCircle } from 'lucide-react';
 import { Category, Expense } from '../types';
 import { formatINR, getTodayDateString, getCategorySpent } from '../utils/formatters';
 import { CategoryIcon } from './CategoryIcon';
@@ -72,7 +71,6 @@ export const DailyPaymentModal: React.FC<Props> = ({
   const currentCategory = categories.find(c => c.id === categoryId);
   const spentInCategory = currentCategory ? getCategorySpent(expenses, currentCategory.id) : 0;
   const numAmount = parseFloat(amount) || 0;
-  const remainingInCategory = currentCategory ? currentCategory.plannedLimit - spentInCategory : 0;
   const willExceed = currentCategory && (spentInCategory + numAmount > currentCategory.plannedLimit);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -115,7 +113,7 @@ export const DailyPaymentModal: React.FC<Props> = ({
             onClick={onClose}
             className="rounded-full p-1.5 text-black hover:bg-slate-100 transition"
           >
-            <X className="h-5 w-5" />
+            <i className="fa-solid fa-xmark text-lg"></i>
           </button>
         </div>
 
@@ -180,7 +178,7 @@ export const DailyPaymentModal: React.FC<Props> = ({
             />
             {detectedSuggestion && (
               <div className="mt-1.5 flex items-center gap-1.5 rounded-lg bg-white border-2 border-[#b5838d] px-3 py-1.5 text-xs text-[#6d6875] font-bold animate-fadeIn">
-                <Sparkles className="h-3.5 w-3.5 text-[#b5838d] shrink-0" />
+                <i className="fa-solid fa-wand-magic-sparkles text-xs text-[#b5838d] shrink-0"></i>
                 <span>{detectedSuggestion}</span>
               </div>
             )}
@@ -197,7 +195,7 @@ export const DailyPaymentModal: React.FC<Props> = ({
                 onClick={onOpenGuide}
                 className="flex items-center gap-1 text-[11px] font-black text-[#b5838d] hover:underline"
               >
-                <HelpCircle className="h-3 w-3" />
+                <i className="fa-solid fa-circle-question text-xs"></i>
                 Which category? (Guide)
               </button>
             </div>
@@ -235,7 +233,7 @@ export const DailyPaymentModal: React.FC<Props> = ({
             {/* Over-budget warning */}
             {willExceed && (
               <div className="mt-2 flex items-center gap-2 rounded-xl bg-white border-2 border-[#b5838d] p-2.5 text-xs text-black">
-                <AlertCircle className="h-4 w-4 shrink-0 text-[#b5838d]" />
+                <i className="fa-solid fa-triangle-exclamation text-sm text-[#b5838d] shrink-0"></i>
                 <div>
                   <strong>Budget Alert:</strong> This expense exceeds the planned limit for{' '}
                   <span className="font-black underline">{currentCategory?.name}</span>.
@@ -297,7 +295,7 @@ export const DailyPaymentModal: React.FC<Props> = ({
               type="submit"
               className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#6d6875] hover:bg-[#5b5762] py-3 text-sm font-bold text-white shadow-lg transition active:scale-[0.99]"
             >
-              <Plus className="h-4 w-4" /> Save Payment (₹{amount || '0'})
+              <i className="fa-solid fa-plus text-xs"></i> Save Payment (₹{amount || '0'})
             </button>
           </div>
         </form>

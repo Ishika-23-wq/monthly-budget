@@ -1,18 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import {
-  LayoutDashboard,
-  Sliders,
-  FileSpreadsheet,
-  History,
-  Plus,
-  HelpCircle,
-  Share2,
-  CheckCircle,
-  Sparkles,
-  Smartphone,
-  CheckSquare,
-  Database
-} from 'lucide-react';
 import { MonthlyBudget, Category, Expense, TaskItem } from './types';
 import {
   loadAllBudgets,
@@ -340,7 +326,7 @@ export function App() {
         [activeMonthKey]: updated
       };
     });
-    showToast('Restored cycle limits in SQLite');
+    showToast('Restored month limits in SQLite');
   };
 
   // Create next month with rollover
@@ -372,7 +358,7 @@ export function App() {
       {/* Toast Notification in Coolors Palette */}
       {toastMessage && (
         <div className="fixed top-16 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 rounded-xl bg-[#6d6875] border-2 border-[#b5838d] px-4 py-2.5 text-xs font-bold text-white shadow-2xl animate-fadeIn">
-          <CheckCircle className="h-4 w-4 text-[#ffcdb2]" />
+          <i className="fa-solid fa-circle-check text-[#ffcdb2]"></i>
           <span>{toastMessage}</span>
         </div>
       )}
@@ -398,7 +384,7 @@ export function App() {
                   : 'text-black hover:bg-[#ffcdb2]/20 hover:text-black'
               }`}
             >
-              <LayoutDashboard className="h-4 w-4 text-[#ffcdb2]" />
+              <i className="fa-solid fa-table-columns text-[#ffcdb2]"></i>
               Dashboard
             </button>
 
@@ -410,7 +396,7 @@ export function App() {
                   : 'text-black hover:bg-[#ffcdb2]/20 hover:text-black'
               }`}
             >
-              <Sliders className="h-4 w-4 text-[#ffcdb2]" />
+              <i className="fa-solid fa-sliders text-[#ffcdb2]"></i>
               Target Goals
             </button>
 
@@ -422,7 +408,7 @@ export function App() {
                   : 'text-black hover:bg-[#ffcdb2]/20 hover:text-black'
               }`}
             >
-              <CheckSquare className="h-4 w-4 text-[#ffcdb2]" />
+              <i className="fa-solid fa-list-check text-[#ffcdb2]"></i>
               Tasks & Deadlines
               {pendingTasksCount > 0 && (
                 <span className={`ml-1 rounded-full px-1.5 py-0.2 text-[10px] font-bold ${
@@ -441,7 +427,7 @@ export function App() {
                   : 'text-black hover:bg-[#ffcdb2]/20 hover:text-black'
               }`}
             >
-              <FileSpreadsheet className="h-4 w-4 text-[#ffcdb2]" />
+              <i className="fa-solid fa-table-list text-[#ffcdb2]"></i>
               Single Sheet View
             </button>
 
@@ -453,7 +439,7 @@ export function App() {
                   : 'text-black hover:bg-[#ffcdb2]/20 hover:text-black'
               }`}
             >
-              <History className="h-4 w-4 text-[#ffcdb2]" />
+              <i className="fa-solid fa-clock-rotate-left text-[#ffcdb2]"></i>
               History & Rollover
             </button>
           </div>
@@ -461,7 +447,7 @@ export function App() {
           <div className="flex items-center gap-3">
             {/* SQLite Status Indicator */}
             <div className="flex items-center gap-1.5 rounded-full border border-[#b5838d] bg-white px-2.5 py-1 text-[11px] font-bold text-black" title="SQLite Database Connected">
-              <Database className="h-3 w-3 text-[#b5838d]" />
+              <i className="fa-solid fa-database text-xs text-[#b5838d]"></i>
               <span>SQLite DB {isDbSynced ? 'Active' : 'Local'}</span>
             </div>
 
@@ -469,7 +455,7 @@ export function App() {
               onClick={() => handleOpenAddPayment()}
               className="flex items-center gap-1.5 rounded-xl bg-[#6d6875] hover:bg-[#5b5762] px-4 py-2 text-xs font-bold text-white shadow transition active:scale-95"
             >
-              <Plus className="h-4 w-4" /> Log Payment Today
+              <i className="fa-solid fa-plus text-xs"></i> Log Payment Today
             </button>
           </div>
         </div>

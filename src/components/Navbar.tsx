@@ -1,16 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Wallet,
-  Calendar,
-  HelpCircle,
-  ChevronDown,
-  Sparkles,
-  Download,
-  Bell,
-  BellRing
-} from 'lucide-react';
 import { MonthlyBudget } from '../types';
-import { formatINR } from '../utils/formatters';
 import {
   getNotificationPermission,
   requestNotificationPermission,
@@ -29,8 +18,7 @@ export const Navbar: React.FC<Props> = ({
   currentBudget,
   allBudgets,
   onSelectMonth,
-  onOpenGuide,
-  onResetData
+  onOpenGuide
 }) => {
   const budgetList = Object.values(allBudgets).sort((a, b) => b.monthKey.localeCompare(a.monthKey));
   const [notifState, setNotifState] = useState<NotificationPermission>(() => getNotificationPermission());
@@ -71,7 +59,7 @@ export const Navbar: React.FC<Props> = ({
 
         {/* Right side controls */}
         <div className="flex items-center gap-2 sm:gap-3">
-          {/* Notification Button */}
+          {/* Notification Button with Font Awesome */}
           <button
             onClick={handleToggleNotif}
             className={`flex items-center gap-1.5 rounded-xl border-2 px-3 py-1.5 text-xs font-bold transition ${
@@ -81,11 +69,7 @@ export const Navbar: React.FC<Props> = ({
             }`}
             title="Enable/Test phone & laptop notifications"
           >
-            {notifState === 'granted' ? (
-              <BellRing className="h-4 w-4 text-[#b5838d]" />
-            ) : (
-              <Bell className="h-4 w-4 text-[#ffcdb2]" />
-            )}
+            <i className={`fa-solid fa-bell text-xs ${notifState === 'granted' ? 'text-[#b5838d]' : 'text-[#ffcdb2]'}`}></i>
             <span className="hidden sm:inline">
               {notifState === 'granted' ? 'Alerts ON' : 'Turn On Alerts'}
             </span>
@@ -96,7 +80,7 @@ export const Navbar: React.FC<Props> = ({
             <select
               value={currentBudget.monthKey}
               onChange={e => onSelectMonth(e.target.value)}
-              className="appearance-none rounded-xl border-2 border-[#6d6875] bg-white py-1.5 pl-3 pr-8 text-xs font-bold text-black focus:outline-none shadow-sm"
+              className="appearance-none rounded-xl border-2 border-[#6d6875] bg-white py-1.5 pl-3 pr-8 text-xs font-bold text-black focus:outline-none shadow-sm cursor-pointer"
             >
               {budgetList.map(b => (
                 <option key={b.monthKey} value={b.monthKey} className="bg-white text-black">
@@ -104,16 +88,16 @@ export const Navbar: React.FC<Props> = ({
                 </option>
               ))}
             </select>
-            <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-black" />
+            <i className="fa-solid fa-chevron-down pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-[11px] text-black"></i>
           </div>
 
-          {/* Category Guide Button */}
+          {/* Category Guide Button with Font Awesome */}
           <button
             onClick={onOpenGuide}
             className="flex items-center gap-1.5 rounded-xl border-2 border-[#6d6875] bg-white hover:bg-[#ffcdb2]/20 px-3 py-1.5 text-xs font-bold text-black transition"
             title="Category Guide (Shopping, Restaurant, etc.)"
           >
-            <HelpCircle className="h-4 w-4 text-[#b5838d]" />
+            <i className="fa-solid fa-circle-question text-sm text-[#b5838d]"></i>
             <span className="hidden sm:inline">Guide</span>
           </button>
         </div>

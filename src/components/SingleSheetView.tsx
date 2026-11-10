@@ -1,17 +1,6 @@
 import React, { useState } from 'react';
-import {
-  FileSpreadsheet,
-  Download,
-  Plus,
-  Trash2,
-  ChevronDown,
-  ChevronUp,
-  AlertTriangle,
-  CheckCircle2,
-  ExternalLink
-} from 'lucide-react';
 import { Category, Expense, MonthlyBudget } from '../types';
-import { formatINR, formatDateReadable, getCategorySpent } from '../utils/formatters';
+import { formatINR, formatDateReadable } from '../utils/formatters';
 import { CategoryIcon } from './CategoryIcon';
 
 interface Props {
@@ -48,21 +37,21 @@ export const SingleSheetView: React.FC<Props> = ({
     csvContent += `Total Actual Spent,₹${totalSpent}\n`;
     csvContent += `Remaining Buffer,₹${totalRemaining}\n\n`;
 
-    // Category summary header
-    csvContent += `CATEGORY SUMMARY\n`;
-    csvContent += `Category,Type,Planned Limit (INR),Normal Plan (INR),Actual Spent (INR),Remaining (INR),Status\n`;
     budget.categories.forEach(cat => {
-      const spent = getCategorySpent(budget.expenses, cat.id);
-      const rem = cat.plannedLimit - spent;
-      const status = rem < 0 ? 'OVER BUDGET' : 'OK';
-      csvContent += `"${cat.name}",${cat.categoryType},${cat.plannedLimit},${cat.normalPlan},${spent},${rem},${status}\n`;
-    });
+      const catExpenses = budget.expenses.filter(e => e.categoryId === cat.id);
+      const catSpent = catExpenses.reduce((s, e) => s + (e.amount || 0), 0);
+      csvContent += `SECTION: ${cat.name.toUpperCase()} (${cat.categoryType})\n`;
+      csvContent += `Limit,₹${cat.plannedLimit},Spent,₹${catSpent},Remaining,₹${cat.plannedLimit - catSpent}\n`;
+      csvContent += `Date,Description,Payment Method,Amount (₹),Notes\n`;
 
-    csvContent += `\nITEMIZED EXPENSE TRANSACTIONS\n`;
-    csvContent += `Date,Category,Title,Payment Method,Amount (INR)\n`;
-    budget.expenses.forEach(exp => {
-      const cat = budget.categories.find(c => c.id === exp.categoryId);
-      csvContent += `"${exp.date}","${cat?.name || 'Unknown'}","${exp.title.replace(/"/g, '""')}","${exp.paymentMethod}",${exp.amount}\n`;
+      if (catExpenses.length === 0) {
+        csvContent += `No expenses logged yet,,,,\n`;
+      } else {
+        catExpenses.forEach(exp => {
+          csvContent += `"${exp.date}","${exp.title.replace(/"/g, '""')}","${exp.paymentMethod}","${exp.amount}","${(exp.notes || '').replace(/"/g, '""')}"\n`;
+        });
+      }
+      csvContent += `\n`;
     });
 
     const encodedUri = encodeURI(csvContent);
@@ -81,7 +70,7 @@ export const SingleSheetView: React.FC<Props> = ({
         <div>
           <div className="flex items-center gap-2">
             <span className="flex items-center gap-1.5 rounded-md bg-[#6d6875] px-2.5 py-0.5 text-xs font-bold text-white">
-              <FileSpreadsheet className="h-3.5 w-3.5" />
+              <i className="fa-solid fa-table-list text-xs"></i>
               Categorized Ledger Sheet
             </span>
             <span className="text-xs font-black text-black">{budget.monthName}</span>
@@ -98,7 +87,7 @@ export const SingleSheetView: React.FC<Props> = ({
           onClick={handleExportCSV}
           className="flex items-center gap-2 rounded-xl bg-[#6d6875] hover:bg-[#595460] px-4 py-2.5 text-xs font-bold text-white shadow transition self-start sm:self-center"
         >
-          <Download className="h-4 w-4" />
+          <i className="fa-solid fa-file-arrow-down text-xs"></i>
           Export to CSV / Excel
         </button>
       </div>
@@ -181,7 +170,7 @@ export const SingleSheetView: React.FC<Props> = ({
                     className="flex items-center gap-1 rounded-lg bg-[#6d6875] hover:bg-[#595460] px-2.5 py-1.5 text-xs font-bold text-white shadow transition"
                     title="Add payment to this category"
                   >
-                    <Plus className="h-3.5 w-3.5" />
+                    <i className="fa-solid fa-plus text-xs"></i>
                     <span className="hidden sm:inline">Add</span>
                   </button>
 
@@ -189,7 +178,7 @@ export const SingleSheetView: React.FC<Props> = ({
                     onClick={() => toggleCategory(category.id)}
                     className="p-1 text-black hover:text-[#6d6875]"
                   >
-                    {isCollapsed ? <ChevronDown className="h-5 w-5" /> : <ChevronUp className="h-5 w-5" />}
+                    <i className={`fa-solid ${isCollapsed ? 'fa-chevron-down' : 'fa-chevron-up'} text-sm`}></i>
                   </button>
                 </div>
               </div>
@@ -255,23 +244,21 @@ export const SingleSheetView: React.FC<Props> = ({
                                   className="text-black hover:text-rose-600 p-1 transition"
                                   title="Delete transaction"
                                 >
-                                  <Trash2 className="h-3.5 w-3.5" />
+                                  <i className="fa-solid fa-trash-can text-xs"></i>
                                 </button>
                               </td>
                             </tr>
                           ))}
-                        </tbody>
-                        <tfoot>
                           <tr className="border-t-2 border-[#6d6875] font-black text-black">
-                            <td colSpan={3} className="pt-2.5 text-black">
-                              Total Spent in {category.name}
+                            <td colSpan={3} className="py-2.5 text-right font-black text-black">
+                              Total Spent in {category.name}:
                             </td>
-                            <td className="pt-2.5 text-right text-base font-black text-black">
+                            <td className="py-2.5 text-right font-black text-black">
                               {formatINR(spent)}
                             </td>
                             <td></td>
                           </tr>
-                        </tfoot>
+                        </tbody>
                       </table>
                     </div>
                   )}

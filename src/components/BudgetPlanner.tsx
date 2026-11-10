@@ -1,17 +1,4 @@
 import React, { useState } from 'react';
-import {
-  Sliders,
-  Plus,
-  ShieldCheck,
-  AlertCircle,
-  Sparkles,
-  Trash2,
-  Lock,
-  ArrowUpRight,
-  Info,
-  DollarSign,
-  Download
-} from 'lucide-react';
 import { Category, PriorityLevel, CategoryGroupType } from '../types';
 import { formatINR } from '../utils/formatters';
 import { CategoryIcon, AVAILABLE_ICONS } from './CategoryIcon';
@@ -31,13 +18,9 @@ interface Props {
 export const BudgetPlanner: React.FC<Props> = ({
   categories,
   salary,
-  payday,
   onUpdateCategoryLimit,
   onAddCustomCategory,
-  onDeleteCategory,
-  onApplyCrunchMode,
-  onApplyBalancedMode,
-  isCrunchModeActive
+  onDeleteCategory
 }) => {
   const [showAddModal, setShowAddModal] = useState(false);
   const [newCatName, setNewCatName] = useState('');
@@ -48,10 +31,10 @@ export const BudgetPlanner: React.FC<Props> = ({
   const [newCatIcon, setNewCatIcon] = useState('Tag');
   const [newCatIsSinking, setNewCatIsSinking] = useState(false);
 
-  const totalCycleLimit = categories.reduce((sum, c) => sum + (c.plannedLimit || 0), 0);
+  const totalMonthLimit = categories.reduce((sum, c) => sum + (c.plannedLimit || 0), 0);
   const totalNormalPlan = categories.reduce((sum, c) => sum + (c.normalPlan || 0), 0);
   const cashInHand = 30000;
-  const cycleBuffer = cashInHand - totalCycleLimit;
+  const monthBuffer = cashInHand - totalMonthLimit;
   const normalBuffer = salary - totalNormalPlan;
 
   const handleCreateCategory = (e: React.FormEvent) => {
@@ -60,21 +43,19 @@ export const BudgetPlanner: React.FC<Props> = ({
     const limit = parseFloat(newCatLimit) || 0;
     const normal = parseFloat(newCatNormal) || limit;
 
-    const newCategory: Category = {
+    onAddCustomCategory({
       id: `custom_${Date.now()}`,
       name: newCatName.trim(),
       icon: newCatIcon,
-      color: 'indigo',
+      color: 'slate',
       categoryType: newCatType,
       normalPlan: normal,
       plannedLimit: limit,
       priority: newCatPriority,
       isSinkingFund: newCatIsSinking,
-      isCustom: true,
-      description: 'Custom user category'
-    };
+      isCustom: true
+    });
 
-    onAddCustomCategory(newCategory);
     setNewCatName('');
     setNewCatLimit('');
     setNewCatNormal('');
@@ -92,14 +73,14 @@ export const BudgetPlanner: React.FC<Props> = ({
                 Categories & Dual Limits
               </span>
               <span className="text-xs font-black text-black">
-                Cycle 1: 10 Nov – 6 Dec 2026
+                November 2026 (10 Nov – 6 Dec 2026)
               </span>
             </div>
             <h2 className="mt-1 text-xl font-black text-black">
               Target Goals & Budget Planner
             </h2>
             <p className="text-xs text-black mt-0.5 font-semibold">
-              Compare <strong>This Cycle Limit</strong> (out of ₹30K cash) vs <strong>Normal Monthly Plan</strong> (out of ₹45K salary).
+              Compare <strong>This Month Limit</strong> (out of ₹30K cash) vs <strong>Normal Monthly Plan</strong> (out of ₹45K salary).
             </p>
           </div>
 
@@ -109,14 +90,14 @@ export const BudgetPlanner: React.FC<Props> = ({
               download="Monthly_Budget_Tracker.xlsx"
               className="flex items-center gap-1.5 rounded-xl border-2 border-[#6d6875] bg-white hover:bg-[#ffcdb2]/20 px-3.5 py-2 text-xs font-black text-black transition"
             >
-              <Download className="h-4 w-4 text-[#b5838d]" />
+              <i className="fa-solid fa-file-arrow-down text-xs text-[#b5838d]"></i>
               Download Excel
             </a>
             <button
               onClick={() => setShowAddModal(true)}
               className="flex items-center gap-1.5 rounded-xl bg-[#6d6875] hover:bg-[#5b5762] px-3.5 py-2 text-xs font-bold text-white transition shadow"
             >
-              <Plus className="h-4 w-4" /> Add Category
+              <i className="fa-solid fa-plus text-xs"></i> Add Category
             </button>
           </div>
         </div>
@@ -125,15 +106,15 @@ export const BudgetPlanner: React.FC<Props> = ({
         <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div className="rounded-xl bg-white p-4 border-2 border-[#b5838d] text-black">
             <div className="flex justify-between items-center text-xs text-black font-bold">
-              <span className="text-[#b5838d]">This Cycle (10 Nov – 6 Dec)</span>
+              <span className="text-[#b5838d]">This Month (10 Nov – 6 Dec)</span>
               <span>Cash in hand: ₹30,000</span>
             </div>
             <div className="mt-2 flex items-baseline justify-between">
               <div className="text-xl font-black text-black">
-                Allocated: {formatINR(totalCycleLimit)}
+                Allocated: {formatINR(totalMonthLimit)}
               </div>
-              <div className={`text-xs font-black ${cycleBuffer < 0 ? 'text-rose-600' : 'text-[#b5838d]'}`}>
-                {cycleBuffer === 0 ? 'Exact Match (₹30K)' : `${formatINR(cycleBuffer)} buffer`}
+              <div className={`text-xs font-black ${monthBuffer < 0 ? 'text-rose-600' : 'text-[#b5838d]'}`}>
+                {monthBuffer === 0 ? 'Exact Match (₹30K)' : `${formatINR(monthBuffer)} buffer`}
               </div>
             </div>
             <div className="text-[11px] text-black mt-1 font-semibold">
@@ -189,7 +170,7 @@ export const BudgetPlanner: React.FC<Props> = ({
                 onClick={() => setShowAddModal(false)}
                 className="text-black hover:text-[#6d6875]"
               >
-                ✕
+                <i className="fa-solid fa-xmark text-lg"></i>
               </button>
             </div>
 
@@ -211,7 +192,7 @@ export const BudgetPlanner: React.FC<Props> = ({
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-black text-black mb-1">
-                    This Cycle Limit (₹) *
+                    This Month Limit (₹) *
                   </label>
                   <input
                     type="number"
@@ -338,14 +319,14 @@ const CategoryPlanCard: React.FC<CategoryPlanCardProps> = ({ category, onUpdate,
             className="text-black hover:text-rose-600 p-1 transition"
             title="Delete custom category"
           >
-            <Trash2 className="h-4 w-4" />
+            <i className="fa-solid fa-trash-can text-sm"></i>
           </button>
         )}
       </div>
 
       <div className="mt-3 grid grid-cols-2 gap-2 border-t-2 border-[#6d6875]/20 pt-3">
         <div>
-          <div className="text-[11px] font-bold text-black">This Cycle Limit</div>
+          <div className="text-[11px] font-bold text-black">This Month Limit</div>
           {editing ? (
             <div className="flex items-center gap-1 mt-0.5">
               <input

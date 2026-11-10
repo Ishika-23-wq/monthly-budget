@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { X, Search, HelpCircle, CheckCircle2, ArrowRight, Lightbulb } from 'lucide-react';
 import { CATEGORY_GUIDE_DATABASE } from '../constants/defaultData';
 import { Category } from '../types';
 
@@ -42,7 +41,7 @@ export const CategoryGuideModal: React.FC<Props> = ({
         <div className="flex items-center justify-between border-b-2 border-[#6d6875]/20 px-6 py-4 bg-white">
           <div className="flex items-center gap-2.5">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#6d6875] text-[#ffcdb2]">
-              <HelpCircle className="h-5 w-5" />
+              <i className="fa-solid fa-circle-question text-base"></i>
             </div>
             <div>
               <h2 className="text-lg font-black text-black">Expense Category Guide</h2>
@@ -53,14 +52,14 @@ export const CategoryGuideModal: React.FC<Props> = ({
             onClick={onClose}
             className="rounded-lg p-1.5 text-black hover:bg-slate-100 transition"
           >
-            <X className="h-5 w-5" />
+            <i className="fa-solid fa-xmark text-lg"></i>
           </button>
         </div>
 
         {/* Search bar */}
         <div className="p-4 sm:p-6 pb-2 bg-white">
           <div className="relative">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#b5838d]" />
+            <i className="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-xs text-[#b5838d]"></i>
             <input
               type="text"
               placeholder="Search: e.g. shopping, restaurant, zomato, metro, phd, clothes..."
@@ -72,8 +71,8 @@ export const CategoryGuideModal: React.FC<Props> = ({
 
           {/* Quick FAQ Pills */}
           <div className="mt-3 flex flex-wrap gap-2 text-xs">
-            <span className="text-black font-black flex items-center gap-1">
-              <Lightbulb className="h-3.5 w-3.5 text-[#b5838d]" /> Popular:
+            <span className="text-black font-black flex items-center gap-1.5">
+              <i className="fa-solid fa-lightbulb text-xs text-[#b5838d]"></i> Popular:
             </span>
             {['Shopping', 'Restaurant', 'PhD', 'Metro & Travel', 'Groceries', 'Sister Fee'].map(tag => (
               <button
@@ -108,7 +107,7 @@ export const CategoryGuideModal: React.FC<Props> = ({
                     <div className="mt-2 flex items-center gap-2">
                       <span className="text-xs text-black font-semibold">Assign To:</span>
                       <span className="inline-flex items-center gap-1 rounded-md bg-[#6d6875] px-2.5 py-1 text-xs font-bold text-white">
-                        <CheckCircle2 className="h-3.5 w-3.5 text-[#ffcdb2]" />
+                        <i className="fa-solid fa-circle-check text-xs text-[#ffcdb2]"></i>
                         {guide.recommendedCategory}
                       </span>
                     </div>
@@ -128,9 +127,9 @@ export const CategoryGuideModal: React.FC<Props> = ({
                         onSelectCategoryForPayment(catId);
                         onClose();
                       }}
-                      className="shrink-0 flex items-center gap-1 rounded-lg bg-[#6d6875] hover:bg-[#5b5762] px-3 py-1.5 text-xs font-bold text-white shadow-sm transition"
+                      className="shrink-0 flex items-center gap-1.5 rounded-lg bg-[#6d6875] hover:bg-[#5b5762] px-3 py-1.5 text-xs font-bold text-white shadow-sm transition"
                     >
-                      Log <ArrowRight className="h-3.5 w-3.5" />
+                      Log <i className="fa-solid fa-arrow-right text-xs"></i>
                     </button>
                   )}
                 </div>
