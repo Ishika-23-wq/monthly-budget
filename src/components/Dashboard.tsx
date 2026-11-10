@@ -72,8 +72,8 @@ export const Dashboard: React.FC<Props> = ({
       <div className="rounded-3xl border border-[#6969b3]/35 bg-white p-4 sm:p-5 shadow-xs text-[#25171a]">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#25171a] text-[#98c1d9] ring-2 ring-[#533a7b]/30 shadow-xs">
-              <i className="fa-solid fa-wand-magic-sparkles text-base text-[#98c1d9]"></i>
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white text-[#533a7b] border border-[#6969b3]/30 ring-2 ring-[#533a7b]/30 shadow-xs">
+              <i className="fa-solid fa-wand-magic-sparkles text-base text-[#533a7b]"></i>
             </div>
             <div>
               <div className="flex items-center gap-2 flex-wrap">
@@ -135,7 +135,7 @@ export const Dashboard: React.FC<Props> = ({
                   <div className="flex items-start justify-between gap-2">
                     <span className="text-xs font-black text-[#25171a] line-clamp-1">{task.title}</span>
                     <span className={`shrink-0 rounded-full px-2 py-0.2 text-[9px] font-black ${
-                      isUrgent ? 'bg-[#533a7b] text-white border border-[#25171a]/20' : 'bg-[#25171a] text-white'
+                      isUrgent ? 'bg-[#533a7b] text-white border border-[#533a7b]/20' : 'bg-white border border-[#6969b3]/40 text-[#25171a]'
                     }`}>
                       {days === 0 ? 'Today' : days === 1 ? 'Tomorrow' : `${days}d left`}
                     </span>
@@ -212,9 +212,9 @@ export const Dashboard: React.FC<Props> = ({
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <button
           onClick={() => onOpenAddPayment()}
-          className="flex items-center justify-center gap-2 rounded-2xl bg-[#25171a] hover:bg-[#4b244a] p-3.5 text-xs sm:text-sm font-black text-[#98c1d9] shadow-md shadow-[#25171a]/15 transition active:scale-95"
+          className="flex items-center justify-center gap-2 rounded-2xl bg-white hover:bg-[#98c1d9]/20 border-2 border-[#533a7b] p-3.5 text-xs sm:text-sm font-black text-[#25171a] shadow-xs transition active:scale-95"
         >
-          <i className="fa-solid fa-plus text-xs"></i>
+          <i className="fa-solid fa-plus text-xs text-[#533a7b]"></i>
           <span>Log Payment Today</span>
         </button>
 

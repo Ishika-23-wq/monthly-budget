@@ -212,16 +212,16 @@ export const DailyPaymentModal: React.FC<Props> = ({
                     onClick={() => setCategoryId(cat.id)}
                     className={`flex items-center gap-2.5 rounded-2xl p-2.5 text-left border-2 transition ${
                       isSelected
-                        ? 'border-[#25171a] bg-[#25171a] text-white shadow-xs'
+                        ? 'border-[#533a7b] bg-white ring-2 ring-[#533a7b]/30 shadow-xs'
                         : 'border-[#6969b3]/30 bg-[#98c1d9]/10 text-[#25171a] hover:border-[#533a7b] hover:bg-white'
                     }`}
                   >
-                    <div className={`p-1.5 rounded-xl ${isSelected ? 'bg-white/20 text-[#98c1d9]' : 'bg-white border border-[#6969b3]/30 text-[#25171a]'}`}>
+                    <div className={`p-1.5 rounded-xl ${isSelected ? 'bg-[#533a7b] text-white' : 'bg-white border border-[#6969b3]/30 text-[#25171a]'}`}>
                       <CategoryIcon name={cat.icon} className="w-4 h-4" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <div className="text-xs font-black truncate">{cat.name}</div>
-                      <div className={`text-[10px] ${isSelected ? 'text-slate-300' : 'text-[#6969b3]'}`}>
+                      <div className="text-xs font-black truncate text-[#25171a]">{cat.name}</div>
+                      <div className={`text-[10px] ${isSelected ? 'text-[#533a7b] font-bold' : 'text-[#6969b3]'}`}>
                         Left: {formatINR(left)}
                       </div>
                     </div>
@@ -293,9 +293,9 @@ export const DailyPaymentModal: React.FC<Props> = ({
           <div className="pt-2">
             <button
               type="submit"
-              className="w-full flex items-center justify-center gap-2 rounded-2xl bg-[#25171a] hover:bg-[#4b244a] py-3.5 text-sm font-black text-[#98c1d9] shadow-lg shadow-[#25171a]/15 transition active:scale-[0.99]"
+              className="w-full flex items-center justify-center gap-2 rounded-2xl bg-white hover:bg-[#98c1d9]/20 border-2 border-[#533a7b] py-3.5 text-sm font-black text-[#25171a] shadow-xs transition active:scale-[0.99]"
             >
-              <i className="fa-solid fa-plus text-xs"></i> Save Payment (₹{amount || '0'})
+              <i className="fa-solid fa-plus text-xs text-[#533a7b]"></i> Save Payment (₹{amount || '0'})
             </button>
           </div>
         </form>

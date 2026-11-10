@@ -139,18 +139,18 @@ export const TasksSection: React.FC<Props> = ({
             ) : (
               <button
                 onClick={handleEnableNotifications}
-                className="flex items-center gap-1.5 rounded-xl bg-[#25171a] hover:bg-[#4b244a] px-3.5 py-2 text-xs font-bold text-[#98c1d9] shadow-xs transition"
+                className="flex items-center gap-1.5 rounded-xl bg-white hover:bg-[#98c1d9]/20 border-2 border-[#533a7b] px-3.5 py-2 text-xs font-bold text-[#25171a] shadow-xs transition"
               >
-                <i className="fa-solid fa-bell text-xs text-[#98c1d9]"></i>
+                <i className="fa-solid fa-bell text-xs text-[#533a7b]"></i>
                 <span>Enable Phone & Laptop Alerts</span>
               </button>
             )}
 
             <button
               onClick={() => setShowQuickAdd(!showQuickAdd)}
-              className="flex items-center gap-1.5 rounded-xl bg-[#25171a] hover:bg-[#4b244a] px-4 py-2 text-xs font-black text-[#98c1d9] shadow-xs transition"
+              className="flex items-center gap-1.5 rounded-xl bg-white hover:bg-[#98c1d9]/20 border-2 border-[#533a7b] px-4 py-2 text-xs font-black text-[#25171a] shadow-xs transition"
             >
-              <i className={`fa-solid ${showQuickAdd ? 'fa-xmark' : 'fa-plus'} text-xs`}></i>
+              <i className={`fa-solid ${showQuickAdd ? 'fa-xmark' : 'fa-plus'} text-xs text-[#533a7b]`}></i>
               <span>{showQuickAdd ? 'Close' : 'Quick Add Any Task'}</span>
             </button>
           </div>
@@ -297,7 +297,7 @@ export const TasksSection: React.FC<Props> = ({
             </button>
             <button
               type="submit"
-              className="rounded-xl bg-[#25171a] hover:bg-[#4b244a] px-5 py-2 text-xs font-black text-[#98c1d9] shadow-xs transition"
+              className="rounded-xl bg-white hover:bg-[#98c1d9]/20 border-2 border-[#533a7b] px-5 py-2 text-xs font-black text-[#25171a] shadow-xs transition"
             >
               Save Task to Database
             </button>
@@ -313,7 +313,7 @@ export const TasksSection: React.FC<Props> = ({
             className={`rounded-xl px-3.5 py-1.5 text-xs font-black transition ${
               filter === 'dueSoon'
                 ? 'bg-[#533a7b] text-white shadow-xs'
-                : 'text-[#6969b3] hover:text-[#25171a] hover:bg-[#533a7b]/15'
+                : 'text-[#6969b3] hover:text-[#25171a] hover:bg-white/60'
             }`}
           >
             ⚠️ Due in 2–3 Days ({dueSoonTasks.length})
@@ -322,8 +322,8 @@ export const TasksSection: React.FC<Props> = ({
             onClick={() => setFilter('pending')}
             className={`rounded-xl px-3.5 py-1.5 text-xs font-black transition ${
               filter === 'pending'
-                ? 'bg-[#25171a] text-[#98c1d9] shadow-xs'
-                : 'text-[#6969b3] hover:text-[#25171a] hover:bg-[#533a7b]/15'
+                ? 'bg-white border border-[#6969b3]/40 text-[#25171a] shadow-xs'
+                : 'text-[#6969b3] hover:text-[#25171a] hover:bg-white/60'
             }`}
           >
             Pending ({pendingCount})
@@ -332,8 +332,8 @@ export const TasksSection: React.FC<Props> = ({
             onClick={() => setFilter('completed')}
             className={`rounded-xl px-3.5 py-1.5 text-xs font-black transition ${
               filter === 'completed'
-                ? 'bg-[#6969b3] text-white shadow-xs'
-                : 'text-[#6969b3] hover:text-[#25171a] hover:bg-[#533a7b]/15'
+                ? 'bg-white border border-[#6969b3]/40 text-[#25171a] shadow-xs'
+                : 'text-[#6969b3] hover:text-[#25171a] hover:bg-white/60'
             }`}
           >
             Completed ({completedCount})
@@ -342,8 +342,8 @@ export const TasksSection: React.FC<Props> = ({
             onClick={() => setFilter('all')}
             className={`rounded-xl px-3.5 py-1.5 text-xs font-black transition ${
               filter === 'all'
-                ? 'bg-[#25171a] text-white shadow-xs'
-                : 'text-[#6969b3] hover:text-[#25171a] hover:bg-[#533a7b]/15'
+                ? 'bg-white border border-[#6969b3]/40 text-[#25171a] shadow-xs'
+                : 'text-[#6969b3] hover:text-[#25171a] hover:bg-white/60'
             }`}
           >
             All Tasks ({tasks.length})
@@ -418,7 +418,7 @@ export const TasksSection: React.FC<Props> = ({
                         </h4>
 
                         <span className={`rounded-full px-2 py-0.2 text-[9px] font-black uppercase ${
-                          task.priority === 'high' ? 'bg-[#25171a] text-white' : 'bg-[#533a7b]/30 text-[#25171a] border border-[#533a7b]'
+                          task.priority === 'high' ? 'bg-[#533a7b] text-white' : 'bg-white border border-[#6969b3]/40 text-[#25171a]'
                         }`}>
                           {task.priority}
                         </span>
@@ -447,7 +447,7 @@ export const TasksSection: React.FC<Props> = ({
                               isOverdue
                                 ? 'text-rose-600'
                                 : isDueSoon
-                                ? 'text-white bg-[#533a7b] border border-[#25171a]/20 px-2.5 py-0.5 rounded-full'
+                                ? 'text-white bg-[#533a7b] border border-[#533a7b]/30 px-2.5 py-0.5 rounded-full'
                                 : 'text-[#6969b3]'
                             }`}
                           >
@@ -476,7 +476,7 @@ export const TasksSection: React.FC<Props> = ({
                     {task.amountLinked && !task.completed && (
                       <button
                         onClick={() => onQuickLogExpenseFromTask(task)}
-                        className="hidden sm:flex items-center gap-1 rounded-xl bg-[#25171a] hover:bg-[#4b244a] px-3 py-1 text-xs font-black text-[#98c1d9] transition shadow-xs"
+                        className="hidden sm:flex items-center gap-1 rounded-xl bg-white hover:bg-[#98c1d9]/20 border border-[#533a7b] px-3 py-1 text-xs font-black text-[#25171a] transition shadow-xs"
                         title="Log this payment into expenses"
                       >
                         Log Pay

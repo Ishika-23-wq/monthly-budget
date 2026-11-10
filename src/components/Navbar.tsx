@@ -39,7 +39,7 @@ export const Navbar: React.FC<Props> = ({
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
         {/* Brand in Coolors Palette: #98c1d9, #6969b3, #533a7b, #4b244a, #25171a */}
         <div className="flex items-center gap-2.5">
-          <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#25171a] text-[#98c1d9] shadow-sm ring-2 ring-[#533a7b]/30">
+          <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white text-[#25171a] shadow-sm border border-[#6969b3]/30 ring-2 ring-[#533a7b]/30">
             <span className="text-xl font-black">₹</span>
           </div>
           <div>
@@ -65,11 +65,11 @@ export const Navbar: React.FC<Props> = ({
             className={`flex items-center gap-1.5 rounded-xl border px-3 py-1.5 text-xs font-bold transition shadow-xs ${
               notifState === 'granted'
                 ? 'border-[#533a7b] bg-[#98c1d9]/30 text-[#25171a]'
-                : 'border-[#25171a] bg-[#25171a] text-[#98c1d9] hover:bg-[#4b244a]'
+                : 'border-[#6969b3]/40 bg-white text-[#25171a] hover:bg-[#98c1d9]/20 hover:border-[#533a7b]'
             }`}
             title="Enable/Test phone & laptop notifications"
           >
-            <i className={`fa-solid fa-bell text-xs ${notifState === 'granted' ? 'text-[#533a7b]' : 'text-[#98c1d9]'}`}></i>
+            <i className={`fa-solid fa-bell text-xs ${notifState === 'granted' ? 'text-[#533a7b]' : 'text-[#6969b3]'}`}></i>
             <span className="hidden sm:inline">
               {notifState === 'granted' ? 'Alerts ON' : 'Turn On Alerts'}
             </span>

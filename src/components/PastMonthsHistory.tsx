@@ -42,9 +42,9 @@ export const PastMonthsHistory: React.FC<Props> = ({
 
         <button
           onClick={() => onCreateNextMonth(suggestedNextKey)}
-          className="flex items-center gap-2 rounded-xl bg-[#25171a] hover:bg-[#4b244a] px-4 py-2.5 text-xs font-black text-[#98c1d9] shadow-xs transition self-start sm:self-center"
+          className="flex items-center gap-2 rounded-xl bg-white hover:bg-[#98c1d9]/20 border-2 border-[#533a7b] px-4 py-2.5 text-xs font-black text-[#25171a] shadow-xs transition self-start sm:self-center"
         >
-          <i className="fa-solid fa-plus text-xs"></i> Start {suggestedNextName}
+          <i className="fa-solid fa-plus text-xs text-[#533a7b]"></i> Start {suggestedNextName}
         </button>
       </div>
 
@@ -78,8 +78,8 @@ export const PastMonthsHistory: React.FC<Props> = ({
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#25171a] text-[#98c1d9] ring-2 ring-[#533a7b]/20">
-                    <i className="fa-solid fa-calendar-days text-base text-[#98c1d9]"></i>
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white text-[#533a7b] border border-[#6969b3]/30 ring-2 ring-[#533a7b]/20">
+                    <i className="fa-solid fa-calendar-days text-base text-[#533a7b]"></i>
                   </div>
                   <div>
                     <div className="flex items-center gap-2">

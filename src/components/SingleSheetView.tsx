@@ -85,9 +85,9 @@ export const SingleSheetView: React.FC<Props> = ({
 
         <button
           onClick={handleExportCSV}
-          className="flex items-center gap-2 rounded-xl bg-[#25171a] hover:bg-[#4b244a] px-4 py-2.5 text-xs font-black text-[#98c1d9] shadow-xs transition self-start sm:self-center"
+          className="flex items-center gap-2 rounded-xl bg-white hover:bg-[#98c1d9]/20 border-2 border-[#533a7b] px-4 py-2.5 text-xs font-black text-[#25171a] shadow-xs transition self-start sm:self-center"
         >
-          <i className="fa-solid fa-file-arrow-down text-xs"></i>
+          <i className="fa-solid fa-file-arrow-down text-xs text-[#533a7b]"></i>
           Export to CSV / Excel
         </button>
       </div>
@@ -135,8 +135,8 @@ export const SingleSheetView: React.FC<Props> = ({
                 className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 sm:p-5 cursor-pointer select-none bg-white hover:bg-[#98c1d9]/15 transition"
               >
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#25171a] text-[#98c1d9] ring-2 ring-[#533a7b]/25 shadow-xs">
-                    <CategoryIcon name={category.icon} className="w-5 h-5 text-[#98c1d9]" />
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-[#533a7b] border border-[#6969b3]/30 ring-2 ring-[#533a7b]/25 shadow-xs">
+                    <CategoryIcon name={category.icon} className="w-5 h-5 text-[#533a7b]" />
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
@@ -167,10 +167,10 @@ export const SingleSheetView: React.FC<Props> = ({
 
                   <button
                     onClick={() => onQuickAddPayment(category.id)}
-                    className="flex items-center gap-1 rounded-xl bg-[#25171a] hover:bg-[#4b244a] px-3 py-1.5 text-xs font-black text-[#98c1d9] shadow-xs transition"
+                    className="flex items-center gap-1 rounded-xl bg-white hover:bg-[#98c1d9]/20 border border-[#533a7b] px-3 py-1.5 text-xs font-black text-[#25171a] shadow-xs transition"
                     title="Add payment to this category"
                   >
-                    <i className="fa-solid fa-plus text-xs"></i>
+                    <i className="fa-solid fa-plus text-xs text-[#533a7b]"></i>
                     <span className="hidden sm:inline">Add</span>
                   </button>
 

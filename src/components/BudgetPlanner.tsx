@@ -95,9 +95,9 @@ export const BudgetPlanner: React.FC<Props> = ({
             </a>
             <button
               onClick={() => setShowAddModal(true)}
-              className="flex items-center gap-1.5 rounded-xl bg-[#25171a] hover:bg-[#4b244a] px-4 py-2 text-xs font-black text-[#98c1d9] transition shadow-xs"
+              className="flex items-center gap-1.5 rounded-xl bg-white hover:bg-[#98c1d9]/20 border-2 border-[#533a7b] px-4 py-2 text-xs font-black text-[#25171a] transition shadow-xs"
             >
-              <i className="fa-solid fa-plus text-xs"></i> Add Category
+              <i className="fa-solid fa-plus text-xs text-[#533a7b]"></i> Add Category
             </button>
           </div>
         </div>
@@ -264,7 +264,7 @@ export const BudgetPlanner: React.FC<Props> = ({
                 </button>
                 <button
                   type="submit"
-                  className="rounded-xl bg-[#25171a] hover:bg-[#4b244a] px-5 py-2 text-xs font-black text-[#98c1d9] shadow-xs transition"
+                  className="rounded-xl bg-white hover:bg-[#98c1d9]/20 border-2 border-[#533a7b] px-5 py-2 text-xs font-black text-[#25171a] shadow-xs transition"
                 >
                   Create Category
                 </button>
@@ -338,7 +338,7 @@ const CategoryPlanCard: React.FC<CategoryPlanCardProps> = ({ category, onUpdate,
               />
               <button
                 onClick={handleSave}
-                className="rounded-lg bg-[#25171a] hover:bg-[#4b244a] px-2 py-0.5 text-[11px] font-black text-[#98c1d9]"
+                className="rounded-lg bg-white hover:bg-[#98c1d9]/20 border border-[#533a7b] px-2 py-0.5 text-[11px] font-black text-[#25171a]"
               >
                 Save
               </button>

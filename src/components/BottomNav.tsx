@@ -23,11 +23,11 @@ export const BottomNav: React.FC<Props> = ({
           onClick={() => onSelectTab('dashboard')}
           className={`flex flex-col items-center gap-1 py-1.5 px-3 rounded-2xl transition ${
             activeTab === 'dashboard'
-              ? 'bg-[#25171a] text-[#98c1d9] font-black shadow-xs'
+              ? 'bg-white text-[#25171a] font-black border border-[#6969b3]/30 shadow-xs'
               : 'text-[#6969b3] hover:text-[#25171a] font-bold'
           }`}
         >
-          <i className="fa-solid fa-table-columns text-sm"></i>
+          <i className={`fa-solid fa-table-columns text-sm ${activeTab === 'dashboard' ? 'text-[#533a7b]' : ''}`}></i>
           <span className="text-[10px]">Dashboard</span>
         </button>
 
@@ -36,11 +36,11 @@ export const BottomNav: React.FC<Props> = ({
           onClick={() => onSelectTab('planner')}
           className={`flex flex-col items-center gap-1 py-1.5 px-3 rounded-2xl transition ${
             activeTab === 'planner'
-              ? 'bg-[#25171a] text-[#98c1d9] font-black shadow-xs'
+              ? 'bg-white text-[#25171a] font-black border border-[#6969b3]/30 shadow-xs'
               : 'text-[#6969b3] hover:text-[#25171a] font-bold'
           }`}
         >
-          <i className="fa-solid fa-sliders text-sm"></i>
+          <i className={`fa-solid fa-sliders text-sm ${activeTab === 'planner' ? 'text-[#533a7b]' : ''}`}></i>
           <span className="text-[10px]">Goals</span>
         </button>
 
@@ -58,11 +58,11 @@ export const BottomNav: React.FC<Props> = ({
           onClick={() => onSelectTab('tasks')}
           className={`relative flex flex-col items-center gap-1 py-1.5 px-3 rounded-2xl transition ${
             activeTab === 'tasks'
-              ? 'bg-[#25171a] text-[#98c1d9] font-black shadow-xs'
+              ? 'bg-white text-[#25171a] font-black border border-[#6969b3]/30 shadow-xs'
               : 'text-[#6969b3] hover:text-[#25171a] font-bold'
           }`}
         >
-          <i className="fa-solid fa-list-check text-sm"></i>
+          <i className={`fa-solid fa-list-check text-sm ${activeTab === 'tasks' ? 'text-[#533a7b]' : ''}`}></i>
           <span className="text-[10px]">Tasks</span>
           {pendingTasksCount > 0 && (
             <span className="absolute -top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#533a7b] text-[9px] font-black text-white border border-white">
@@ -76,11 +76,11 @@ export const BottomNav: React.FC<Props> = ({
           onClick={() => onSelectTab('sheet')}
           className={`flex flex-col items-center gap-1 py-1.5 px-3 rounded-2xl transition ${
             activeTab === 'sheet'
-              ? 'bg-[#25171a] text-[#98c1d9] font-black shadow-xs'
+              ? 'bg-white text-[#25171a] font-black border border-[#6969b3]/30 shadow-xs'
               : 'text-[#6969b3] hover:text-[#25171a] font-bold'
           }`}
         >
-          <i className="fa-solid fa-table-list text-sm"></i>
+          <i className={`fa-solid fa-table-list text-sm ${activeTab === 'sheet' ? 'text-[#533a7b]' : ''}`}></i>
           <span className="text-[10px]">Sheet</span>
         </button>
       </div>

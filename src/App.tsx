@@ -355,10 +355,10 @@ export function App() {
 
   return (
     <div className="min-h-screen bg-[#98c1d9]/15 text-[#25171a] flex flex-col pb-24 md:pb-12">
-      {/* Toast Notification in Palette (#25171a, #98c1d9) */}
+      {/* Toast Notification in Palette */}
       {toastMessage && (
-        <div className="fixed top-16 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 rounded-2xl bg-[#25171a] border border-[#98c1d9] px-4 py-2.5 text-xs font-black text-[#98c1d9] shadow-2xl animate-fadeIn">
-          <i className="fa-solid fa-circle-check text-sm text-[#98c1d9]"></i>
+        <div className="fixed top-16 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 rounded-2xl bg-white border-2 border-[#533a7b] px-4 py-2.5 text-xs font-black text-[#25171a] shadow-2xl animate-fadeIn">
+          <i className="fa-solid fa-circle-check text-sm text-[#533a7b]"></i>
           <span>{toastMessage}</span>
         </div>
       )}
@@ -380,11 +380,11 @@ export function App() {
               onClick={() => setActiveTab('dashboard')}
               className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition ${
                 activeTab === 'dashboard'
-                  ? 'bg-[#25171a] text-[#98c1d9] font-black shadow-xs'
-                  : 'text-[#6969b3] hover:text-[#25171a] hover:bg-[#533a7b]/15'
+                  ? 'bg-white text-[#25171a] font-black border border-[#6969b3]/30 shadow-xs'
+                  : 'text-[#6969b3] hover:text-[#25171a] hover:bg-white/60'
               }`}
             >
-              <i className={`fa-solid fa-table-columns ${activeTab === 'dashboard' ? 'text-[#98c1d9]' : 'text-[#6969b3]'}`}></i>
+              <i className={`fa-solid fa-table-columns ${activeTab === 'dashboard' ? 'text-[#533a7b]' : 'text-[#6969b3]'}`}></i>
               Dashboard
             </button>
 
@@ -392,11 +392,11 @@ export function App() {
               onClick={() => setActiveTab('planner')}
               className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition ${
                 activeTab === 'planner'
-                  ? 'bg-[#25171a] text-[#98c1d9] font-black shadow-xs'
-                  : 'text-[#6969b3] hover:text-[#25171a] hover:bg-[#533a7b]/15'
+                  ? 'bg-white text-[#25171a] font-black border border-[#6969b3]/30 shadow-xs'
+                  : 'text-[#6969b3] hover:text-[#25171a] hover:bg-white/60'
               }`}
             >
-              <i className={`fa-solid fa-sliders ${activeTab === 'planner' ? 'text-[#98c1d9]' : 'text-[#6969b3]'}`}></i>
+              <i className={`fa-solid fa-sliders ${activeTab === 'planner' ? 'text-[#533a7b]' : 'text-[#6969b3]'}`}></i>
               Target Goals
             </button>
 
@@ -404,11 +404,11 @@ export function App() {
               onClick={() => setActiveTab('tasks')}
               className={`relative flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition ${
                 activeTab === 'tasks'
-                  ? 'bg-[#25171a] text-[#98c1d9] font-black shadow-xs'
-                  : 'text-[#6969b3] hover:text-[#25171a] hover:bg-[#533a7b]/15'
+                  ? 'bg-white text-[#25171a] font-black border border-[#6969b3]/30 shadow-xs'
+                  : 'text-[#6969b3] hover:text-[#25171a] hover:bg-white/60'
               }`}
             >
-              <i className={`fa-solid fa-list-check ${activeTab === 'tasks' ? 'text-[#98c1d9]' : 'text-[#6969b3]'}`}></i>
+              <i className={`fa-solid fa-list-check ${activeTab === 'tasks' ? 'text-[#533a7b]' : 'text-[#6969b3]'}`}></i>
               Tasks & Deadlines
               {pendingTasksCount > 0 && (
                 <span className="ml-1 rounded-full bg-[#533a7b] px-1.5 py-0.2 text-[10px] font-black text-white">
@@ -421,11 +421,11 @@ export function App() {
               onClick={() => setActiveTab('sheet')}
               className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition ${
                 activeTab === 'sheet'
-                  ? 'bg-[#25171a] text-[#98c1d9] font-black shadow-xs'
-                  : 'text-[#6969b3] hover:text-[#25171a] hover:bg-[#533a7b]/15'
+                  ? 'bg-white text-[#25171a] font-black border border-[#6969b3]/30 shadow-xs'
+                  : 'text-[#6969b3] hover:text-[#25171a] hover:bg-white/60'
               }`}
             >
-              <i className={`fa-solid fa-table-list ${activeTab === 'sheet' ? 'text-[#98c1d9]' : 'text-[#6969b3]'}`}></i>
+              <i className={`fa-solid fa-table-list ${activeTab === 'sheet' ? 'text-[#533a7b]' : 'text-[#6969b3]'}`}></i>
               Single Sheet View
             </button>
 
@@ -433,11 +433,11 @@ export function App() {
               onClick={() => setActiveTab('history')}
               className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition ${
                 activeTab === 'history'
-                  ? 'bg-[#25171a] text-[#98c1d9] font-black shadow-xs'
-                  : 'text-[#6969b3] hover:text-[#25171a] hover:bg-[#533a7b]/15'
+                  ? 'bg-white text-[#25171a] font-black border border-[#6969b3]/30 shadow-xs'
+                  : 'text-[#6969b3] hover:text-[#25171a] hover:bg-white/60'
               }`}
             >
-              <i className={`fa-solid fa-clock-rotate-left ${activeTab === 'history' ? 'text-[#98c1d9]' : 'text-[#6969b3]'}`}></i>
+              <i className={`fa-solid fa-clock-rotate-left ${activeTab === 'history' ? 'text-[#533a7b]' : 'text-[#6969b3]'}`}></i>
               History & Rollover
             </button>
           </div>
@@ -451,9 +451,9 @@ export function App() {
 
             <button
               onClick={() => handleOpenAddPayment()}
-              className="flex items-center gap-1.5 rounded-xl bg-[#25171a] hover:bg-[#4b244a] px-4 py-2 text-xs font-black text-[#98c1d9] shadow-xs transition active:scale-95"
+              className="flex items-center gap-1.5 rounded-xl bg-white hover:bg-[#98c1d9]/20 border-2 border-[#533a7b] px-4 py-2 text-xs font-black text-[#25171a] shadow-xs transition active:scale-95"
             >
-              <i className="fa-solid fa-plus text-xs"></i> Log Payment Today
+              <i className="fa-solid fa-plus text-xs text-[#533a7b]"></i> Log Payment Today
             </button>
           </div>
         </div>
