@@ -135,8 +135,8 @@ export const SingleSheetView: React.FC<Props> = ({
                 className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 sm:p-5 cursor-pointer select-none bg-white hover:bg-[#7cc6fe]/10 transition"
               >
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#08090a] text-[#5dfdcb]">
-                    <CategoryIcon name={category.icon} className="w-5 h-5" />
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#2c1810] text-white">
+                    <CategoryIcon name={category.icon} className="w-5 h-5 text-white" />
                   </div>
                   <div>
                     <div className="flex items-center gap-2">

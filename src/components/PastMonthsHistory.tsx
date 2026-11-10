@@ -78,8 +78,8 @@ export const PastMonthsHistory: React.FC<Props> = ({
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#08090a] text-[#5dfdcb] ring-2 ring-[#7cc6fe]/20">
-                    <i className="fa-solid fa-calendar-days text-base"></i>
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#2c1810] text-white ring-2 ring-[#2c1810]/20">
+                    <i className="fa-solid fa-calendar-days text-base text-white"></i>
                   </div>
                   <div>
                     <div className="flex items-center gap-2">

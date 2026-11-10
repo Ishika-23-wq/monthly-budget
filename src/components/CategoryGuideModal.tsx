@@ -40,8 +40,8 @@ export const CategoryGuideModal: React.FC<Props> = ({
         {/* Header */}
         <div className="flex items-center justify-between border-b border-[#8789c0]/25 px-6 py-4 bg-white">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#08090a] text-[#5dfdcb] ring-2 ring-[#7cc6fe]/25">
-              <i className="fa-solid fa-circle-question text-base"></i>
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#2c1810] text-white ring-2 ring-[#2c1810]/25">
+              <i className="fa-solid fa-circle-question text-base text-white"></i>
             </div>
             <div>
               <h2 className="text-lg font-black text-[#08090a]">Expense Category Guide</h2>

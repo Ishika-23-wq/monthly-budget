@@ -37,10 +37,10 @@ export const Navbar: React.FC<Props> = ({
   return (
     <header className="sticky top-0 z-40 border-b border-[#8789c0]/25 bg-white/95 backdrop-blur-md text-[#08090a] shadow-xs">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
-        {/* Brand in Modern Palette (#5dfdcb, #7cc6fe, #08090a) */}
+        {/* Brand in Modern Palette with Dark Brown Background and White Icon */}
         <div className="flex items-center gap-2.5">
-          <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#08090a] text-[#5dfdcb] shadow-sm shadow-[#5dfdcb]/20 ring-2 ring-[#5dfdcb]/30">
-            <span className="text-xl font-black">₹</span>
+          <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#2c1810] text-white shadow-sm ring-2 ring-[#2c1810]/25">
+            <span className="text-xl font-black text-white">₹</span>
           </div>
           <div>
             <div className="flex items-center gap-1.5">

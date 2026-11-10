@@ -34,8 +34,8 @@ export const SisterFeeEmergencyBanner: React.FC<Props> = ({
     <div className="relative overflow-hidden rounded-3xl border-2 border-[#8789c0]/35 bg-white p-4 sm:p-5 shadow-sm text-[#08090a]">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-start gap-3">
-          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#08090a] text-[#5dfdcb] ring-2 ring-[#7cc6fe]/30 shadow-xs">
-            <i className="fa-solid fa-triangle-exclamation text-lg"></i>
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#2c1810] text-white ring-2 ring-[#2c1810]/25 shadow-xs">
+            <i className="fa-solid fa-triangle-exclamation text-lg text-white"></i>
           </div>
           <div>
             <div className="flex items-center gap-2 flex-wrap">

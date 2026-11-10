@@ -72,8 +72,8 @@ export const Dashboard: React.FC<Props> = ({
       <div className="rounded-3xl border border-[#8789c0]/35 bg-white p-4 sm:p-5 shadow-xs text-[#08090a]">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#08090a] text-[#5dfdcb] ring-2 ring-[#7cc6fe]/25 shadow-xs">
-              <i className="fa-solid fa-wand-magic-sparkles text-base"></i>
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#2c1810] text-white ring-2 ring-[#2c1810]/25 shadow-xs">
+              <i className="fa-solid fa-wand-magic-sparkles text-base text-white"></i>
             </div>
             <div>
               <div className="flex items-center gap-2 flex-wrap">
