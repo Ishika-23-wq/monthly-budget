@@ -103,24 +103,24 @@ export const TasksSection: React.FC<Props> = ({
   const completedCount = tasks.filter(t => t.completed).length;
 
   return (
-    <div className="space-y-6 text-[#08090a]">
-      {/* Header Banner in Modern Palette */}
-      <div className="rounded-3xl border border-[#8789c0]/35 bg-white p-5 sm:p-6 shadow-xs text-[#08090a]">
+    <div className="space-y-6 text-[#54414e]">
+      {/* Header Banner in Palette */}
+      <div className="rounded-3xl border border-[#a790a5]/35 bg-white p-5 sm:p-6 shadow-xs text-[#54414e]">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2">
-              <span className="flex items-center gap-1.5 rounded-full bg-[#7cc6fe]/20 border border-[#7cc6fe] px-3 py-0.5 text-xs font-black text-[#08090a]">
+              <span className="flex items-center gap-1.5 rounded-full bg-[#875c74]/20 border border-[#875c74] px-3 py-0.5 text-xs font-black text-[#54414e]">
                 <i className="fa-solid fa-list-check text-xs"></i>
                 Work, Academic & Daily Tasks
               </span>
-              <span className="rounded-full bg-[#f4faff] border border-[#8789c0]/30 px-2.5 py-0.5 text-xs font-black text-[#08090a]">
+              <span className="rounded-full bg-[#c5ebc3]/20 border border-[#a790a5]/30 px-2.5 py-0.5 text-xs font-black text-[#54414e]">
                 {pendingCount} Pending • {completedCount} Done
               </span>
             </div>
-            <h2 className="mt-2 text-xl sm:text-2xl font-black text-[#08090a]">
+            <h2 className="mt-2 text-xl sm:text-2xl font-black text-[#54414e]">
               Task Management & Deadline Alerts
             </h2>
-            <p className="text-xs text-[#8789c0] mt-0.5 font-semibold">
+            <p className="text-xs text-[#a790a5] mt-0.5 font-semibold">
               Meetings, question papers, checking students' sheets, PhD milestones & bill deadlines with 2–3 day early notifications.
             </p>
           </div>
@@ -130,25 +130,25 @@ export const TasksSection: React.FC<Props> = ({
             {notifPermission === 'granted' ? (
               <button
                 onClick={handleSendTestNotification}
-                className="flex items-center gap-1.5 rounded-xl border-2 border-[#8789c0]/40 bg-white px-3 py-2 text-xs font-black text-[#08090a] hover:bg-[#7cc6fe]/15 transition shadow-xs"
+                className="flex items-center gap-1.5 rounded-xl border-2 border-[#a790a5]/40 bg-white px-3 py-2 text-xs font-black text-[#54414e] hover:bg-[#875c74]/15 transition shadow-xs"
                 title="Send test alert to this phone/laptop"
               >
-                <i className="fa-solid fa-bell text-xs text-[#7cc6fe]"></i>
+                <i className="fa-solid fa-bell text-xs text-[#875c74]"></i>
                 <span>Test 2-3 Day Alert</span>
               </button>
             ) : (
               <button
                 onClick={handleEnableNotifications}
-                className="flex items-center gap-1.5 rounded-xl bg-[#08090a] hover:bg-[#1a1e24] px-3.5 py-2 text-xs font-bold text-white shadow-xs transition"
+                className="flex items-center gap-1.5 rounded-xl bg-[#54414e] hover:bg-[#875c74] px-3.5 py-2 text-xs font-bold text-[#c5ebc3] shadow-xs transition"
               >
-                <i className="fa-solid fa-bell text-xs text-[#5dfdcb]"></i>
+                <i className="fa-solid fa-bell text-xs text-[#c5ebc3]"></i>
                 <span>Enable Phone & Laptop Alerts</span>
               </button>
             )}
 
             <button
               onClick={() => setShowQuickAdd(!showQuickAdd)}
-              className="flex items-center gap-1.5 rounded-xl bg-[#08090a] hover:bg-[#1a1e24] px-4 py-2 text-xs font-black text-[#5dfdcb] shadow-xs transition"
+              className="flex items-center gap-1.5 rounded-xl bg-[#54414e] hover:bg-[#875c74] px-4 py-2 text-xs font-black text-[#c5ebc3] shadow-xs transition"
             >
               <i className={`fa-solid ${showQuickAdd ? 'fa-xmark' : 'fa-plus'} text-xs`}></i>
               <span>{showQuickAdd ? 'Close' : 'Quick Add Any Task'}</span>
@@ -158,9 +158,9 @@ export const TasksSection: React.FC<Props> = ({
 
         {/* 2-3 Day Proactive Alert Banner */}
         {dueSoonTasks.length > 0 && (
-          <div className="mt-4 rounded-2xl border-2 border-[#7cc6fe] bg-gradient-to-r from-white via-white to-[#7cc6fe]/10 p-4 shadow-xs text-[#08090a]">
-            <div className="flex items-center gap-2 font-black text-[#08090a] text-xs sm:text-sm">
-              <i className="fa-solid fa-triangle-exclamation text-sm text-[#7cc6fe]"></i>
+          <div className="mt-4 rounded-2xl border-2 border-[#875c74] bg-gradient-to-r from-white via-white to-[#875c74]/10 p-4 shadow-xs text-[#54414e]">
+            <div className="flex items-center gap-2 font-black text-[#54414e] text-xs sm:text-sm">
+              <i className="fa-solid fa-triangle-exclamation text-sm text-[#875c74]"></i>
               <span>⏰ 2–3 Day Deadline Alert: {dueSoonTasks.length} task{dueSoonTasks.length !== 1 ? 's' : ''} require immediate action!</span>
             </div>
             <div className="mt-2.5 grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -169,10 +169,10 @@ export const TasksSection: React.FC<Props> = ({
                 return (
                   <div
                     key={t.id}
-                    className="flex items-center justify-between rounded-xl bg-white border border-[#7cc6fe] p-2.5 text-xs text-[#08090a] shadow-2xs"
+                    className="flex items-center justify-between rounded-xl bg-white border border-[#875c74] p-2.5 text-xs text-[#54414e] shadow-2xs"
                   >
                     <span className="font-bold truncate pr-2">{t.title}</span>
-                    <span className="shrink-0 rounded-full bg-[#7cc6fe] px-2.5 py-0.5 text-[10px] font-black text-[#08090a]">
+                    <span className="shrink-0 rounded-full bg-[#875c74] px-2.5 py-0.5 text-[10px] font-black text-white">
                       {days === 0 ? 'Due Today!' : days === 1 ? 'Due Tomorrow!' : `Due in ${days} days`}
                     </span>
                   </div>
@@ -187,21 +187,21 @@ export const TasksSection: React.FC<Props> = ({
       {showQuickAdd && (
         <form
           onSubmit={handleSubmit}
-          className="rounded-3xl border-2 border-[#8789c0]/40 bg-white p-5 sm:p-6 shadow-md animate-fadeIn space-y-4 text-[#08090a]"
+          className="rounded-3xl border-2 border-[#a790a5]/40 bg-white p-5 sm:p-6 shadow-md animate-fadeIn space-y-4 text-[#54414e]"
         >
-          <div className="flex items-center justify-between border-b border-[#8789c0]/25 pb-3">
+          <div className="flex items-center justify-between border-b border-[#a790a5]/25 pb-3">
             <div>
-              <h3 className="text-sm font-black text-[#08090a]">Add Any Work, Academic or Daily Task</h3>
-              <p className="text-[11px] text-[#8789c0] font-semibold">e.g. check students sheet, question paper, department meeting</p>
+              <h3 className="text-sm font-black text-[#54414e]">Add Any Work, Academic or Daily Task</h3>
+              <p className="text-[11px] text-[#a790a5] font-semibold">e.g. check students sheet, question paper, department meeting</p>
             </div>
-            <span className="rounded-full bg-[#5dfdcb]/25 border border-[#5dfdcb] px-2.5 py-0.5 text-[10px] font-black text-[#08090a]">
+            <span className="rounded-full bg-[#c5ebc3]/30 border border-[#875c74]/40 px-2.5 py-0.5 text-[10px] font-black text-[#54414e]">
               2-3 Day Notification Ready
             </span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             <div className="sm:col-span-2">
-              <label className="block text-xs font-black text-[#08090a] mb-1">
+              <label className="block text-xs font-black text-[#54414e] mb-1">
                 Task Title / Description *
               </label>
               <input
@@ -211,12 +211,12 @@ export const TasksSection: React.FC<Props> = ({
                 value={title}
                 onChange={e => setTitle(e.target.value)}
                 autoFocus
-                className="w-full rounded-xl border-2 border-[#8789c0]/35 bg-white p-2.5 text-sm text-[#08090a] placeholder-slate-400 focus:border-[#7cc6fe] focus:outline-none"
+                className="w-full rounded-xl border-2 border-[#a790a5]/35 bg-white p-2.5 text-sm text-[#54414e] placeholder-slate-400 focus:border-[#875c74] focus:outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-black text-[#08090a] mb-1">
+              <label className="block text-xs font-black text-[#54414e] mb-1">
                 Deadline Date *
               </label>
               <input
@@ -224,18 +224,18 @@ export const TasksSection: React.FC<Props> = ({
                 required
                 value={deadline}
                 onChange={e => setDeadline(e.target.value)}
-                className="w-full rounded-xl border-2 border-[#8789c0]/35 bg-white p-2 text-xs text-[#08090a] focus:border-[#7cc6fe] focus:outline-none"
+                className="w-full rounded-xl border-2 border-[#a790a5]/35 bg-white p-2 text-xs text-[#54414e] focus:border-[#875c74] focus:outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-black text-[#08090a] mb-1">
+              <label className="block text-xs font-black text-[#54414e] mb-1">
                 Category / Type
               </label>
               <select
                 value={categoryName}
                 onChange={e => setCategoryName(e.target.value)}
-                className="w-full rounded-xl border-2 border-[#8789c0]/35 bg-white p-2 text-xs text-[#08090a] focus:border-[#7cc6fe] focus:outline-none"
+                className="w-full rounded-xl border-2 border-[#a790a5]/35 bg-white p-2 text-xs text-[#54414e] focus:border-[#875c74] focus:outline-none"
               >
                 {QUICK_CATEGORIES.map(cat => (
                   <option key={cat} value={cat}>
@@ -246,13 +246,13 @@ export const TasksSection: React.FC<Props> = ({
             </div>
 
             <div>
-              <label className="block text-xs font-black text-[#08090a] mb-1">
+              <label className="block text-xs font-black text-[#54414e] mb-1">
                 Priority
               </label>
               <select
                 value={priority}
                 onChange={e => setPriority(e.target.value as PriorityLevel)}
-                className="w-full rounded-xl border-2 border-[#8789c0]/35 bg-white p-2 text-xs text-[#08090a] focus:border-[#7cc6fe] focus:outline-none"
+                className="w-full rounded-xl border-2 border-[#a790a5]/35 bg-white p-2 text-xs text-[#54414e] focus:border-[#875c74] focus:outline-none"
               >
                 <option value="high">High Priority (Urgent)</option>
                 <option value="medium">Medium Priority</option>
@@ -261,7 +261,7 @@ export const TasksSection: React.FC<Props> = ({
             </div>
 
             <div>
-              <label className="block text-xs font-black text-[#08090a] mb-1">
+              <label className="block text-xs font-black text-[#54414e] mb-1">
                 Linked Amount (₹ Optional, e.g. for fee/bills)
               </label>
               <input
@@ -269,12 +269,12 @@ export const TasksSection: React.FC<Props> = ({
                 placeholder="0"
                 value={amountLinked}
                 onChange={e => setAmountLinked(e.target.value)}
-                className="w-full rounded-xl border-2 border-[#8789c0]/35 bg-white p-2 text-xs text-[#08090a] focus:border-[#7cc6fe] focus:outline-none"
+                className="w-full rounded-xl border-2 border-[#a790a5]/35 bg-white p-2 text-xs text-[#54414e] focus:border-[#875c74] focus:outline-none"
               />
             </div>
 
             <div className="sm:col-span-2">
-              <label className="block text-xs font-black text-[#08090a] mb-1">
+              <label className="block text-xs font-black text-[#54414e] mb-1">
                 Notes & Instructions (Optional)
               </label>
               <input
@@ -282,7 +282,7 @@ export const TasksSection: React.FC<Props> = ({
                 placeholder="e.g. Total 45 papers, include MCQ section, Room 204"
                 value={notes}
                 onChange={e => setNotes(e.target.value)}
-                className="w-full rounded-xl border-2 border-[#8789c0]/35 bg-white p-2 text-xs text-[#08090a] placeholder-slate-400 focus:border-[#7cc6fe] focus:outline-none"
+                className="w-full rounded-xl border-2 border-[#a790a5]/35 bg-white p-2 text-xs text-[#54414e] placeholder-slate-400 focus:border-[#875c74] focus:outline-none"
               />
             </div>
           </div>
@@ -291,13 +291,13 @@ export const TasksSection: React.FC<Props> = ({
             <button
               type="button"
               onClick={() => setShowQuickAdd(false)}
-              className="rounded-xl border-2 border-[#8789c0]/35 px-4 py-2 text-xs font-black text-[#08090a] hover:bg-[#7cc6fe]/15 transition"
+              className="rounded-xl border-2 border-[#a790a5]/35 px-4 py-2 text-xs font-black text-[#54414e] hover:bg-[#875c74]/15 transition"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="rounded-xl bg-[#08090a] hover:bg-[#1a1e24] px-5 py-2 text-xs font-black text-[#5dfdcb] shadow-xs transition"
+              className="rounded-xl bg-[#54414e] hover:bg-[#875c74] px-5 py-2 text-xs font-black text-[#c5ebc3] shadow-xs transition"
             >
               Save Task to Database
             </button>
@@ -305,15 +305,15 @@ export const TasksSection: React.FC<Props> = ({
         </form>
       )}
 
-      {/* Filter Tabs in Modern Palette */}
-      <div className="flex items-center justify-between border-b border-[#8789c0]/25 pb-3 flex-wrap gap-2">
+      {/* Filter Tabs in Palette */}
+      <div className="flex items-center justify-between border-b border-[#a790a5]/25 pb-3 flex-wrap gap-2">
         <div className="flex items-center gap-1.5 flex-wrap">
           <button
             onClick={() => setFilter('dueSoon')}
             className={`rounded-xl px-3.5 py-1.5 text-xs font-black transition ${
               filter === 'dueSoon'
-                ? 'bg-[#7cc6fe] text-[#08090a] shadow-xs'
-                : 'text-[#8789c0] hover:text-[#08090a] hover:bg-[#7cc6fe]/15'
+                ? 'bg-[#875c74] text-white shadow-xs'
+                : 'text-[#a790a5] hover:text-[#54414e] hover:bg-[#875c74]/15'
             }`}
           >
             ⚠️ Due in 2–3 Days ({dueSoonTasks.length})
@@ -322,8 +322,8 @@ export const TasksSection: React.FC<Props> = ({
             onClick={() => setFilter('pending')}
             className={`rounded-xl px-3.5 py-1.5 text-xs font-black transition ${
               filter === 'pending'
-                ? 'bg-[#08090a] text-[#5dfdcb] shadow-xs'
-                : 'text-[#8789c0] hover:text-[#08090a] hover:bg-[#7cc6fe]/15'
+                ? 'bg-[#54414e] text-[#c5ebc3] shadow-xs'
+                : 'text-[#a790a5] hover:text-[#54414e] hover:bg-[#875c74]/15'
             }`}
           >
             Pending ({pendingCount})
@@ -332,8 +332,8 @@ export const TasksSection: React.FC<Props> = ({
             onClick={() => setFilter('completed')}
             className={`rounded-xl px-3.5 py-1.5 text-xs font-black transition ${
               filter === 'completed'
-                ? 'bg-[#8789c0] text-white shadow-xs'
-                : 'text-[#8789c0] hover:text-[#08090a] hover:bg-[#7cc6fe]/15'
+                ? 'bg-[#a790a5] text-white shadow-xs'
+                : 'text-[#a790a5] hover:text-[#54414e] hover:bg-[#875c74]/15'
             }`}
           >
             Completed ({completedCount})
@@ -342,8 +342,8 @@ export const TasksSection: React.FC<Props> = ({
             onClick={() => setFilter('all')}
             className={`rounded-xl px-3.5 py-1.5 text-xs font-black transition ${
               filter === 'all'
-                ? 'bg-[#08090a] text-white shadow-xs'
-                : 'text-[#8789c0] hover:text-[#08090a] hover:bg-[#7cc6fe]/15'
+                ? 'bg-[#54414e] text-white shadow-xs'
+                : 'text-[#a790a5] hover:text-[#54414e] hover:bg-[#875c74]/15'
             }`}
           >
             All Tasks ({tasks.length})
@@ -352,7 +352,7 @@ export const TasksSection: React.FC<Props> = ({
 
         <button
           onClick={() => setShowQuickAdd(true)}
-          className="flex items-center gap-1 text-xs font-black text-[#08090a] hover:text-[#7cc6fe] transition"
+          className="flex items-center gap-1 text-xs font-black text-[#54414e] hover:text-[#875c74] transition"
         >
           <i className="fa-solid fa-plus text-xs"></i>
           <span>New Task</span>
@@ -362,11 +362,11 @@ export const TasksSection: React.FC<Props> = ({
       {/* Task Cards List */}
       <div className="space-y-3">
         {filteredTasks.length === 0 ? (
-          <div className="rounded-3xl border-2 border-dashed border-[#8789c0]/40 bg-white py-12 text-center text-xs text-[#8789c0] font-bold">
+          <div className="rounded-3xl border-2 border-dashed border-[#a790a5]/40 bg-white py-12 text-center text-xs text-[#a790a5] font-bold">
             No {filter === 'dueSoon' ? 'tasks due in 2–3 days' : filter} right now.{' '}
             <button
               onClick={() => setShowQuickAdd(true)}
-              className="text-[#08090a] font-black underline ml-1 hover:text-[#7cc6fe]"
+              className="text-[#54414e] font-black underline ml-1 hover:text-[#875c74]"
             >
               Add a task here
             </button>
@@ -380,14 +380,14 @@ export const TasksSection: React.FC<Props> = ({
             return (
               <div
                 key={task.id}
-                className={`group rounded-2xl border p-4 transition bg-white shadow-xs hover:shadow-sm text-[#08090a] ${
+                className={`group rounded-2xl border p-4 transition bg-white shadow-xs hover:shadow-sm text-[#54414e] ${
                   task.completed
                     ? 'border-slate-200 opacity-60'
                     : isOverdue
                     ? 'border-rose-400 bg-rose-50/30'
                     : isDueSoon
-                    ? 'border-2 border-[#7cc6fe] ring-2 ring-[#7cc6fe]/25 bg-gradient-to-r from-white via-white to-[#7cc6fe]/10'
-                    : 'border-[#8789c0]/30 hover:border-[#7cc6fe]'
+                    ? 'border-2 border-[#875c74] ring-2 ring-[#875c74]/25 bg-gradient-to-r from-white via-white to-[#875c74]/10'
+                    : 'border-[#a790a5]/30 hover:border-[#875c74]'
                 }`}
               >
                 <div className="flex items-start justify-between gap-3">
@@ -395,13 +395,13 @@ export const TasksSection: React.FC<Props> = ({
                   <div className="flex items-start gap-3">
                     <button
                       onClick={() => onToggleTask(task.id)}
-                      className="mt-0.5 text-[#08090a] hover:scale-110 transition shrink-0"
+                      className="mt-0.5 text-[#54414e] hover:scale-110 transition shrink-0"
                       title={task.completed ? 'Mark pending' : 'Mark completed'}
                     >
                       {task.completed ? (
-                        <i className="fa-solid fa-circle-check text-xl text-[#5dfdcb]"></i>
+                        <i className="fa-solid fa-circle-check text-xl text-[#54414e]"></i>
                       ) : (
-                        <i className="fa-regular fa-square text-xl text-[#8789c0] hover:text-[#08090a]"></i>
+                        <i className="fa-regular fa-square text-xl text-[#a790a5] hover:text-[#54414e]"></i>
                       )}
                     </button>
 
@@ -411,33 +411,33 @@ export const TasksSection: React.FC<Props> = ({
                           className={`text-sm font-black ${
                             task.completed
                               ? 'line-through text-slate-400'
-                              : 'text-[#08090a]'
+                              : 'text-[#54414e]'
                           }`}
                         >
                           {task.title}
                         </h4>
 
                         <span className={`rounded-full px-2 py-0.2 text-[9px] font-black uppercase ${
-                          task.priority === 'high' ? 'bg-[#08090a] text-white' : 'bg-[#7cc6fe]/30 text-[#08090a] border border-[#7cc6fe]'
+                          task.priority === 'high' ? 'bg-[#54414e] text-white' : 'bg-[#875c74]/30 text-[#54414e] border border-[#875c74]'
                         }`}>
                           {task.priority}
                         </span>
 
                         {task.category && (
-                          <span className="rounded-full bg-[#f4faff] border border-[#8789c0]/35 px-2 py-0.2 text-[9px] font-bold text-[#08090a]">
+                          <span className="rounded-full bg-[#c5ebc3]/20 border border-[#a790a5]/35 px-2 py-0.2 text-[9px] font-bold text-[#54414e]">
                             {task.category}
                           </span>
                         )}
                       </div>
 
                       {task.notes && (
-                        <p className="text-xs text-[#8789c0] mt-1 font-semibold">{task.notes}</p>
+                        <p className="text-xs text-[#a790a5] mt-1 font-semibold">{task.notes}</p>
                       )}
 
                       {/* Deadline & 2-3 Day Notification Countdown */}
                       <div className="mt-2 flex items-center gap-3 text-xs flex-wrap">
-                        <span className="flex items-center gap-1.5 text-[#08090a] font-semibold">
-                          <i className="fa-solid fa-calendar-days text-[#7cc6fe] text-xs"></i>
+                        <span className="flex items-center gap-1.5 text-[#54414e] font-semibold">
+                          <i className="fa-solid fa-calendar-days text-[#875c74] text-xs"></i>
                           {formatDateReadable(task.deadline)}
                         </span>
 
@@ -447,8 +447,8 @@ export const TasksSection: React.FC<Props> = ({
                               isOverdue
                                 ? 'text-rose-600'
                                 : isDueSoon
-                                ? 'text-[#08090a] bg-[#7cc6fe] border border-[#08090a]/20 px-2.5 py-0.5 rounded-full'
-                                : 'text-[#8789c0]'
+                                ? 'text-white bg-[#875c74] border border-[#54414e]/20 px-2.5 py-0.5 rounded-full'
+                                : 'text-[#a790a5]'
                             }`}
                           >
                             <i className="fa-solid fa-clock text-xs"></i>
@@ -463,7 +463,7 @@ export const TasksSection: React.FC<Props> = ({
                         )}
 
                         {task.amountLinked ? (
-                          <span className="font-black text-[#08090a]">
+                          <span className="font-black text-[#54414e]">
                             Target: {formatINR(task.amountLinked)}
                           </span>
                         ) : null}
@@ -476,7 +476,7 @@ export const TasksSection: React.FC<Props> = ({
                     {task.amountLinked && !task.completed && (
                       <button
                         onClick={() => onQuickLogExpenseFromTask(task)}
-                        className="hidden sm:flex items-center gap-1 rounded-xl bg-[#08090a] hover:bg-[#1a1e24] px-3 py-1 text-xs font-black text-[#5dfdcb] transition shadow-xs"
+                        className="hidden sm:flex items-center gap-1 rounded-xl bg-[#54414e] hover:bg-[#875c74] px-3 py-1 text-xs font-black text-[#c5ebc3] transition shadow-xs"
                         title="Log this payment into expenses"
                       >
                         Log Pay
@@ -485,7 +485,7 @@ export const TasksSection: React.FC<Props> = ({
 
                     <button
                       onClick={() => onDeleteTask(task.id)}
-                      className="text-[#8789c0] hover:text-rose-600 p-1.5 transition rounded-lg hover:bg-rose-50"
+                      className="text-[#a790a5] hover:text-rose-600 p-1.5 transition rounded-lg hover:bg-rose-50"
                       title="Delete task"
                     >
                       <i className="fa-solid fa-trash-can text-sm"></i>

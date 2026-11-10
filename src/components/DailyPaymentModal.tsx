@@ -99,32 +99,32 @@ export const DailyPaymentModal: React.FC<Props> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 p-0 sm:p-4 backdrop-blur-xs animate-fadeIn text-[#08090a]">
-      <div className="relative flex max-h-[92vh] w-full max-w-lg flex-col rounded-t-3xl sm:rounded-3xl border-2 border-[#8789c0]/35 bg-white shadow-2xl overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 p-0 sm:p-4 backdrop-blur-xs animate-fadeIn text-[#54414e]">
+      <div className="relative flex max-h-[92vh] w-full max-w-lg flex-col rounded-t-3xl sm:rounded-3xl border-2 border-[#a790a5]/35 bg-white shadow-2xl overflow-hidden">
         {/* Top Header */}
-        <div className="flex items-center justify-between border-b border-[#8789c0]/25 px-5 py-4 bg-white">
+        <div className="flex items-center justify-between border-b border-[#a790a5]/25 px-5 py-4 bg-white">
           <div>
-            <span className="text-[11px] font-bold uppercase tracking-wider text-[#7cc6fe]">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-[#875c74]">
               Today's Payment
             </span>
-            <h2 className="text-lg font-black text-[#08090a]">Log Daily Expense</h2>
+            <h2 className="text-lg font-black text-[#54414e]">Log Daily Expense</h2>
           </div>
           <button
             onClick={onClose}
-            className="rounded-full p-2 text-[#8789c0] hover:text-[#08090a] hover:bg-[#f4faff] transition"
+            className="rounded-full p-2 text-[#a790a5] hover:text-[#54414e] hover:bg-[#c5ebc3]/20 transition"
           >
             <i className="fa-solid fa-xmark text-lg"></i>
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-4 bg-white text-[#08090a]">
+        <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-4 bg-white text-[#54414e]">
           {/* Amount input */}
           <div>
-            <label className="block text-xs font-black text-[#08090a] mb-1">
+            <label className="block text-xs font-black text-[#54414e] mb-1">
               Amount Spent (₹) *
             </label>
             <div className="relative">
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-2xl font-black text-[#08090a]">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-2xl font-black text-[#54414e]">
                 ₹
               </span>
               <input
@@ -135,7 +135,7 @@ export const DailyPaymentModal: React.FC<Props> = ({
                 value={amount}
                 onChange={e => setAmount(e.target.value)}
                 autoFocus
-                className="w-full rounded-2xl border-2 border-[#8789c0]/35 bg-[#f4faff] py-3.5 pl-10 pr-4 text-2xl font-black text-[#08090a] placeholder-slate-400 focus:border-[#7cc6fe] focus:bg-white focus:outline-none transition"
+                className="w-full rounded-2xl border-2 border-[#a790a5]/35 bg-[#c5ebc3]/15 py-3.5 pl-10 pr-4 text-2xl font-black text-[#54414e] placeholder-slate-400 focus:border-[#875c74] focus:bg-white focus:outline-none transition"
               />
             </div>
 
@@ -146,7 +146,7 @@ export const DailyPaymentModal: React.FC<Props> = ({
                   type="button"
                   key={val}
                   onClick={() => handleQuickAdd(val)}
-                  className="rounded-xl border border-[#8789c0]/30 bg-white px-2.5 py-1 text-xs font-black text-[#08090a] hover:bg-[#7cc6fe]/20 hover:border-[#7cc6fe] active:scale-95 transition"
+                  className="rounded-xl border border-[#a790a5]/30 bg-white px-2.5 py-1 text-xs font-black text-[#54414e] hover:bg-[#875c74]/20 hover:border-[#875c74] active:scale-95 transition"
                 >
                   +{val}
                 </button>
@@ -165,7 +165,7 @@ export const DailyPaymentModal: React.FC<Props> = ({
 
           {/* Title with smart detection */}
           <div>
-            <label className="block text-xs font-black text-[#08090a] mb-1">
+            <label className="block text-xs font-black text-[#54414e] mb-1">
               What did you pay for? (Title) *
             </label>
             <input
@@ -174,11 +174,11 @@ export const DailyPaymentModal: React.FC<Props> = ({
               placeholder="e.g. Zara shopping, dinner with friends, metro card, Blinkit milk"
               value={title}
               onChange={e => setTitle(e.target.value)}
-              className="w-full rounded-xl border-2 border-[#8789c0]/35 bg-white py-2.5 px-3.5 text-sm text-[#08090a] placeholder-slate-400 focus:border-[#7cc6fe] focus:outline-none transition"
+              className="w-full rounded-xl border-2 border-[#a790a5]/35 bg-white py-2.5 px-3.5 text-sm text-[#54414e] placeholder-slate-400 focus:border-[#875c74] focus:outline-none transition"
             />
             {detectedSuggestion && (
-              <div className="mt-2 flex items-center gap-1.5 rounded-xl bg-[#5dfdcb]/20 border border-[#5dfdcb] px-3 py-1.5 text-xs text-[#08090a] font-bold animate-fadeIn">
-                <i className="fa-solid fa-wand-magic-sparkles text-xs text-[#08090a] shrink-0"></i>
+              <div className="mt-2 flex items-center gap-1.5 rounded-xl bg-[#c5ebc3]/30 border border-[#875c74]/40 px-3 py-1.5 text-xs text-[#54414e] font-bold animate-fadeIn">
+                <i className="fa-solid fa-wand-magic-sparkles text-xs text-[#54414e] shrink-0"></i>
                 <span>{detectedSuggestion}</span>
               </div>
             )}
@@ -187,15 +187,15 @@ export const DailyPaymentModal: React.FC<Props> = ({
           {/* Category selection */}
           <div>
             <div className="flex items-center justify-between mb-1.5">
-              <label className="text-xs font-black text-[#08090a]">
+              <label className="text-xs font-black text-[#54414e]">
                 Expense Category *
               </label>
               <button
                 type="button"
                 onClick={onOpenGuide}
-                className="flex items-center gap-1 text-[11px] font-black text-[#08090a] hover:text-[#7cc6fe] transition"
+                className="flex items-center gap-1 text-[11px] font-black text-[#54414e] hover:text-[#875c74] transition"
               >
-                <i className="fa-solid fa-circle-question text-xs text-[#7cc6fe]"></i>
+                <i className="fa-solid fa-circle-question text-xs text-[#875c74]"></i>
                 Which category? (Guide)
               </button>
             </div>
@@ -212,16 +212,16 @@ export const DailyPaymentModal: React.FC<Props> = ({
                     onClick={() => setCategoryId(cat.id)}
                     className={`flex items-center gap-2.5 rounded-2xl p-2.5 text-left border-2 transition ${
                       isSelected
-                        ? 'border-[#08090a] bg-[#08090a] text-white shadow-xs'
-                        : 'border-[#8789c0]/30 bg-[#f4faff] text-[#08090a] hover:border-[#7cc6fe] hover:bg-white'
+                        ? 'border-[#54414e] bg-[#54414e] text-white shadow-xs'
+                        : 'border-[#a790a5]/30 bg-[#c5ebc3]/10 text-[#54414e] hover:border-[#875c74] hover:bg-white'
                     }`}
                   >
-                    <div className={`p-1.5 rounded-xl ${isSelected ? 'bg-white/20 text-[#5dfdcb]' : 'bg-white border border-[#8789c0]/30 text-[#08090a]'}`}>
+                    <div className={`p-1.5 rounded-xl ${isSelected ? 'bg-white/20 text-[#c5ebc3]' : 'bg-white border border-[#a790a5]/30 text-[#54414e]'}`}>
                       <CategoryIcon name={cat.icon} className="w-4 h-4" />
                     </div>
                     <div className="min-w-0 flex-1">
                       <div className="text-xs font-black truncate">{cat.name}</div>
-                      <div className={`text-[10px] ${isSelected ? 'text-slate-300' : 'text-[#8789c0]'}`}>
+                      <div className={`text-[10px] ${isSelected ? 'text-slate-300' : 'text-[#a790a5]'}`}>
                         Left: {formatINR(left)}
                       </div>
                     </div>
@@ -232,7 +232,7 @@ export const DailyPaymentModal: React.FC<Props> = ({
 
             {/* Over-budget warning */}
             {willExceed && (
-              <div className="mt-2.5 flex items-center gap-2 rounded-2xl bg-rose-50 border border-rose-300 p-2.5 text-xs text-[#08090a]">
+              <div className="mt-2.5 flex items-center gap-2 rounded-2xl bg-rose-50 border border-rose-300 p-2.5 text-xs text-[#54414e]">
                 <i className="fa-solid fa-triangle-exclamation text-sm text-rose-600 shrink-0"></i>
                 <div>
                   <strong>Budget Alert:</strong> This expense exceeds the planned limit for{' '}
@@ -245,7 +245,7 @@ export const DailyPaymentModal: React.FC<Props> = ({
           {/* Date & Payment Mode */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-black text-[#08090a] mb-1">
+              <label className="block text-xs font-black text-[#54414e] mb-1">
                 Date of Payment
               </label>
               <input
@@ -253,18 +253,18 @@ export const DailyPaymentModal: React.FC<Props> = ({
                 required
                 value={date}
                 onChange={e => setDate(e.target.value)}
-                className="w-full rounded-xl border-2 border-[#8789c0]/35 bg-white py-2 px-3 text-xs text-[#08090a] focus:border-[#7cc6fe] focus:outline-none"
+                className="w-full rounded-xl border-2 border-[#a790a5]/35 bg-white py-2 px-3 text-xs text-[#54414e] focus:border-[#875c74] focus:outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-black text-[#08090a] mb-1">
+              <label className="block text-xs font-black text-[#54414e] mb-1">
                 Payment Method
               </label>
               <select
                 value={paymentMethod}
                 onChange={e => setPaymentMethod(e.target.value as Expense['paymentMethod'])}
-                className="w-full rounded-xl border-2 border-[#8789c0]/35 bg-white py-2 px-3 text-xs text-[#08090a] focus:border-[#7cc6fe] focus:outline-none"
+                className="w-full rounded-xl border-2 border-[#a790a5]/35 bg-white py-2 px-3 text-xs text-[#54414e] focus:border-[#875c74] focus:outline-none"
               >
                 <option value="UPI">UPI (GPay / PhonePe / Paytm)</option>
                 <option value="Credit Card">Credit Card</option>
@@ -277,7 +277,7 @@ export const DailyPaymentModal: React.FC<Props> = ({
 
           {/* Optional notes */}
           <div>
-            <label className="block text-xs font-black text-[#08090a] mb-1">
+            <label className="block text-xs font-black text-[#54414e] mb-1">
               Note (Optional)
             </label>
             <input
@@ -285,7 +285,7 @@ export const DailyPaymentModal: React.FC<Props> = ({
               placeholder="e.g. Split with friend, receipt in email"
               value={notes}
               onChange={e => setNotes(e.target.value)}
-              className="w-full rounded-xl border-2 border-[#8789c0]/35 bg-white py-2 px-3 text-xs text-[#08090a] placeholder-slate-400 focus:border-[#7cc6fe] focus:outline-none"
+              className="w-full rounded-xl border-2 border-[#a790a5]/35 bg-white py-2 px-3 text-xs text-[#54414e] placeholder-slate-400 focus:border-[#875c74] focus:outline-none"
             />
           </div>
 
@@ -293,7 +293,7 @@ export const DailyPaymentModal: React.FC<Props> = ({
           <div className="pt-2">
             <button
               type="submit"
-              className="w-full flex items-center justify-center gap-2 rounded-2xl bg-[#08090a] hover:bg-[#1a1e24] py-3.5 text-sm font-black text-[#5dfdcb] shadow-lg shadow-[#08090a]/15 transition active:scale-[0.99]"
+              className="w-full flex items-center justify-center gap-2 rounded-2xl bg-[#54414e] hover:bg-[#875c74] py-3.5 text-sm font-black text-[#c5ebc3] shadow-lg shadow-[#54414e]/15 transition active:scale-[0.99]"
             >
               <i className="fa-solid fa-plus text-xs"></i> Save Payment (₹{amount || '0'})
             </button>

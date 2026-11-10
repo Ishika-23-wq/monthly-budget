@@ -354,11 +354,11 @@ export function App() {
   const pendingTasksCount = currentTasks.filter(t => !t.completed).length;
 
   return (
-    <div className="min-h-screen bg-[#f4faff] text-[#08090a] flex flex-col pb-24 md:pb-12">
-      {/* Toast Notification in Modern Palette (#08090a, #5dfdcb) */}
+    <div className="min-h-screen bg-[#c5ebc3]/15 text-[#54414e] flex flex-col pb-24 md:pb-12">
+      {/* Toast Notification in Palette (#54414e, #c5ebc3) */}
       {toastMessage && (
-        <div className="fixed top-16 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 rounded-2xl bg-[#08090a] border border-[#5dfdcb] px-4 py-2.5 text-xs font-black text-[#5dfdcb] shadow-2xl animate-fadeIn">
-          <i className="fa-solid fa-circle-check text-sm text-[#5dfdcb]"></i>
+        <div className="fixed top-16 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 rounded-2xl bg-[#54414e] border border-[#c5ebc3] px-4 py-2.5 text-xs font-black text-[#c5ebc3] shadow-2xl animate-fadeIn">
+          <i className="fa-solid fa-circle-check text-sm text-[#c5ebc3]"></i>
           <span>{toastMessage}</span>
         </div>
       )}
@@ -372,19 +372,19 @@ export function App() {
         onResetData={() => {}}
       />
 
-      {/* Desktop Tab Bar in Modern Palette (#5dfdcb, #7cc6fe, #8789c0, #08090a) */}
-      <div className="hidden md:block border-b border-[#8789c0]/20 bg-white/80 backdrop-blur-md">
+      {/* Desktop Tab Bar in Palette (#c5ebc3, #b7c8b5, #a790a5, #875c74, #54414e) */}
+      <div className="hidden md:block border-b border-[#a790a5]/25 bg-white/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-2.5">
           <div className="flex items-center gap-1.5">
             <button
               onClick={() => setActiveTab('dashboard')}
               className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition ${
                 activeTab === 'dashboard'
-                  ? 'bg-[#08090a] text-[#5dfdcb] font-black shadow-xs'
-                  : 'text-[#8789c0] hover:text-[#08090a] hover:bg-[#7cc6fe]/15'
+                  ? 'bg-[#54414e] text-[#c5ebc3] font-black shadow-xs'
+                  : 'text-[#a790a5] hover:text-[#54414e] hover:bg-[#875c74]/15'
               }`}
             >
-              <i className={`fa-solid fa-table-columns ${activeTab === 'dashboard' ? 'text-[#5dfdcb]' : 'text-[#8789c0]'}`}></i>
+              <i className={`fa-solid fa-table-columns ${activeTab === 'dashboard' ? 'text-[#c5ebc3]' : 'text-[#a790a5]'}`}></i>
               Dashboard
             </button>
 
@@ -392,11 +392,11 @@ export function App() {
               onClick={() => setActiveTab('planner')}
               className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition ${
                 activeTab === 'planner'
-                  ? 'bg-[#08090a] text-[#5dfdcb] font-black shadow-xs'
-                  : 'text-[#8789c0] hover:text-[#08090a] hover:bg-[#7cc6fe]/15'
+                  ? 'bg-[#54414e] text-[#c5ebc3] font-black shadow-xs'
+                  : 'text-[#a790a5] hover:text-[#54414e] hover:bg-[#875c74]/15'
               }`}
             >
-              <i className={`fa-solid fa-sliders ${activeTab === 'planner' ? 'text-[#5dfdcb]' : 'text-[#8789c0]'}`}></i>
+              <i className={`fa-solid fa-sliders ${activeTab === 'planner' ? 'text-[#c5ebc3]' : 'text-[#a790a5]'}`}></i>
               Target Goals
             </button>
 
@@ -404,14 +404,14 @@ export function App() {
               onClick={() => setActiveTab('tasks')}
               className={`relative flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition ${
                 activeTab === 'tasks'
-                  ? 'bg-[#08090a] text-[#5dfdcb] font-black shadow-xs'
-                  : 'text-[#8789c0] hover:text-[#08090a] hover:bg-[#7cc6fe]/15'
+                  ? 'bg-[#54414e] text-[#c5ebc3] font-black shadow-xs'
+                  : 'text-[#a790a5] hover:text-[#54414e] hover:bg-[#875c74]/15'
               }`}
             >
-              <i className={`fa-solid fa-list-check ${activeTab === 'tasks' ? 'text-[#5dfdcb]' : 'text-[#8789c0]'}`}></i>
+              <i className={`fa-solid fa-list-check ${activeTab === 'tasks' ? 'text-[#c5ebc3]' : 'text-[#a790a5]'}`}></i>
               Tasks & Deadlines
               {pendingTasksCount > 0 && (
-                <span className="ml-1 rounded-full bg-[#7cc6fe] px-1.5 py-0.2 text-[10px] font-black text-[#08090a]">
+                <span className="ml-1 rounded-full bg-[#875c74] px-1.5 py-0.2 text-[10px] font-black text-white">
                   {pendingTasksCount}
                 </span>
               )}
@@ -421,11 +421,11 @@ export function App() {
               onClick={() => setActiveTab('sheet')}
               className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition ${
                 activeTab === 'sheet'
-                  ? 'bg-[#08090a] text-[#5dfdcb] font-black shadow-xs'
-                : 'text-[#8789c0] hover:text-[#08090a] hover:bg-[#7cc6fe]/15'
+                  ? 'bg-[#54414e] text-[#c5ebc3] font-black shadow-xs'
+                  : 'text-[#a790a5] hover:text-[#54414e] hover:bg-[#875c74]/15'
               }`}
             >
-              <i className={`fa-solid fa-table-list ${activeTab === 'sheet' ? 'text-[#5dfdcb]' : 'text-[#8789c0]'}`}></i>
+              <i className={`fa-solid fa-table-list ${activeTab === 'sheet' ? 'text-[#c5ebc3]' : 'text-[#a790a5]'}`}></i>
               Single Sheet View
             </button>
 
@@ -433,25 +433,25 @@ export function App() {
               onClick={() => setActiveTab('history')}
               className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-bold transition ${
                 activeTab === 'history'
-                  ? 'bg-[#08090a] text-[#5dfdcb] font-black shadow-xs'
-                  : 'text-[#8789c0] hover:text-[#08090a] hover:bg-[#7cc6fe]/15'
+                  ? 'bg-[#54414e] text-[#c5ebc3] font-black shadow-xs'
+                  : 'text-[#a790a5] hover:text-[#54414e] hover:bg-[#875c74]/15'
               }`}
             >
-              <i className={`fa-solid fa-clock-rotate-left ${activeTab === 'history' ? 'text-[#5dfdcb]' : 'text-[#8789c0]'}`}></i>
+              <i className={`fa-solid fa-clock-rotate-left ${activeTab === 'history' ? 'text-[#c5ebc3]' : 'text-[#a790a5]'}`}></i>
               History & Rollover
             </button>
           </div>
 
           <div className="flex items-center gap-3">
             {/* SQLite Status Indicator */}
-            <div className="flex items-center gap-1.5 rounded-full border border-[#7cc6fe] bg-[#f4faff] px-2.5 py-1 text-[11px] font-bold text-[#08090a]" title="SQLite Database Connected">
-              <i className="fa-solid fa-database text-xs text-[#7cc6fe]"></i>
+            <div className="flex items-center gap-1.5 rounded-full border border-[#875c74]/40 bg-[#c5ebc3]/20 px-2.5 py-1 text-[11px] font-bold text-[#54414e]" title="SQLite Database Connected">
+              <i className="fa-solid fa-database text-xs text-[#875c74]"></i>
               <span>SQLite DB {isDbSynced ? 'Active' : 'Local'}</span>
             </div>
 
             <button
               onClick={() => handleOpenAddPayment()}
-              className="flex items-center gap-1.5 rounded-xl bg-[#08090a] hover:bg-[#1a1e24] px-4 py-2 text-xs font-black text-[#5dfdcb] shadow-xs transition active:scale-95"
+              className="flex items-center gap-1.5 rounded-xl bg-[#54414e] hover:bg-[#875c74] px-4 py-2 text-xs font-black text-[#c5ebc3] shadow-xs transition active:scale-95"
             >
               <i className="fa-solid fa-plus text-xs"></i> Log Payment Today
             </button>
@@ -460,7 +460,7 @@ export function App() {
       </div>
 
       {/* Main Content Area */}
-      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-4 sm:px-6 sm:py-6 text-[#08090a]">
+      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-4 sm:px-6 sm:py-6 text-[#54414e]">
         {activeTab === 'dashboard' && (
           <Dashboard
             budget={currentBudget}
