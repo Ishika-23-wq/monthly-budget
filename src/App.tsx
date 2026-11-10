@@ -447,7 +447,7 @@ export function App() {
   const pendingTasksCount = currentTasks.filter(t => !t.completed).length;
 
   return (
-    <div className="min-h-screen bg-[#98c1d9]/15 text-[#25171a] flex flex-col pb-24 md:pb-12">
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-[#98c1d9]/15 text-[#25171a] flex flex-col pb-24 md:pb-12">
       {/* Toast Notification in Palette */}
       {toastMessage && (
         <div className="fixed top-16 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 rounded-2xl bg-white border-2 border-[#533a7b] px-4 py-2.5 text-xs font-black text-[#25171a] shadow-2xl animate-fadeIn">

@@ -41,42 +41,33 @@ export const Navbar: React.FC<Props> = ({
   };
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[#6969b3]/30 bg-white/95 backdrop-blur-md text-[#25171a] shadow-xs">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
-        {/* Brand in Coolors Palette: #98c1d9, #6969b3, #533a7b, #4b244a, #25171a */}
-        <div className="flex items-center gap-2.5">
+    <header className="sticky top-0 z-40 w-full max-w-full overflow-hidden border-b border-[#6969b3]/30 bg-white/95 backdrop-blur-md text-[#25171a] shadow-xs">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-3 py-2 sm:px-6 sm:py-3">
+        {/* Brand in Coolors Palette */}
+        <div className="flex items-center gap-2 shrink-0 min-w-0">
           <img
             src="/favicon.png"
             alt="FinTrack"
-            className="h-10 w-10 rounded-2xl object-cover shadow-sm border border-[#6969b3]/30 ring-2 ring-[#533a7b]/30"
+            className="h-8 w-8 sm:h-10 sm:w-10 rounded-xl sm:rounded-2xl object-cover shadow-sm border border-[#6969b3]/30 ring-2 ring-[#533a7b]/30 shrink-0"
           />
-          <div>
-            <div className="flex items-center gap-1.5">
-              <h1 className="text-base sm:text-lg font-black tracking-tight text-[#25171a]">
-                FinTrack
-              </h1>
-              {/* <span className="inline-flex items-center gap-1 rounded-full bg-[#98c1d9]/30 border border-[#533a7b]/30 px-2 py-0.2 text-[9px] font-black text-[#533a7b]">
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
-                </span>
-                LIVE
-              </span> */}
-            </div>
-            <p className="text-[11px] font-semibold text-[#533a7b] hidden sm:block">
+          <div className="min-w-0">
+            <h1 className="text-sm sm:text-lg font-black tracking-tight text-[#25171a] leading-tight truncate">
+              FinTrack
+            </h1>
+            <p className="text-[10px] sm:text-[11px] font-semibold text-[#533a7b] hidden md:block">
               Budget, Expenses, Tasks & SQLite DB
             </p>
           </div>
         </div>
 
-        {/* Right side controls */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        {/* Right side controls - compact and perfectly fitted on mobile screen */}
+        <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
           {/* Live Sync Button */}
           {onManualSync && (
             <button
               onClick={onManualSync}
               disabled={isSyncing}
-              className={`flex items-center gap-1.5 rounded-xl border px-3 py-1.5 text-xs font-bold transition shadow-xs ${
+              className={`flex h-8 w-8 sm:h-auto sm:w-auto items-center justify-center sm:gap-1.5 rounded-xl border sm:px-3 sm:py-1.5 text-xs font-bold transition shadow-xs shrink-0 ${
                 isDbSynced
                   ? 'border-[#6969b3]/40 bg-white hover:bg-[#98c1d9]/20 text-[#25171a]'
                   : 'border-amber-300 bg-amber-50 text-amber-800'
@@ -93,7 +84,7 @@ export const Navbar: React.FC<Props> = ({
           {/* Notification Button */}
           <button
             onClick={handleToggleNotif}
-            className={`flex items-center gap-1.5 rounded-xl border px-3 py-1.5 text-xs font-bold transition shadow-xs ${
+            className={`flex h-8 w-8 sm:h-auto sm:w-auto items-center justify-center sm:gap-1.5 rounded-xl border sm:px-3 sm:py-1.5 text-xs font-bold transition shadow-xs shrink-0 ${
               notifState === 'granted'
                 ? 'border-[#533a7b] bg-[#98c1d9]/30 text-[#25171a]'
                 : 'border-[#6969b3]/40 bg-white text-[#25171a] hover:bg-[#98c1d9]/20 hover:border-[#533a7b]'
@@ -106,29 +97,32 @@ export const Navbar: React.FC<Props> = ({
             </span>
           </button>
 
-          {/* Month selector dropdown */}
-          <div className="relative">
+          {/* Month selector dropdown - compact width on mobile, full width on desktop */}
+          <div className="relative max-w-[105px] xs:max-w-[130px] sm:max-w-[210px] shrink-0">
             <select
               value={currentBudget.monthKey}
               onChange={e => onSelectMonth(e.target.value)}
-              className="appearance-none rounded-xl border-2 border-[#6969b3]/40 bg-white py-1.5 pl-3 pr-8 text-xs font-bold text-[#25171a] hover:border-[#533a7b] focus:border-[#533a7b] focus:outline-none shadow-xs cursor-pointer transition"
+              className="w-full appearance-none rounded-xl border-2 border-[#6969b3]/40 bg-white py-1 pl-2 pr-5 sm:py-1.5 sm:pl-3 sm:pr-8 text-[11px] sm:text-xs font-bold text-[#25171a] hover:border-[#533a7b] focus:border-[#533a7b] focus:outline-none shadow-xs cursor-pointer transition truncate"
             >
-              {budgetList.map(b => (
-                <option key={b.monthKey} value={b.monthKey} className="bg-white text-[#25171a]">
-                  {b.monthName}
-                </option>
-              ))}
+              {budgetList.map(b => {
+                const shortName = b.monthKey === 'cycle-1' ? 'Nov 2026' : b.monthKey === 'cycle-2' ? 'Dec 2026' : b.monthKey === 'cycle-3' ? 'Jan 2027' : b.monthName;
+                return (
+                  <option key={b.monthKey} value={b.monthKey} className="bg-white text-[#25171a]">
+                    {shortName}
+                  </option>
+                );
+              })}
             </select>
-            <i className="fa-solid fa-chevron-down pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] text-[#533a7b]"></i>
+            <i className="fa-solid fa-chevron-down pointer-events-none absolute right-1.5 sm:right-2.5 top-1/2 -translate-y-1/2 text-[9px] sm:text-[10px] text-[#533a7b]"></i>
           </div>
 
           {/* Category Guide Button */}
           <button
             onClick={onOpenGuide}
-            className="flex items-center gap-1.5 rounded-xl border-2 border-[#6969b3]/40 bg-white hover:bg-[#98c1d9]/25 hover:border-[#533a7b] px-3 py-1.5 text-xs font-bold text-[#25171a] transition shadow-xs"
+            className="flex h-8 w-8 sm:h-auto sm:w-auto items-center justify-center sm:gap-1.5 rounded-xl border-2 border-[#6969b3]/40 bg-white hover:bg-[#98c1d9]/25 hover:border-[#533a7b] sm:px-3 sm:py-1.5 text-xs font-bold text-[#25171a] transition shadow-xs shrink-0"
             title="Category Guide (Shopping, Restaurant, etc.)"
           >
-            <i className="fa-solid fa-circle-question text-sm text-[#533a7b]"></i>
+            <i className="fa-solid fa-circle-question text-xs sm:text-sm text-[#533a7b]"></i>
             <span className="hidden sm:inline">Guide</span>
           </button>
         </div>
