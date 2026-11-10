@@ -1,0 +1,331 @@
+import express from 'express';
+import cors from 'cors';
+import { DatabaseSync } from 'node:sqlite';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const app = express();
+const PORT = process.env.PORT || 3001;
+
+app.use(cors());
+app.use(express.json());
+
+// Initialize SQLite Database in the project root
+const dbPath = path.join(__dirname, 'fintrack.db');
+const db = new DatabaseSync(dbPath);
+console.log(`[SQLite] Database opened at ${dbPath}`);
+
+// Initialize tables for multi-year persistence
+db.exec(`
+  CREATE TABLE IF NOT EXISTS budgets (
+    monthKey TEXT PRIMARY KEY,
+    monthName TEXT,
+    cycleStartDate TEXT,
+    cycleEndDate TEXT,
+    salary REAL,
+    payday INTEGER,
+    startingBalance REAL,
+    notes TEXT
+  );
+
+  CREATE TABLE IF NOT EXISTS categories (
+    id TEXT,
+    monthKey TEXT,
+    name TEXT,
+    icon TEXT,
+    color TEXT,
+    categoryType TEXT,
+    normalPlan REAL,
+    plannedLimit REAL,
+    priority TEXT,
+    isSinkingFund INTEGER,
+    targetGoalTotal REAL,
+    targetDueDate TEXT,
+    accumulatedSavings REAL,
+    description TEXT,
+    isCustom INTEGER,
+    PRIMARY KEY(id, monthKey)
+  );
+
+  CREATE TABLE IF NOT EXISTS expenses (
+    id TEXT PRIMARY KEY,
+    monthKey TEXT,
+    date TEXT,
+    amount REAL,
+    categoryId TEXT,
+    title TEXT,
+    paymentMethod TEXT,
+    notes TEXT
+  );
+
+  CREATE TABLE IF NOT EXISTS tasks (
+    id TEXT PRIMARY KEY,
+    monthKey TEXT,
+    title TEXT,
+    deadline TEXT,
+    priority TEXT,
+    category TEXT,
+    completed INTEGER,
+    createdAt TEXT,
+    amountLinked REAL,
+    notes TEXT
+  );
+`);
+
+// API: Get all budgets with categories, expenses, tasks
+app.get('/api/budgets', (req, res) => {
+  try {
+    const budgetRows = db.prepare('SELECT * FROM budgets ORDER BY cycleStartDate ASC').all();
+    const result = {};
+
+    for (const b of budgetRows) {
+      const categories = db.prepare('SELECT * FROM categories WHERE monthKey = ?').all(b.monthKey).map(c => ({
+        ...c,
+        isSinkingFund: Boolean(c.isSinkingFund),
+        isCustom: Boolean(c.isCustom)
+      }));
+
+      const expenses = db.prepare('SELECT * FROM expenses WHERE monthKey = ? ORDER BY date DESC').all(b.monthKey);
+
+      const tasks = db.prepare('SELECT * FROM tasks WHERE monthKey = ? ORDER BY deadline ASC').all(b.monthKey).map(t => ({
+        ...t,
+        completed: Boolean(t.completed)
+      }));
+
+      result[b.monthKey] = {
+        ...b,
+        categories,
+        expenses,
+        tasks
+      };
+    }
+
+    res.json(result);
+  } catch (err) {
+    console.error('[SQLite] Error fetching budgets:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// API: Save or update an entire budget structure
+app.post('/api/budgets', (req, res) => {
+  try {
+    const b = req.body;
+    if (!b || !b.monthKey) {
+      return res.status(400).json({ error: 'Missing monthKey' });
+    }
+
+    // Insert or replace budget
+    const insertBudget = db.prepare(`
+      INSERT OR REPLACE INTO budgets (monthKey, monthName, cycleStartDate, cycleEndDate, salary, payday, startingBalance, notes)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `);
+    insertBudget.run(
+      b.monthKey,
+      b.monthName || '',
+      b.cycleStartDate || '',
+      b.cycleEndDate || '',
+      b.salary || 45000,
+      b.payday || 7,
+      b.startingBalance || 0,
+      b.notes || ''
+    );
+
+    // Save categories
+    if (Array.isArray(b.categories)) {
+      const insertCat = db.prepare(`
+        INSERT OR REPLACE INTO categories (id, monthKey, name, icon, color, categoryType, normalPlan, plannedLimit, priority, isSinkingFund, targetGoalTotal, targetDueDate, accumulatedSavings, description, isCustom)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `);
+      for (const c of b.categories) {
+        insertCat.run(
+          c.id,
+          b.monthKey,
+          c.name,
+          c.icon,
+          c.color || 'slate',
+          c.categoryType || 'Flexible',
+          c.normalPlan || 0,
+          c.plannedLimit || 0,
+          c.priority || 'medium',
+          c.isSinkingFund ? 1 : 0,
+          c.targetGoalTotal || 0,
+          c.targetDueDate || '',
+          c.accumulatedSavings || 0,
+          c.description || '',
+          c.isCustom ? 1 : 0
+        );
+      }
+    }
+
+    // Save expenses
+    if (Array.isArray(b.expenses)) {
+      const insertExp = db.prepare(`
+        INSERT OR REPLACE INTO expenses (id, monthKey, date, amount, categoryId, title, paymentMethod, notes)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      `);
+      for (const e of b.expenses) {
+        insertExp.run(
+          e.id,
+          b.monthKey,
+          e.date,
+          e.amount,
+          e.categoryId,
+          e.title,
+          e.paymentMethod || 'UPI',
+          e.notes || ''
+        );
+      }
+    }
+
+    // Save tasks
+    if (Array.isArray(b.tasks)) {
+      const insertTask = db.prepare(`
+        INSERT OR REPLACE INTO tasks (id, monthKey, title, deadline, priority, category, completed, createdAt, amountLinked, notes)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `);
+      for (const t of b.tasks) {
+        insertTask.run(
+          t.id,
+          b.monthKey,
+          t.title,
+          t.deadline,
+          t.priority || 'medium',
+          t.category || 'General',
+          t.completed ? 1 : 0,
+          t.createdAt || new Date().toISOString(),
+          t.amountLinked || 0,
+          t.notes || ''
+        );
+      }
+    }
+
+    res.json({ success: true, monthKey: b.monthKey });
+  } catch (err) {
+    console.error('[SQLite] Error saving budget:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// API: Add or update single expense
+app.post('/api/expenses', (req, res) => {
+  try {
+    const e = req.body;
+    const stmt = db.prepare(`
+      INSERT OR REPLACE INTO expenses (id, monthKey, date, amount, categoryId, title, paymentMethod, notes)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `);
+    stmt.run(
+      e.id,
+      e.monthKey,
+      e.date,
+      e.amount,
+      e.categoryId,
+      e.title,
+      e.paymentMethod || 'UPI',
+      e.notes || ''
+    );
+    res.json({ success: true, id: e.id });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// API: Delete expense
+app.delete('/api/expenses/:id', (req, res) => {
+  try {
+    db.prepare('DELETE FROM expenses WHERE id = ?').run(req.params.id);
+    res.json({ success: true, id: req.params.id });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// API: Get all tasks (optionally filtered by monthKey)
+app.get('/api/tasks', (req, res) => {
+  try {
+    const { monthKey } = req.query;
+    let query = 'SELECT * FROM tasks ORDER BY deadline ASC';
+    let params = [];
+    if (monthKey) {
+      query = 'SELECT * FROM tasks WHERE monthKey = ? ORDER BY deadline ASC';
+      params = [monthKey];
+    }
+    const tasks = db.prepare(query).all(...params).map(t => ({
+      ...t,
+      completed: Boolean(t.completed)
+    }));
+    res.json(tasks);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// API: Add or update task
+app.post('/api/tasks', (req, res) => {
+  try {
+    const t = req.body;
+    const stmt = db.prepare(`
+      INSERT OR REPLACE INTO tasks (id, monthKey, title, deadline, priority, category, completed, createdAt, amountLinked, notes)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `);
+    stmt.run(
+      t.id,
+      t.monthKey,
+      t.title,
+      t.deadline,
+      t.priority || 'medium',
+      t.category || 'General',
+      t.completed ? 1 : 0,
+      t.createdAt || new Date().toISOString(),
+      t.amountLinked || 0,
+      t.notes || ''
+    );
+    res.json({ success: true, id: t.id });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// API: Toggle task
+app.put('/api/tasks/:id/toggle', (req, res) => {
+  try {
+    const current = db.prepare('SELECT completed FROM tasks WHERE id = ?').get(req.params.id);
+    if (current) {
+      const nextVal = current.completed ? 0 : 1;
+      db.prepare('UPDATE tasks SET completed = ? WHERE id = ?').run(nextVal, req.params.id);
+      res.json({ success: true, completed: Boolean(nextVal) });
+    } else {
+      res.status(404).json({ error: 'Task not found' });
+    }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// API: Delete task
+app.delete('/api/tasks/:id', (req, res) => {
+  try {
+    db.prepare('DELETE FROM tasks WHERE id = ?').run(req.params.id);
+    res.json({ success: true, id: req.params.id });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Health check
+app.get('/api/health', (req, res) => {
+  res.json({
+    status: 'online',
+    db: 'sqlite',
+    path: dbPath,
+    timestamp: new Date().toISOString()
+  });
+});
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`[Backend] SQLite API server running on http://0.0.0.0:${PORT}`);
+});
