@@ -87,6 +87,50 @@ db.exec(`
   );
 `);
 
+// Ensure complete seed data for November 2026, December 2026, January 2027
+function ensureSeedData() {
+  const c1 = db.prepare('SELECT * FROM budgets WHERE monthKey = ?').get('cycle-1');
+  if (!c1 || !c1.monthName || c1.monthName.trim() === '') {
+    console.log('[SQLite] 📦 Ensuring complete November 2026 data in database...');
+    db.prepare(`
+      INSERT OR REPLACE INTO budgets (monthKey, monthName, cycleStartDate, cycleEndDate, salary, payday, startingBalance, notes)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `).run(
+      'cycle-1',
+      'November 2026 (10 Nov – 6 Dec 2026)',
+      '2026-11-10',
+      '2026-12-06',
+      45000,
+      7,
+      30000,
+      'November 2026: 10 Nov to 6 Dec 2026. Next salary on 7 Dec 2026. Prioritizing Sister fees (₹15,000 cash set aside). PhD fees start in January.'
+    );
+
+    const defaultCats = [
+      { id: 'sister_fees', name: "Sister's Fees", icon: 'GraduationCap', color: 'rose', categoryType: 'Priority', normalPlan: 16667, plannedLimit: 15000, priority: 'high', isSinkingFund: 1, targetGoalTotal: 100000, targetDueDate: '2026-12-07', accumulatedSavings: 30000, description: "Semester fees, exam fee, books, uniform for your sister. (Due 7 Dec 2026; ₹1 Lakh every 6 months)." },
+      { id: 'phd_fees', name: 'PhD Fees (Own)', icon: 'BookOpen', color: 'violet', categoryType: 'Priority', normalPlan: 5000, plannedLimit: 0, priority: 'high', isSinkingFund: 1, targetGoalTotal: 30000, targetDueDate: '2027-01-15', accumulatedSavings: 0, description: "Your PhD semester fees: ₹30,000 per semester (every 6 months = ₹5,000/mo). Starts in January 2027!" },
+      { id: 'rent_bills', name: 'Rent & Bills', icon: 'Home', color: 'indigo', categoryType: 'Fixed', normalPlan: 8000, plannedLimit: 1500, priority: 'high', isSinkingFund: 0, targetGoalTotal: 0, targetDueDate: '', accumulatedSavings: 0, description: "Room/house rent, electricity, water, gas cylinder, WiFi, mobile recharge. (Assumed: November rent already paid.)" },
+      { id: 'groceries', name: 'Grocery', icon: 'ShoppingCart', color: 'emerald', categoryType: 'Essential', normalPlan: 3500, plannedLimit: 3500, priority: 'high', isSinkingFund: 0, targetGoalTotal: 0, targetDueDate: '', accumulatedSavings: 0, description: "Vegetables, fruits, milk, atta/rice, kitchen and household items, Blinkit/Zepto/BigBasket." },
+      { id: 'travelling', name: 'Travelling', icon: 'Bus', color: 'blue', categoryType: 'Fixed', normalPlan: 5000, plannedLimit: 4500, priority: 'high', isSinkingFund: 0, targetGoalTotal: 0, targetDueDate: '', accumulatedSavings: 0, description: "Daily bus, metro, auto, Ola/Uber for work or college." },
+      { id: 'car', name: 'Car', icon: 'Car', color: 'amber', categoryType: 'Fixed', normalPlan: 1500, plannedLimit: 1500, priority: 'low', isSinkingFund: 1, targetGoalTotal: 0, targetDueDate: '', accumulatedSavings: 0, description: "Petrol/diesel/CNG, car wash, service, insurance, parking, tolls." },
+      { id: 'iphone', name: 'iPhone', icon: 'Smartphone', color: 'pink', categoryType: 'Fixed (EMI)', normalPlan: 3000, plannedLimit: 3000, priority: 'medium', isSinkingFund: 1, targetGoalTotal: 0, targetDueDate: '', accumulatedSavings: 0, description: "iPhone EMI, AppleCare, cover, charger, screen guard. (Set to 0 if no EMI falls before salary day.)" },
+      { id: 'personal', name: 'Personal', icon: 'ShoppingBag', color: 'purple', categoryType: 'Flexible', normalPlan: 1200, plannedLimit: 1000, priority: 'medium', isSinkingFund: 0, targetGoalTotal: 0, targetDueDate: '', accumulatedSavings: 0, description: "Shopping for yourself (clothes, shoes, gadgets), restaurants and cafes, Swiggy/Zomato, movies, salon, medicine, gifts." },
+      { id: 'gym', name: 'Gym', icon: 'Dumbbell', color: 'orange', categoryType: 'Flexible', normalPlan: 600, plannedLimit: 0, priority: 'low', isSinkingFund: 0, targetGoalTotal: 0, targetDueDate: '', accumulatedSavings: 0, description: "Gym fees, protein, supplements. (0 this month to protect the fees.)" },
+      { id: 'trips', name: 'Trips', icon: 'Plane', color: 'sky', categoryType: 'Flexible', normalPlan: 533, plannedLimit: 0, priority: 'low', isSinkingFund: 1, targetGoalTotal: 0, targetDueDate: '', accumulatedSavings: 0, description: "Trip tickets, hotel, food and shopping during a trip. (0 this month to protect the fees.)" },
+      { id: 'savings', name: 'Savings', icon: 'PiggyBank', color: 'teal', categoryType: 'Remainder', normalPlan: 0, plannedLimit: 0, priority: 'medium', isSinkingFund: 1, targetGoalTotal: 0, targetDueDate: '', accumulatedSavings: 0, description: "Money moved to savings account, RD/FD/SIP, emergency fund. Normal plan balance." }
+    ];
+
+    const insertCat = db.prepare(`
+      INSERT OR REPLACE INTO categories (id, monthKey, name, icon, color, categoryType, normalPlan, plannedLimit, priority, isSinkingFund, targetGoalTotal, targetDueDate, accumulatedSavings, description, isCustom)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `);
+    for (const c of defaultCats) {
+      insertCat.run(c.id, 'cycle-1', c.name, c.icon, c.color, c.categoryType, c.normalPlan, c.plannedLimit, c.priority, c.isSinkingFund, c.targetGoalTotal, c.targetDueDate, c.accumulatedSavings, c.description, 0);
+    }
+  }
+}
+ensureSeedData();
+
 // -------------------------------------------------------------
 // Real-Time Multi-Device Sync Engine (SSE)
 // -------------------------------------------------------------
@@ -198,6 +242,29 @@ app.post('/api/budgets', (req, res) => {
       return res.status(400).json({ error: 'Missing monthKey' });
     }
 
+    const existing = db.prepare('SELECT * FROM budgets WHERE monthKey = ?').get(b.monthKey);
+
+    const monthName = (b.monthName && b.monthName.trim() !== '')
+      ? b.monthName
+      : (existing?.monthName || (b.monthKey === 'cycle-1' ? 'November 2026 (10 Nov – 6 Dec 2026)' : b.monthKey === 'cycle-2' ? 'December 2026 (7 Dec 2026 – 6 Jan 2027)' : 'January 2027 (7 Jan 2027 – 6 Feb 2027)'));
+
+    const cycleStartDate = (b.cycleStartDate && b.cycleStartDate.trim() !== '')
+      ? b.cycleStartDate
+      : (existing?.cycleStartDate || (b.monthKey === 'cycle-1' ? '2026-11-10' : b.monthKey === 'cycle-2' ? '2026-12-07' : '2027-01-07'));
+
+    const cycleEndDate = (b.cycleEndDate && b.cycleEndDate.trim() !== '')
+      ? b.cycleEndDate
+      : (existing?.cycleEndDate || (b.monthKey === 'cycle-1' ? '2026-12-06' : b.monthKey === 'cycle-2' ? '2027-01-06' : '2027-02-06'));
+
+    const salary = b.salary !== undefined ? Number(b.salary) : (existing?.salary || 45000);
+    const payday = b.payday !== undefined ? Number(b.payday) : (existing?.payday || 7);
+    const startingBalance = b.startingBalance !== undefined && b.startingBalance !== 0
+      ? Number(b.startingBalance)
+      : (existing?.startingBalance ?? (b.monthKey === 'cycle-1' ? 30000 : 30000));
+    const notes = (b.notes && b.notes.trim() !== '')
+      ? b.notes
+      : (existing?.notes || (b.monthKey === 'cycle-1' ? 'November 2026: 10 Nov to 6 Dec 2026. Next salary on 7 Dec 2026. Prioritizing Sister fees (₹15,000 cash set aside). PhD fees start in January.' : ''));
+
     // Insert or replace budget
     const insertBudget = db.prepare(`
       INSERT OR REPLACE INTO budgets (monthKey, monthName, cycleStartDate, cycleEndDate, salary, payday, startingBalance, notes)
@@ -205,13 +272,13 @@ app.post('/api/budgets', (req, res) => {
     `);
     insertBudget.run(
       b.monthKey,
-      b.monthName || '',
-      b.cycleStartDate || '',
-      b.cycleEndDate || '',
-      b.salary || 45000,
-      b.payday || 7,
-      b.startingBalance || 0,
-      b.notes || ''
+      monthName,
+      cycleStartDate,
+      cycleEndDate,
+      salary,
+      payday,
+      startingBalance,
+      notes
     );
 
     // Save categories

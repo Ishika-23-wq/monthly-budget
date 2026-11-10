@@ -45,7 +45,7 @@ export const Dashboard: React.FC<Props> = ({
         <div className="flex items-center gap-2">
           <i className="fa-solid fa-calendar-days text-[#533a7b] text-sm"></i>
           <span>
-            <strong className="text-[#25171a]">Month:</strong> November 2026 (10 Nov – 6 Dec 2026) &nbsp;|&nbsp; <strong className="text-[#25171a]">Next Salary:</strong> 7 Dec 2026 &nbsp;|&nbsp; <strong className="text-[#25171a]">Today:</strong> 10 Nov 2026
+            <strong className="text-[#25171a]">Month:</strong> Nov 2026 (10 Nov – 6 Dec 2026) &nbsp;|&nbsp; <strong className="text-[#25171a]">Next Salary:</strong> 7 Dec 2026 &nbsp;|&nbsp; <strong className="text-[#25171a]">Today:</strong> 10 Nov 2026
           </span>
         </div>
         <div className="flex items-center gap-2">
